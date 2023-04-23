@@ -1,0 +1,65 @@
+<nav class="nav">
+  <div class="container">
+    <ul class="nav-menu">
+      <li [routerLink]="'/store'" class="dropdown dropdown-4">
+        {{ "На головну" | uppercase }}
+      </li>
+      <li [routerLink]="'/catalog'" class="dropdown dropdown-4">
+        {{ "Каталог" | uppercase }}
+      </li>
+      <li class="dropdown dropdown-4">
+        {{ "Контроль якості" | uppercase }}
+        <ul class="dropdown_menu dropdown_menu-4">
+          <li [routerLink]="'/guarantee'" class="dropdown_item-1">Гарантії</li>
+          <li [routerLink]="'/certificates'" class="dropdown_item-2">
+            Сертифікати
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown dropdown-4">
+        {{ "Як замовити" | uppercase }}
+        <ul class="dropdown_menu dropdown_menu-4">
+          <li [routerLink]="'/choose-door'" class="dropdown_item-1">
+            Вибір дверей
+          </li>
+          <li [routerLink]="'/how-order'" class="dropdown_item-2">
+            Оплата і доставка
+          </li>
+          <li (click)="scrollToConsultationForm()" class="dropdown_item-3">Замовити консультацію</li>
+          <li [routerLink]="'/door-measurement'" class="dropdown_item-4">
+            Замір дверей
+          </li>
+          <li [routerLink]="'/door-installation'" class="dropdown_item-5">
+            Монтаж
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown dropdown-4">
+        {{ "Контакти" | uppercase }}
+        <ul class="dropdown_menu dropdown_menu-4">
+          <li class="dropdown_item-1">
+            <a class="link" href="tel:+380507779151">+38(050)777-91-51</a>
+          </li>
+          <li class="dropdown_item-2">
+            <a class="link" href="tel:+380677779151">+38(067)777-91-51</a>
+          </li>
+          <li class="dropdown_item-2">
+            <a class="link" href="tel:+380937779151">+38(093)777-91-51</a>
+          </li>
+        </ul>
+      </li>
+      <li (click)="scrollToZamirForm()" class="dropdown dropdown-4">
+        {{ "Безкоштовний замір" | uppercase }}
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="burger-menu-wrap">
+  <button (click)="openNavDialog()" class="burger-menu-btn" >
+    <mat-icon class="burger-menu-icon">menu</mat-icon>
+  </button>
+</div>
+
+
+
+

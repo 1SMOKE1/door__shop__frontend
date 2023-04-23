@@ -1,0 +1,97 @@
+
+
+<div #orderBasket class="order-basket" *ngIf="cartLines.length !== 0; else emptyBasket">
+  <div class="order-basket-header">
+    <h2 class="order-basket-title font-h2 c6">Кошик замовлень</h2>
+    <button class="order-basket-close" mat-dialog-close><img src="assets/catalog/icons/close_icon.svg" alt=""></button>
+  </div>
+  <hr width="100%" size="0.5px" color="#999999">
+
+
+
+  <div class="carousel-wrap" #carouselWrap>
+    <div class="carousel-line" #carouselLine>
+      <div class="carousel-item">
+        <div class="order-basket-body">
+          <div class="delete-btn-wrap">
+            <button class="font-p-sm delete-btn" (click)="clearCartLines()">Видалити все</button>
+          </div>
+
+          <div class="cart" *ngFor="let cart of cartLines">
+            <div class="cart-img-wrap">
+              <img class="cart-img" [src]="cart.product.images" alt="">
+            </div>
+            <p class="cart-text">{{cart.product.name}}</p>
+            <div class="cart-count-wrap">
+              <p class="font-p-sm text-underline">Кількість</p>
+              <div class="cart-count">
+                <button class="count-btn" (click)="decrease(cart.product.id)">-</button>
+              <p class="count-block">{{cart.quantity}}</p>
+              <button class="count-btn" (click)="increase(cart.product.id)">+</button>
+              </div>
+            </div>
+            <div class="cart-price-wrap">
+              <div (click)="deleteCartLine(cart.product.id)" class="price-delete-wrap">
+                <p class="price-delete-btn c6">видалити</p>
+                <img src="assets/catalog/icons/delete_icon.svg" alt="">
+              </div>
+              <div class="price-wrap">
+                <p class="price font-p">{{cart.product.price}} грн</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr width="100%" size="0.5px" color="#999999">
+        <div class="cart-footer">
+          <button (click)="toCatalog()" class="cart-btn-back font-p-sm">Продовжити покупки</button>
+          <div class="cart-footer-total-wrap">
+            <div class="cart-footer-total">
+              <p class="cart-footer-text">СУМА:</p>
+              <div class="price-wrap">
+                <p class="price font-p">{{getTotal()}}.00 грн</p>
+              </div>
+            </div>
+            <!-- <button (click)="toOrderForm($event)" #btnToForm class="cart-btn-order c1 bg6">Оформити замовлення</button> -->
+          </div>
+        </div>
+      </div>
+      <div #orderForm class="carousel-item" >
+        <!-- <dsa-order-form [cartLines]="cartLines" (goBackEmit)="goBackFromForm($event)" (sendFormEmit)="sendEmitFromForm($event)" *ngIf="!sendForm; else afterMessage"></dsa-order-form> -->
+        <ng-template #afterMessage>
+          <div class="after-message">
+            <img src="assets/nav/ok.svg" class="after-message-img" alt="">
+          </div>
+          <h2 class="font-h2" align="center">Ваше замовлення  прийнято в обробку.</h2>
+          <div class="after-message-wrap">
+            <button class="font-p after-message-btn" (click)="toCatalogAfterSubmit()">До каталогу</button>
+          </div>
+          
+        </ng-template>
+      </div>
+    </div>
+  </div>
+ 
+  
+</div>
+
+<ng-template #emptyBasket>
+  <!-- [style.width]="window!.innerWidth <= 1200 ? '0' : '960px'" -->
+  <div 
+  
+   class="order-basket">
+    <div class="order-basket-header">
+      <h2 class="order-basket-title font-h2 c6">Кошик замовлень</h2>
+      <button class="order-basket-close" mat-dialog-close><img src="assets/catalog/icons/close_icon.svg" alt=""></button>
+    </div>
+    <hr width="100%" size="0.5px" color="#999999">
+    <div class="empty-basket">
+      <img class="empty-basket-img" src="assets/catalog/icons/empty_basket.svg" alt="">
+      <h2 class="font-h2">Кошик пустий</h2>
+      <p (click)="toCatalog()" class="font-p-big empty-basket-text c6">Але це можна виправити :-)</p>
+    </div>
+  </div>
+</ng-template>
+
+
+
+

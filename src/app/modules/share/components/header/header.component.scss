@@ -1,0 +1,87 @@
+@import "mixins";
+@import 'colors';
+.header{
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  min-height: 55px;
+  background: $c6;
+  color: #ffffff;
+  @include fontHeaderFooter();
+  &-wrap{
+    min-height: 55px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    @media (max-width: 1200px) {
+      justify-content: center;
+    }
+    align-items: center;
+    padding: 9px 0 6px 0;
+  }
+  &-info-block{
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-logo-block{
+    display: flex;
+    align-items: center;
+  }
+  &-phone{
+    color: #ffffff;
+    &:last-child{
+      margin-left: 10px;
+    }
+  }
+}
+
+.info-block{
+  @include fontHeaderFooter(0, 20px, 23px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &-icons{
+    display: none; // flex
+    align-items: center;
+    margin: 0 100px 0 40px;
+    & > img{
+      width: 25px;
+      height: 25px;
+      margin-right: 25.5px;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+  &-text{
+    color:  $c1;
+  }
+}
+
+.basket-img{
+  width: 44px;
+  cursor: pointer;
+  transition: all .2s ease-in;
+  &:hover{
+    transform: scale(1.1);
+  }
+}
+
+.logo{
+  max-width: 50px;
+  margin-right: 60px;
+  @media(max-width: 465px) {
+    margin-right: 20px
+  }
+}
+
+.phone-mobile-font{
+  @media(max-width: 600px){
+    font-size: 0.55em;
+  }
+}

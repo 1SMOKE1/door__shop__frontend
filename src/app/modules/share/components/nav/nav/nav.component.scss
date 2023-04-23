@@ -1,0 +1,165 @@
+@import 'mixins';
+@import 'colors';
+
+.container{
+  width: 1435px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: content-box;
+}
+
+.nav-logo-container{
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.nav{
+  color: $c6;
+  background-color: $c10;
+  display: flex;
+  justify-content: space-between;
+  &-menu{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-evenly;
+    padding: 0;
+    margin: 80px 0 15px 0;
+    @media (max-width: 1195px) {
+      margin: 115px 0 15px 0;
+      justify-content: space-evenly;
+    }
+    @media (max-width: 1000px) {
+      display: none;
+    }
+  }
+}
+
+
+
+  
+
+.dropdown{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $c6;
+  position: relative;
+  font-size: 18px;
+  perspective: 1000px;
+  z-index: 100;
+  &:hover{
+  cursor: pointer;
+  }
+  &:hover .dropdown_menu li{
+  display: block;
+  }
+  &:hover .dropdown_menu hr{
+  display: block;
+  }
+}
+
+.dropdown_menu{
+   position: absolute;
+   top: 100%;
+   left: -25%;
+   width: 100%;
+   min-width: 220px;
+   background-color: $c1;
+   z-index: -1;
+   & li{
+    display: none;
+    padding: 10px 10px;
+    font-size: 16px;
+    color: $c3;
+    opacity: 0;
+    transition: all .3s ease;
+    &:hover{
+      color: $c6;
+    }
+   }
+   & hr{
+    display: none;
+    opacity: 0; 
+   }
+}
+
+.link{
+  color: $c3;
+  font-size: 16px;
+  transition: all .3s ease;
+  &:hover{
+    color: $c6;
+  }
+}
+
+
+    
+
+// Menu as a whole animated
+.dropdown:hover .dropdown_menu--animated{
+  display: block;
+}
+    
+.dropdown_menu--animated{
+  display: none;
+  & li{
+    display: block;
+    opacity: 1;
+  }
+  & hr{
+    display: block;
+    opacity: 1;
+  }
+}
+    
+  
+      
+.dropdown_menu-4{
+  @for $num from 1 through 6{
+    .dropdown_item-#{$num}{
+      transform-origin: top center;
+      animation: scaleZ 300ms ($num * 60ms) ease-in-out forwards;
+    }  
+  }
+}
+  
+     
+       
+
+
+
+
+@keyframes scaleZ {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  
+  80% {
+    transform: scale(1.07);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.burger-menu{
+  &-wrap{
+    display: none;
+    margin: 120px 25px 35px 0;
+    @media(max-width: 1000px){
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  &-btn{
+    border: none;
+    outline: none;
+    background-color: #fff;
+    cursor: pointer;
+  }
+}

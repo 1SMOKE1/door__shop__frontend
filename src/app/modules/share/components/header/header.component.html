@@ -1,0 +1,31 @@
+<header class="header">
+  <div class="container">
+    <div class="header-wrap">
+      <div class="header-logo-block">
+        <a [routerLink]="''">
+          <img class="logo" src="assets/header/logo.svg" alt="" />
+        </a>
+        <h3><a class="header-phone phone-mobile-font" href="tel:+380507779151">+38(050)777-91-51</a></h3>
+        <h3><a class="header-phone phone-mobile-font" href="tel:+380677779151">+38(067)777-91-51</a></h3>
+        <h3><a class="header-phone phone-mobile-font" href="tel:+380937779151">+38(093)777-91-51</a></h3>
+      </div>
+      <div class="header-info-block">
+        <a [routerLink]="'/contacts'" class="info-block-text">Про нас</a>
+        <a [routerLink]="'/how-order'" class="info-block-text"
+          >Оплата і доставка</a
+        >
+        <div class="info-block-icons">
+          <img src="assets/header/icons/inst.svg" alt="" />
+          <img src="assets/header/icons/facebook.svg" alt="" />
+          <img src="assets/header/icons/youtube.svg" alt="" />
+        </div>
+        <div class="info-block-time">
+          <p>9:00 - 18:00</p>
+          <p class="p-sm">без вихідних</p>
+        </div>
+        <img (click)="toBasket()" class="basket-img" src="assets/header/basket.png" alt="" />
+      </div>
+    </div>
+  </div>
+</header>
+

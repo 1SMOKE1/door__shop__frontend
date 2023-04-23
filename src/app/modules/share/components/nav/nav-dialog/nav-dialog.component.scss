@@ -1,0 +1,39 @@
+@import 'mixins';
+@import 'colors';
+
+.nav-dialog{
+  
+  &-wrap{
+    background-color: $c10;
+    padding: 20px;
+  }
+  &-btn{
+    outline: none;
+    border: none;
+    background-color: $c10;
+    cursor: pointer;
+    &-wrap{
+      display: flex;
+      justify-content: flex-end;
+      
+    }
+    
+  }
+  &-list{
+
+    &-link{
+      cursor: pointer; 
+      padding: 10px 20px;
+      transition: all .3s ease;
+      &:hover{
+        background-color: #033479cc;
+        color: $c1;
+      }
+    }
+  }
+  
+}
+
+::ng-deep .mat-dialog-container{
+  padding: 0 !important;
+}
