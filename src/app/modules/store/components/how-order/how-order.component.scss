@@ -1,0 +1,104 @@
+@import 'mixins';
+@import 'colors';
+
+.main{
+  margin: 45px 0 200px 0;
+}
+
+.how-order-container{
+  @include container(1200px);
+}
+
+.forms-payvment,
+.forms-delivery{
+  @include fontMain(400, 1.7rem, 27.6px);
+  color: $c6;
+  &-title{
+    margin: 105px 0 40px 0;
+    @include fontMain(700, 2.65rem, 46px);
+    text-align: center; 
+    @media (max-width: 500px) {
+      @include fontMain(700, 2rem, 30px);
+    }
+  }
+  &-banner{
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  &-list{
+    margin-left: 200px;
+    list-style-type: square ;
+    list-style-image: url('../../../../assets/how-order/romb_1.svg');
+    list-style-position: square;
+    @media (max-width: 500px) {
+      @include fontMain(400, 0.9rem, 30px);
+      text-align: end;
+    }
+    & > li{
+      margin-bottom: 40px;
+      & > p{
+        display: inline;
+        margin-left: 60px;
+        & > span{
+          margin-left: 60px;
+          & > span{
+            margin-left: 60px;
+          }
+        }
+      }
+      &:last-child{
+        margin-bottom: 20px;
+      }
+    }
+    &:nth-child(2){
+      margin: 0 0 40px 125px;
+      list-style-type: square ;
+      list-style-image: url('../../../../assets/how-order/romb_2.svg');
+      list-style-position: square;
+      @media(max-width:700px){
+        margin-left: 30px;
+      }
+    }
+    @media(max-width:700px){
+      margin-left: 30px;
+    }
+  }
+  &-group{
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 40px 260px;
+    @media(max-width:700px){
+      width: 100%;
+      margin: 0 0 40px 0;
+    }
+  }
+  &-card{
+    display: flex;
+    & > p{
+      @include fontMain(400, 1.6rem, 36.8px);
+      align-self: center;
+      margin-right: 16px;
+      @media (max-width: 500px) {
+        @include fontMain(400, 0.9rem, 30px);
+      }
+    }
+  }
+  &-text{
+    margin-bottom: 20px;
+    @include fontMain(400, 1.5rem, 27.6px);
+    @media (max-width: 500px) {
+      @include fontMain(400, 0.9rem, 21px);
+    }
+  }
+}
+
+.p-sm{
+  margin-top: 20px;
+  @include fontMain(400, 1.2rem, 23px);
+  @media (max-width: 500px) {
+    @include fontMain(400, 0.8rem, 15px);
+  }
+}
+

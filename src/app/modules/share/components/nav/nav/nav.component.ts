@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { NavDialogComponent } from '../nav-dialog/nav-dialog.component';
+import { Observable, Subscription, map } from 'rxjs';
 
 
 @Component({
@@ -9,24 +10,35 @@ import { NavDialogComponent } from '../nav-dialog/nav-dialog.component';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent {
+export class NavComponent implements OnInit, OnDestroy{
+
+  isMobileScreen$: Observable<boolean>;
+  isMobileSubscription: Subscription;
   
   constructor(
     private readonly breakpointObserver: BreakpointObserver,
     private readonly dialog: MatDialog
   ){}
 
-  openNavDialog(): void{
-    const dialogRef =  this.dialog.open(NavDialogComponent);
-    this.breakpointObserver.observe([
-      "(max-width: 1000px)"
-    ])
-    .subscribe(() => dialogRef.close());
-    // this.window?.addEventListener('resize', () => {
-    //   if(this.window!.innerWidth > 1000){
-    //     dialogRef.close()
-    //   }
-    // })
+  ngOnInit(): void {
+    this.isMobileScreen$ = this.breakpointObserver
+    .observe(['(min-width: 1000px)'])
+    .pipe(map(({matches}) => matches))
+    
+    this.isMobileSubscription = this.isMobileScreen$
+    .subscribe((bool: boolean) => {
+      if(bool)
+      this.dialog.closeAll();
+    })
+
+  }
+
+  ngOnDestroy(): void {
+    this.isMobileSubscription.unsubscribe();
+  }
+
+  public openNavDialog(): void{
+    this.dialog.open(NavDialogComponent);
   }
 
   public scrollToConsultationForm(): void{
@@ -36,4 +48,8 @@ export class NavComponent {
   public scrollToZamirForm(): void{
     
   }
+
+
+
+  
 }

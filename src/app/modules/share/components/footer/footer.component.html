@@ -1,0 +1,30 @@
+<footer class="footer">
+  <div class="container">
+    <img class="logo" src="assets/header/logo.svg" alt="" />
+    <div class="info-block">
+      <h3>{{ "послуги" | uppercase }}</h3>
+      <a [routerLink]="'/door-measurement'">Замір</a>
+      <a [routerLink]="'/door-installation'">Монтаж</a>
+      <a [routerLink]="'/how-order'">Оплата та доставка</a>
+      <a [routerLink]="'/guarantee'">Гарантії</a>
+      <a [routerLink]="'/certificates'">Сертіфікати</a>
+    </div>
+    <div class="info-block">
+      <h3>{{ "партнерам" | uppercase }}</h3>
+      <a [routerLink]="'/designers-builders'">Дизайнерам та Забудовникам</a>
+      <!-- <a href="">Наші клієнти</a> -->
+      <a [routerLink]="'/comments'">Відгуки клієнтів</a>
+    </div>
+    <div class="info-block">
+      <h3>{{ "контакти" | uppercase }}</h3>
+      <a class="phone" href="tel:+380507779151">+38(050)777-91-51</a>
+      <a class="phone" href="tel:+380677779151">+38(067)777-91-51</a>
+      <a class="phone" href="tel:+380937779151">+38(093)777-91-51</a>
+      <div class="info-block-icons">
+        <img src="assets/header/icons/inst.svg" alt="" />
+        <img src="assets/header/icons/facebook.svg" alt="" />
+        <img src="assets/header/icons/youtube.svg" alt="" />
+      </div>
+    </div>
+  </div>
+</footer>
