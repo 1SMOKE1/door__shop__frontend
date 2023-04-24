@@ -1,5 +1,5 @@
-import { ICartLine } from "../interfaces/cart-line.interface";
-import { IProduct } from "../interfaces/product.interface";
+import { ICartLine } from "../interfaces/common/cart-line.interface";
+import { IProduct } from "../interfaces/common/product.interface";
 
 export class CartLine implements ICartLine{
 

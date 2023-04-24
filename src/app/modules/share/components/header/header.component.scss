@@ -73,10 +73,14 @@
 }
 
 .logo{
-  max-width: 50px;
-  margin-right: 60px;
-  @media(max-width: 465px) {
-    margin-right: 20px
+  max-width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  &-wrap{
+    margin-right: 60px;
+    @media(max-width: 465px) {
+      margin-right: 20px
+    }
   }
 }
 
@@ -85,3 +89,5 @@
     font-size: 0.55em;
   }
 }
+
+

@@ -1,0 +1,106 @@
+
+
+
+<mat-accordion multi>
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title class="sidebar-link">
+        {{'Всі міжкімнатні двері'}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="sidebar-body">
+      <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="sidebar-checkbox"
+        color="primary"
+       *ngFor="let checkbox of interiorDoorProducers"
+       (change)="fillConditionArr(checkbox)">
+        {{checkbox.name}}
+      </mat-checkbox>
+      <!-- <hr color="#999999" width="100%" size="0.5px"> -->
+      <!-- <div class="sidebar-sub-menu">
+        <mat-checkbox class="sidebar-checkbox">Двері прихованого<br> монтажу</mat-checkbox>
+        <mat-checkbox class="sidebar-checkbox">Пофарбовані міжкімнатні<br> двері</mat-checkbox>
+        <mat-checkbox class="sidebar-checkbox">Двері ПВХ покриття</mat-checkbox>
+        <mat-checkbox class="sidebar-checkbox">Двері ламіновані</mat-checkbox>
+      </div> -->
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title class="sidebar-link">
+        {{'Всі вхідні двері'}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="sidebar-body">
+      <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="sidebar-checkbox"
+        color="primary"
+       *ngFor="let checkbox of entranceDoorProducers"
+       (change)="fillConditionArr(checkbox)">
+        {{checkbox.name}}
+      </mat-checkbox>
+      <!-- <hr color="#999999" width="100%" size="0.5px"> -->
+      <!-- <div class="sidebar-sub-menu">
+        <mat-checkbox class="sidebar-checkbox">Двері прихованого<br> монтажу</mat-checkbox>
+        <mat-checkbox class="sidebar-checkbox">Двері ПВХ покриття</mat-checkbox>
+        <mat-checkbox class="sidebar-checkbox">Двері ламіновані</mat-checkbox>
+      </div> -->
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title class="sidebar-link">
+        {{'Фурнітура'}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="mat-expansion-panel-body">
+      <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="sidebar-checkbox"
+        color="primary"
+       *ngFor="let checkbox of furnitureProducers"
+       (change)="fillConditionArr(checkbox)">
+        {{checkbox.name}}
+      </mat-checkbox>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title class="sidebar-link">
+        {{'Вікна'}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="mat-expansion-panel-body">
+      <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="sidebar-checkbox"
+        color="primary"
+       *ngFor="let checkbox of windowProducers"
+       (change)="fillConditionArr(checkbox)">
+        {{checkbox.name}}
+      </mat-checkbox>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="filter-block">
+  <h3 class="filter-title">ФІЛЬТРИ</h3>
+  <h4 class="filter-title">Пошук</h4>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Назва товара</mat-label>
+      <input
+        [ngModel]="model"
+        (ngModelChange)="modelChanged.next($event)"
+        matInput
+        placeholder="Впишіть Назву товара"
+      />
+    </mat-form-field>
+
+
+  <h4 class="filter-title">Ціна</h4>
+  <div>
+    <ngx-slider  [(value)]="value" [(highValue)]="highValue" [options]="options" (userChangeEnd)="getEvent($event)" ></ngx-slider>
+  </div>
+  
+
+</div>
+
+

@@ -1,0 +1,48 @@
+@import 'mixins';
+@import 'colors';
+
+.main{
+  margin: 35px 0 200px 0;
+}
+
+.container{
+  @include container(1350px);
+}
+
+.how_measurement{
+  &-title{
+    @include fontMain(700, 2.45rem, 46px);
+    text-align: center;
+    color: $c6;
+    margin-bottom: 40px;
+  }
+  &-baner{
+    width: 100%;
+  }
+  &-text-block{
+    margin: 40px 0;
+    @include fontMain(400, 1.2rem, 23px);
+    &:last-child{
+      margin: 135px 0 0 0;
+      @media(max-width: 1000px){
+        margin: 40px 0 0 0;
+      }
+    }
+  }
+  &-text{
+    margin-bottom: 20px;
+  }
+  &-list{
+    margin: 0 40px 0 40px;
+    list-style-type: square ;
+    list-style-image: url('../../../../assets/how-order/romb_1.svg');
+    list-style-position: square;
+    & > li{
+      margin-bottom: 20px;
+      & > p{
+        display: inline;
+        margin-left: 20px;
+      }
+    }
+  }
+}

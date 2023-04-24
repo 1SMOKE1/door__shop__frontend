@@ -1,0 +1,243 @@
+<dsf-header></dsf-header>
+<!-- <dsf-nav (emitScrollAction)="emitScrollAction()" (emitScrollAction2)="emitScrollAction()"></dsf-nav> -->
+<dsf-nav></dsf-nav>
+<dsf-nav-logo></dsf-nav-logo>
+<main class="main">
+  <div class="container">
+    <section  class="card">
+      <h2 class="card-title font-h2">Вхідні металеві двері бренд “Портала”</h2>
+      <div class="card-flex-wrapper">
+        <div class="card-first-block">
+          <div class="card-img-wrap">
+            <img class="card-img-big" [src]="product?.images" alt="">
+          </div>
+          <div class="card-photos-group-wrap">
+            <div *ngFor="let photo of photoArr"  class="card-photos-wrap">
+              <img class="card-img-small" [src]="product?.images" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="card-info-wrap">
+          <div class="info-left-block" >
+            <p class="info-title-1 info-title font-p-sm " *ngIf="product?.inStock === 'В наявності'">{{product?.inStock}}</p>
+            <p class="info-title-2 info-title font-p-sm " *ngIf="product?.inStock === 'Під замовлення'">{{product?.inStock}}</p>
+            <p class="info-title-3 info-title font-p-sm " *ngIf="product?.inStock === 'Немає в наявності'">{{product?.inStock}}</p>
+            <button class="info-btn bg6 c1" (click)="toBasket()" ><img class="info-icon-basket" src="assets/header/basket.png" alt="">{{'купити'|uppercase}}</button>
+            <div class="info-phone-group">
+              <div class="info-phone-wrap">
+                <img class="info-phone-icon" src="assets/catalog/icons/phone_icon.svg" alt="">
+                <a href="tel:+380507779151" class="info-phone-tel font-p-sm c7">+38(050)777-91-51</a>
+              </div>
+              <div class="info-phone-wrap">
+                <img class="info-phone-icon" src="assets/catalog/icons/phone_icon.svg" alt="">
+                <a href="tel:+380677779151" class="info-phone-tel font-p-sm c7">+38(067)777-91-51</a>
+              </div>
+              <div class="info-phone-wrap">
+                <img class="info-phone-icon" src="assets/catalog/icons/phone_icon.svg" alt="">
+                <a href="tel:+380937779151" class="info-phone-tel font-p-sm c7">+38(093)777-91-51</a>
+              </div>
+            </div>
+            <button [routerLink]="'/how-order'" class="info-btn-link font-p-sm bg1">Доставка і оплата</button>
+            <p class="info-p-add c6">
+              <span class="info-p-span text-underline">Безкоштовна доставка</span>: Доставка в по місту у подарунок, при купівлі товару на суму від 30 000 грн.
+            </p>
+          </div>
+          <div class="info-right-block">
+            <div class="info-price-wrap info-price-wrap-big bg9">
+              <p class="font-p">{{product?.price}} грн</p>
+            </div>
+            <div class="info-add-price">
+              <mat-expansion-panel 
+                                 class="mat-expansion-panel-header-titel"
+                                 >
+              <mat-expansion-panel-header>
+                <mat-panel-title class="mat-panel-title">
+                  ціна з монтажем
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                  <div class="drop-body">
+                    <div class="info-price-wrap info-price-wrap-small bg9">
+                      <p class="font-p-sm">{{product?.installationPrice}} грн</p>
+                    </div>
+                  </div>
+              </mat-expansion-panel>
+            </div>
+            
+          </div>
+          
+          
+        </div>
+      </div>
+    </section>
+    <section [ngSwitch]="product?.typeOfProduct" class="info">
+      <div class="info-table-wrap">
+        <h2 class="info-title">{{'Характеристика'|uppercase}}</h2>
+        <table *ngSwitchCase="'Двері міжкімнатні'"  class="info-table">
+          <tr>
+            <th>Назва</th>
+            <td>{{product?.name}}</td>
+          </tr>
+          <tr>
+            <th>Виробник</th>
+            <td>{{product?.productProducer}}</td>
+          </tr>
+          <tr>
+            <th>Країна виробник</th>
+            <td>{{product?.country}}</td>
+          </tr>
+          <tr>
+            <th>Стан</th>
+            <td>{{product?.state}}</td>
+          </tr>
+          <tr>
+            <th>На складі</th>
+            <td>{{product?.inStock}}</td>
+          </tr>
+          <tr>
+            <th>Оздоблення поверхні</th>
+            <td>{{product?.finishingTheSurface?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Матеріал дверної коробки</th>
+            <td>{{product?.frameMaterial?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Конструктивні особливості</th>
+            <td>{{product?.structuralFeatures?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Тип відкривання</th>
+            <td>{{product?.openingType?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Тип монтажу</th>
+            <td>{{product?.installationType?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Спосіб відкривання</th>
+            <td>{{product?.openingMethod?.join('/')}}</td>
+          </tr>
+        </table>
+        <table  *ngSwitchCase="'Двері вхідні'" class="info-table">
+          <tr>
+            <th>Назва</th>
+            <td>{{product?.name}}</td>
+          </tr>
+          <tr>
+            <th>Виробник</th>
+            <td>{{product?.productProducer}}</td>
+          </tr>
+          <tr>
+            <th>Країна виробник</th>
+            <td>{{product?.country}}</td>
+          </tr>
+          <tr>
+            <th>Стан</th>
+            <td>{{product?.state}}</td>
+          </tr>
+          <tr>
+            <th>На складі</th>
+            <td>{{product?.inStock}}</td>
+          </tr>
+          <tr>
+            <th>Кількість ущільнюючих контурів</th>
+            <td>{{product?.amountOfSealingMaterials?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Матеріал дверного полотна</th>
+            <td>{{product?.fabricMaterial?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Призначення двері</th>
+            <td>{{product?.purpose?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Спосіб відкривання</th>
+            <td>{{product?.openingMethod?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Покриття</th>
+            <td>{{product?.covering?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Матеріал дверної коробки</th>
+            <td>{{product?.frameMaterial?.join('/')}}</td>
+          </tr>
+        </table>
+        <table  *ngSwitchCase="'Вікна'" class="info-table">
+          <tr>
+            <th>Назва</th>
+            <td>{{product?.name}}</td>
+          </tr>
+          <tr>
+            <th>Виробник</th>
+            <td>{{product?.productProducer}}</td>
+          </tr>
+          <tr>
+            <th>Країна виробник</th>
+            <td>{{product?.country}}</td>
+          </tr>
+          <tr>
+            <th>Стан</th>
+            <td>{{product?.state}}</td>
+          </tr>
+          <tr>
+            <th>На складі</th>
+            <td>{{product?.inStock}}</td>
+          </tr>
+          <tr>
+            <th>Профіль</th>
+            <td>{{product?.profile?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Конструкція</th>
+            <td>{{product?.construction?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Стеклопакети</th>
+            <td>{{product?.glassUnit?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Ламінація</th>
+            <td>{{product?.lamination?.join('/')}}</td>
+          </tr>
+          <tr>
+            <th>Стекла</th>
+            <td>{{product?.glasses?.join('/')}}</td>
+          </tr>
+        </table>
+        <table  *ngSwitchCase="'Фурнітура'" class="info-table">
+          <tr>
+            <th>Назва</th>
+            <td>{{product?.name}}</td>
+          </tr>
+          <tr>
+            <th>Виробник</th>
+            <td>{{product?.productProducer}}</td>
+          </tr>
+          <tr>
+            <th>Країна виробник</th>
+            <td>{{product?.country}}</td>
+          </tr>
+          <tr>
+            <th>Стан</th>
+            <td>{{product?.state}}</td>
+          </tr>
+          <tr>
+            <th>На складі</th>
+            <td>{{product?.inStock}}</td>
+          </tr>
+        </table>
+      </div>
+      
+      <div class="info-table-wrap">
+        <h2 class="info-title">{{'Опис'|uppercase}}</h2>
+        <div class="info-table-block">
+          <p>{{product?.description ? product?.description : 'Опис товару відсутній'}}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+<dsf-footer></dsf-footer>
+

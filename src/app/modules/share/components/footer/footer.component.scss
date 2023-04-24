@@ -9,12 +9,16 @@
 }
 
 .logo{
-  width: 185px;
-  height: 150px;
-  margin-right: 120px;
+  width: 150px;
+  border-radius: 5px;
   order: -1;
-  @media(max-width: 800px){
-    margin-right: 0;
+  object-fit: cover;
+  &-wrap{
+    margin: auto 0;
+    margin-right: 120px;
+    @media(max-width: 800px){
+      margin-right: 0;
+    }
   }
 }
 

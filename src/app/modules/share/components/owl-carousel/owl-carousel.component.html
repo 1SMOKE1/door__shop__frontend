@@ -1,0 +1,11 @@
+<div class="container">
+  <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide *ngFor="let image of images$ | async"> 
+      <div class="img-wrapper">
+        <img [src]="image.imageSrc" [alt]="image.imageAlt">
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+</div>
+
+

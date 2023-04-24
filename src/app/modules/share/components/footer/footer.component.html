@@ -1,9 +1,13 @@
 <footer class="footer">
   <div class="container">
-    <img class="logo" src="assets/header/logo.svg" alt="" />
+    <div class="logo-wrap">
+      <a [routerLink]="''">
+        <img class="logo" src="assets/header/logo.png" alt="" />
+      </a>
+    </div>
     <div class="info-block">
       <h3>{{ "послуги" | uppercase }}</h3>
-      <a [routerLink]="'/door-measurement'">Замір</a>
+      <a [routerLink]="'/door-zamir'">Замір</a>
       <a [routerLink]="'/door-installation'">Монтаж</a>
       <a [routerLink]="'/how-order'">Оплата та доставка</a>
       <a [routerLink]="'/guarantee'">Гарантії</a>
