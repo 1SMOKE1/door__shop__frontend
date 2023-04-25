@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
-import { productMultiType } from 'src/app/modules/share/types/product.type';
 
 @Component({
   selector: 'dsf-card-info',

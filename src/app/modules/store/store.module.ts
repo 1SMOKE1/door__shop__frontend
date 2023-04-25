@@ -16,6 +16,7 @@ import { CertificatesComponent } from './components/certificates/certificates/ce
 import { ShowCertificateComponent } from './components/certificates/show-certificate/show-certificate.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ]
 })
 export class StoreModule { }

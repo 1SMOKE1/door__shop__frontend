@@ -20,7 +20,7 @@ export class FiltrationService {
   ){}
 
   public holeFiltrationWithPagination(data: IHoleFiltration, page: number, itemsPerPage: number): Observable<IGetProducts> {
-    const url = `${this.baseUrl}/filtration?page=${page}&itemsPerPage=${itemsPerPage}`;
+    const url = `${this.baseUrl}/products/filtration?page=${page}&itemsPerPage=${itemsPerPage}`;
 
     return this.http.post<IProductResponse[]>(url, data).pipe(
       this.httpProductService.convertProducts(),

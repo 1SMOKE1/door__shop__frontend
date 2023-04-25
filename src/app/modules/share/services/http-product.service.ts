@@ -22,7 +22,7 @@ export class HttpProductService {
     )
   }
 
-  private getHttpProducts(): Observable<IProduct[]>{
+  public getHttpProducts(): Observable<IProduct[]>{
     const url: string = `${this.baseUrl}/products`;
 
     return this.http.get<IProductResponse[]>(url)
