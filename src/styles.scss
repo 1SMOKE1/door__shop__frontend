@@ -55,6 +55,7 @@ a{
 
 /* SHARE STYLES */
 @import 'mixins';
+@import 'colors';
 // @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 // @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
@@ -73,3 +74,4 @@ html{
 .mat-expansion-panel-content > .mat-expansion-panel-body {
   padding: 0 !important;
 }
+

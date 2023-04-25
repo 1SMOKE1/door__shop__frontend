@@ -1,0 +1,17 @@
+<main class="main">
+  <div class="container">
+    <section class="our_works">
+      <h1 class="our_works-title font-h1-title">
+        {{ "наші роботи" | uppercase }}
+      </h1>
+      <dsf-owl-carousel [images]="imagesOurWorks$"></dsf-owl-carousel>
+    </section>
+    <section class="client_comments">
+      <h1 class="client_comments-title font-h1-title">
+        {{ "відгуки клієнтів" | uppercase }}
+      </h1>
+      <dsf-owl-carousel [images]="imagesOurComments$"></dsf-owl-carousel>
+    </section>
+  </div>
+</main>
+

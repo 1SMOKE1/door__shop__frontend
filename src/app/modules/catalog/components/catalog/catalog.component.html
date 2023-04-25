@@ -1,0 +1,36 @@
+<dsf-header></dsf-header>
+<dsf-nav></dsf-nav>
+<dsf-nav-logo></dsf-nav-logo>
+<main class="main">
+  <div class="container">
+    <section class="catalog">
+      <h1 class="catalog-title font-h1-title">
+        {{'каталог'|uppercase}}
+      </h1>
+      <div class="catalog-wrap">
+        <div class="catalog-sidebar">
+          <!-- <dsf-sidebar (filteredProducts)="getFilteredProducts()" (search)="getSearch($event)" class="catalog-sidebar"></dsf-sidebar> -->
+          <dsf-sidebar></dsf-sidebar>
+        </div>
+        <div class="catalog-cards-wrap">
+          <div *ngFor="let product of products | paginate: {itemsPerPage: 8, currentPage: page, totalItems: productsLength} " class="card">  
+            <img class="card-img" [src]="product.images" alt="">
+            <div class="card-body">
+              <h3 class="card-title">{{product.name}}</h3>
+              <button class="card-btn" (click)="cardBigRedirect(product.id)">Купити</button>
+              <h3 class="card-price">{{product.price}} грн</h3>
+            </div>
+          </div>
+
+        </div>
+        
+      </div>
+
+
+    </section>
+    <div class="paginator_wrap">
+      <pagination-controls (pageChange)="changePage(page = $event)" [responsive]="true"></pagination-controls>
+    </div>
+  </div>
+</main>
+<dsf-footer></dsf-footer>

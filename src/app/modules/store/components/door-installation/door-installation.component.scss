@@ -1,0 +1,54 @@
+@import 'mixins';
+@import 'colors';
+
+.main{
+  margin-top: 35px;
+}
+
+.container{
+  @include container(1350px);
+}
+
+.door_installation{
+  &-title{
+    @include fontMain(700, 2.65rem, 46px);
+    text-align: center;
+    color: $c6;
+    margin: 35px 0 40px 0;
+  }
+  &-baner{
+    width: 100%;
+  }
+  &-text-block{
+    margin: 60px 0 200px 0;
+  }
+  &-text{
+    margin-bottom: 20px;
+  }
+  &-list{
+    margin: 0 20px 0 20px;
+    list-style-type: inside ;
+    list-style-image: url('../../../../assets/how-order/romb_1.svg');
+    list-style-position: inside;
+    @media (max-width: 1000px){
+      margin:0 ;
+    }
+    & > li{
+      margin-left: 20px;
+      margin-bottom: 20px;
+      @media (max-width: 1000px){
+        margin: 0 0 20px 0;
+      }
+      &:last-child{
+        margin: 0 0 20px 0;
+      }
+      & > p{
+        display: inline;
+        margin-left: 20px;
+        @media (max-width: 1000px){
+          margin-left: 0;
+        }
+      }
+    }
+  }   
+}

@@ -1,22 +1,86 @@
 <div class="nav-dialog-wrap">
   <div class="nav-dialog-btn-wrap">
-    <button class="nav-dialog-btn" mat-dialog-close >
+    <button class="nav-dialog-btn" mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <ul class="nav-dialog-list">
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/store'">На головну</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/catalog'">Каталог</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialogToConsultationForm()">Безкоштовний замір</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialogToConsultationForm()">Замовити консультацію</li>
-    <hr color="#999999" size="0.5px">
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/guarantee'">Грантії</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/certificates'">Сертіфікати</li>
-    <hr color="#999999" size="0.5px">
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/choose-door'">Вибір дверей</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/how-order'">Оплата и доставка</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/door-measurement'">Замір дверей</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/door-installation'">Монтаж</li>
-    <li class="nav-dialog-list-link c6"(click)="closeDialog()" [routerLink]="'/comments'">Відгуки клієнтів</li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/store'"
+    >
+      На головну
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/catalog'"
+    >
+      Каталог
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialogToConsultationForm()"
+    >
+      Безкоштовний замір
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialogToConsultationForm()"
+    >
+      Замовити консультацію
+    </li>
+    <hr color="#999999" size="0.5px" />
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/guarantee'"
+    >
+      Грантії
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/certificates'"
+    >
+      Сертіфікати
+    </li>
+    <hr color="#999999" size="0.5px" />
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/choose-door'"
+    >
+      Вибір дверей
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/how-order'"
+    >
+      Оплата и доставка
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/door-zamir'"
+    >
+      Замір дверей
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/door-installation'"
+    >
+      Монтаж
+    </li>
+    <li
+      class="nav-dialog-list-link c6"
+      (click)="closeDialog()"
+      [routerLink]="'/comments'"
+    >
+      Відгуки клієнтів
+    </li>
   </ul>
 </div>

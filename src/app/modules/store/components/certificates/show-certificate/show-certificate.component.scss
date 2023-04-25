@@ -1,0 +1,29 @@
+@import 'colors';
+
+.certificate{
+  &-img{
+    width: 100%;
+  }
+  &-btn{
+    border: none;
+    outline: none;
+    background-color: $c1;
+    color: rgba(255,0,0,1);
+    &:hover{
+      color: rgba(255,0,0,0.5);
+    }
+    &-wrap{
+      position: absolute;
+      top: -18px;
+      right: 0;
+      z-index: 1001;
+    }
+  }
+  &-wrap{
+    padding: 20px;
+  }
+}
+
+::ng-deep .mat-dialog-container{
+  position: relative;
+}

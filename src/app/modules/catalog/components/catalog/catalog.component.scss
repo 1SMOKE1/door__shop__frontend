@@ -1,0 +1,114 @@
+@import 'mixins';
+@import 'colors';
+
+.main{
+  margin-top: 35px;
+  color: $c2;
+}
+
+.container{
+  @include container(1350px);
+}
+
+.catalog{
+  min-height: 80vh;
+  &-title{
+    margin: 40px 0 20px 0;
+    text-align: center;
+    color: $c6
+  }
+  &-wrap{
+    display: flex;
+    @media (max-width: 675px) {
+      flex-wrap: wrap;
+    }
+  }
+  &-sidebar{
+    width: 20%;
+    min-width: 200px;
+    margin-right: 25px;
+    @media(max-width: 675px){
+      width: 100%;
+    }
+  } 
+  &-cards-wrap{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    justify-items:  center;
+  }
+}
+
+.card{
+  width: calc(80% / 4);
+  max-height: 400px;
+  margin-bottom: 30px;
+  margin-right: 10px;
+  min-width: 200px;
+  display: grid;
+  padding: 10px 5px;
+  color: $c3;
+  transition: all .3s ease;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgb(30 31 33 / 12%);
+
+  &:hover{
+    transform: translateY(-10px);
+  }
+  &-img{
+    width: 180px;
+    height: 205px;
+    object-fit: contain;
+    margin: 0 auto 10px;
+    margin-bottom: 10px;
+  }
+  &-body{
+    padding-top: 10px;
+    border-top: 1px dashed black;
+    @include fontMain(700, 1rem, 20.7px);
+    text-align: center;
+  }
+  &-title{
+    margin-bottom: 12.5px;
+  }
+  &-btn{
+    width: 140px;
+    letter-spacing: 0.12em;
+    @include fontMain(400, 1rem, 20.7px);
+    outline: none;
+    background-color: $c7;
+    padding: 0 30px;
+    color: $c1;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease-out;
+    margin-bottom: 15px;
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+  &-price{
+    @include fontMain(700, 1.6rem, 27.6px);
+    color: $c6;
+  }
+  &-fixed{
+    &:hover{
+      transform: none;
+    }
+  }
+}
+
+.paginator_wrap{
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.spinner_wrap{
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding-right: 5%;
+}
+

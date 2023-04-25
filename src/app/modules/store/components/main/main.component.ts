@@ -1,65 +1,171 @@
-import { Component } from '@angular/core';
-import { ISecondNavLink } from '../../interfaces/ISecondNavLink';
-import { IProduct } from 'src/app/modules/share/interfaces/product.interface';
-import { MainService } from '../../services/main.service';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { ISecondNavLink } from '../../interfaces/common/second-nav-link.interface';
+import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
 import { Router } from '@angular/router';
 import { NavService } from 'src/app/modules/share/services/nav.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from 'src/app/modules/share/services/validation.service';
+import { ScrollConditionEnum } from 'src/app/modules/share/enums/scroll-condition.enum';
+import { HttpProductService } from 'src/app/modules/share/services/http-product.service';
+import { map } from 'rxjs';
+import { MainService } from '../../services/common/main.service';
+import { IZamirForm } from '../../interfaces/common/zamir-form.interface';
+import { IConsultationForm } from '../../interfaces/common/consultation-form.interface';
+import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
 
 @Component({
   selector: 'dsf-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
-export class MainComponent {
-
+export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   secondNavLinks: ISecondNavLink[] = [
-    {text: 'Наші виробники',  path:'/contacts'},
-    {text: 'Двері міжкімнатні', path:'/catalog'},
-    {text: 'Двері вхідні', path:'/catalog'},
-    {text: 'Вікна', path:'/catalog'},
-    {text: 'Фурнітура', path:'/catalog'}
+    { text: 'Наші виробники', path: '/contacts' },
+    { text: 'Двері міжкімнатні', path: '/catalog' },
+    { text: 'Двері вхідні', path: '/catalog' },
+    { text: 'Вікна', path: '/catalog' },
+    { text: 'Фурнітура', path: '/catalog' },
   ];
 
   products: IProduct[] = [];
 
+  @ViewChild('freeZamir') freeZamir: ElementRef;
+  @ViewChild('freeConsultation') freeConsultation: ElementRef;
   constructor(
-    private readonly mainService: MainService,
     private readonly router: Router,
     private readonly navService: NavService,
-    private readonly validationService: ValidationService
-  ){}
+    private readonly validationService: ValidationService,
+    private readonly httpProductService: HttpProductService,
+    private readonly mainService: MainService,
+    private readonly snackbar: MatSnackBar
+  ) {}
 
-  consultationForm: FormGroup = new FormGroup({
-    'name': new FormControl('', Validators.required),
-    'phone': new FormControl('', [
+  consultationForm: FormGroup<IConsultationForm> = new FormGroup({
+    name: new FormControl('', Validators.required),
+    phone: new FormControl('', [
       Validators.required,
-      Validators.pattern(this.validationService.phonePattern())]),
-  })
+      Validators.pattern(this.validationService.phonePattern()),
+    ]),
+  });
 
-  zamirForm: FormGroup = new FormGroup({
-    'name': new FormControl('', Validators.required),
-    'phone': new FormControl('', [
+  zamirForm: FormGroup<IZamirForm> = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    phone: new FormControl('', [
       Validators.required,
-      Validators.pattern(this.validationService.phonePattern())]),
-    'address': new FormControl('', Validators.required)
-  })
+      Validators.pattern(this.validationService.phonePattern()),
+    ]),
+    address: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+  });
 
-  sendZamirForm(): void{
-
+  ngOnInit(): void {
+    this.getProducts();
   }
 
-  sendConsultationForm(): void{
-
+  ngAfterViewInit(): void {
+    this.navService.freeFormSubscribtion = this.navService.freeForm$.subscribe(
+      (string: string | void) => {
+        switch (string) {
+          case `${ScrollConditionEnum.SCROLL}-${ScrollConditionEnum.ZAMIR}`:
+            this.navService.scroll(this.freeZamir.nativeElement);
+            break;
+          case `${ScrollConditionEnum.BLIMING}-${ScrollConditionEnum.ZAMIR}`:
+            this.blimingForm('flashing2', this.freeZamir);
+            break;
+          case `${ScrollConditionEnum.SCROLL}-${ScrollConditionEnum.CONSULTATION}`:
+            this.navService.scroll(this.freeConsultation.nativeElement);
+            break;
+          case `${ScrollConditionEnum.BLIMING}-${ScrollConditionEnum.CONSULTATION}`:
+            this.blimingForm('flashing', this.freeConsultation);
+            break;
+        }
+      }
+    );
   }
 
-  redirectToCard(id: number): void{}
+  ngOnDestroy(): void {
+    this.navService.freeFormSubscribtion.unsubscribe();
+  }
 
+  public sendZamirForm(): void {
+    this.mainService.sendZamirForm(this.zamirForm.value).subscribe({
+      next: ({ name }: IZamirFormResponse) => {
+        this.zamirForm.reset();
+        this.snackbar.open(this.mainService.successForm(name), 'X', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          duration: 10000,
+        });
+      },
+      error: (err: Error) => {
+        this.snackbar.open(err.message, 'X', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          duration: 10000,
+        });
+      },
+    });
+  }
 
+  public sendConsultationForm(): void {
+    this.mainService.
+    sendConsultationForm(this.consultationForm.value)
+    .subscribe({
+      next: ({name}: IConsultationFormResponse) => {
+        this.consultationForm.reset();
+        this.snackbar.open(
+          this.mainService.successForm(name),
+          'X',
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 10000,
+          }
+        )
+      },
+      error: (err: Error) => {
+        this.snackbar.open(
+          err.message,
+          'X',
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 10000,
+          }
+        )
+      }
+    });
+  }
 
+  public redirectToCard(id: number): void {
+    this.router.navigate(['catalog', 'card', id]);
+  }
 
+  private blimingForm(classAdd: string, elementRef: ElementRef) {
+    const elem = elementRef.nativeElement as HTMLElement;
+    setTimeout(() => {
+      elem.classList.add(classAdd);
+    }, 1000);
+    setTimeout(() => {
+      elem.classList.remove(classAdd);
+    }, 2000);
+  }
 
-  
-
+  private getProducts(): void {
+    this.httpProductService
+      .getHttpProducts()
+      .pipe(map((el: IProduct[]) => el.filter((el: IProduct) => el.homePage)))
+      .subscribe((products: IProduct[]) => (this.products = products));
+  }
 }
