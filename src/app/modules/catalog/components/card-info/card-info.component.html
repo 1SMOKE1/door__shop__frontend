@@ -1,10 +1,7 @@
-<dsf-header></dsf-header>
-<dsf-nav></dsf-nav>
-<dsf-nav-logo></dsf-nav-logo>
 <main class="main">
   <div class="container">
     <section  class="card">
-      <h2 class="card-title font-h2">Вхідні металеві двері бренд “Портала”</h2>
+      <h2 *ngIf="product" class="card-title font-h2">{{product.typeOfProduct.name}} “{{product.name}}” бренду “{{product.productProducer?.name}}”</h2>
       <div class="card-flex-wrapper">
         <div class="card-first-block">
           <div class="card-img-wrap">
@@ -36,7 +33,7 @@
                 <a href="tel:+380937779151" class="info-phone-tel font-p-sm c7">+38(093)777-91-51</a>
               </div>
             </div>
-            <button [routerLink]="'/how-order'" class="info-btn-link font-p-sm bg1">Доставка і оплата</button>
+            <button [routerLink]="'/store/how-order'" class="info-btn-link font-p-sm bg1">Доставка і оплата</button>
             <p class="info-p-add c6">
               <span class="info-p-span text-underline">Безкоштовна доставка</span>: Доставка в по місту у подарунок, при купівлі товару на суму від 30 000 грн.
             </p>
@@ -68,17 +65,17 @@
         </div>
       </div>
     </section>
-    <section [ngSwitch]="product?.typeOfProduct" class="info">
+    <section [ngSwitch]="product ? product!.typeOfProduct.name : null" class="info">
       <div class="info-table-wrap">
         <h2 class="info-title">{{'Характеристика'|uppercase}}</h2>
-        <table *ngSwitchCase="'Двері міжкімнатні'"  class="info-table">
+        <table *ngSwitchCase="'Двері міжкінатні'"  class="info-table">
           <tr>
             <th>Назва</th>
             <td>{{product?.name}}</td>
           </tr>
           <tr>
             <th>Виробник</th>
-            <td>{{product?.productProducer}}</td>
+            <td>{{product?.productProducer?.name}}</td>
           </tr>
           <tr>
             <th>Країна виробник</th>
@@ -124,7 +121,7 @@
           </tr>
           <tr>
             <th>Виробник</th>
-            <td>{{product?.productProducer}}</td>
+            <td>{{product?.productProducer?.name}}</td>
           </tr>
           <tr>
             <th>Країна виробник</th>
@@ -170,7 +167,7 @@
           </tr>
           <tr>
             <th>Виробник</th>
-            <td>{{product?.productProducer}}</td>
+            <td>{{product?.productProducer?.name}}</td>
           </tr>
           <tr>
             <th>Країна виробник</th>
@@ -212,7 +209,7 @@
           </tr>
           <tr>
             <th>Виробник</th>
-            <td>{{product?.productProducer}}</td>
+            <td>{{product?.productProducer?.name}}</td>
           </tr>
           <tr>
             <th>Країна виробник</th>
@@ -238,5 +235,5 @@
     </section>
   </div>
 </main>
-<dsf-footer></dsf-footer>
+
 

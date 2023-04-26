@@ -10,7 +10,7 @@ export class CartLine implements ICartLine{
   ){}
 
   get subTotal(): number{
-    return this.product.price * this.quantity;
+    return this.product!.price * this.quantity;
   }
 
   public increase(): void{

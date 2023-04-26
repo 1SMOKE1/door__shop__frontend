@@ -7,6 +7,7 @@ import { StoreModule } from './modules/store/store.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { ShareModule } from './modules/share/share.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminModule,
     ShareModule,
     BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

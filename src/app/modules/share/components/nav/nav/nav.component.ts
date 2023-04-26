@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NavDialogComponent } from '../nav-dialog/nav-dialog.component';
 import { Observable, Subscription, map } from 'rxjs';
 import { NavService } from '../../../services/nav.service';
@@ -13,6 +13,8 @@ import { ScrollConditionEnum } from '../../../enums/scroll-condition.enum';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit, OnDestroy{
+
+  navDialog: MatDialogRef<NavDialogComponent, any>;
 
   isMobileScreen$: Observable<boolean>;
   isMobileSubscription: Subscription;
@@ -30,8 +32,8 @@ export class NavComponent implements OnInit, OnDestroy{
     
     this.isMobileSubscription = this.isMobileScreen$
     .subscribe((bool: boolean) => {
-      if(bool)
-      this.dialog.closeAll();
+      if(bool && this.navDialog !== undefined)
+      this.navDialog.close();
     })
 
   }
@@ -41,7 +43,7 @@ export class NavComponent implements OnInit, OnDestroy{
   }
 
   public openNavDialog(): void{
-    this.dialog.open(NavDialogComponent);
+    this.navDialog = this.dialog.open(NavDialogComponent);
   }
 
   public scrollToConsultationForm(): void{

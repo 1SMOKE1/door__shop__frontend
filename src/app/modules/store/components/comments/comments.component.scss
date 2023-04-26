@@ -1,0 +1,30 @@
+@import 'mixins';
+@import 'colors';
+
+.main{
+  margin-top: 35px;
+}
+
+.container{
+  @include container(1300px);
+}
+
+.our_works{
+  margin: 50px 0 90px 0;
+  color: $c6;
+  &-title{
+    text-align: center;
+    margin-bottom: 60px;
+  }
+}
+
+.client_comments{
+  margin-bottom: 200px;
+  color: $c6;
+  &-title{
+    text-align: center;
+    margin-bottom: 60px;
+  }
+}
+
+

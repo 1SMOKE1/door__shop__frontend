@@ -22,7 +22,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     NgxPaginationModule,
     MatProgressSpinnerModule,
     ShareModule,
-    MatExpansionModule
+    MatExpansionModule,
   ]
 })
 export class CatalogModule { }

@@ -10,19 +10,33 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { ChooseDoorComponent } from './components/choose-door/choose-door.component';
 import { CertificatesComponent } from './components/certificates/certificates/certificates.component';
+import { StoreRoutingOutletComponent } from './components/store-routing-outlet/store-routing-outlet.component';
+import { PageNotFoundComponent } from '../share/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  {path: 'store', component: MainComponent },
-  {path: 'how-order', component: HowOrderComponent},
-  {path: 'guarantee', component: GuaranteeComponent},
-  {path: 'door-zamir', component: DoorZamirComponent},
-  {path: 'door-installation', component: DoorInstallationComponent},
-  {path: 'designers-builders', component: DesignersBuildersComponent},
-  {path: 'comments', component: CommentsComponent},
-  {path: 'contacts', component: ContactsComponent},
-  {path: 'choose-door', component: ChooseDoorComponent},
-  {path: 'certificates', component: CertificatesComponent},
-  {path: 'catalog', loadChildren: () => import('../catalog/catalog.module').then((m) => m.CatalogModule)},
+  {path: '', pathMatch: 'full', redirectTo: 'store'},
+  {
+    path: 'store',
+    component: StoreRoutingOutletComponent, 
+    children: [
+      {path: '', pathMatch: 'full', redirectTo: 'main'},
+      {path: 'main', component: MainComponent},
+      {path: 'how-order', component: HowOrderComponent},
+      {path: 'guarantee', component: GuaranteeComponent},
+      {path: 'door-zamir', component: DoorZamirComponent},
+      {path: 'door-installation', component: DoorInstallationComponent},
+      {path: 'designers-builders', component: DesignersBuildersComponent},
+      {path: 'comments', component: CommentsComponent},
+      {path: 'contacts', component: ContactsComponent},
+      {path: 'choose-door', component: ChooseDoorComponent},
+      {path: 'certificates', component: CertificatesComponent},
+      {path: 'catalog', loadChildren: () => import('../catalog/catalog.module').then((m) => m.CatalogModule)},
+      {path: 'page-not-found', component: PageNotFoundComponent},
+      {path: '**', pathMatch: 'full', redirectTo: 'page-not-found'}
+    ]
+  },
+
+  
 ];
 
 @NgModule({

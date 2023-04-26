@@ -1,10 +1,10 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SidebarComponent } from 'src/app/modules/share/components/sidebar/sidebar.component';
 import { IGetProducts } from 'src/app/modules/share/interfaces/common/get-products.interface';
+import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
 import { HttpProductService } from 'src/app/modules/share/services/http-product.service';
-import { productMultiType } from 'src/app/modules/share/types/product.type';
+import { CardService } from '../../services/card.service';
 
 @Component({
   selector: 'dsf-catalog',
@@ -21,12 +21,12 @@ export class CatalogComponent implements OnInit{
   itemsPerPage: number = 8;
   productsLength: number = 0;
   isFiltered: boolean = false;
-  products: productMultiType[] = [];
+  products: IProduct[] = [];
   search: string = '';
 
   constructor(
     private readonly httpProductService: HttpProductService,
-    private readonly router: Router
+    private readonly cardService: CardService
   ){
 
   }
@@ -36,15 +36,13 @@ export class CatalogComponent implements OnInit{
     .subscribe(({products, productsLength}: IGetProducts) => {
       this.products = products;
       this.productsLength = productsLength;
-
     })
   }
 
   public cardBigRedirect(id: number): void{
-    this.selectedId = id;
-    this.router.navigate(['/catalog', 'card', id], {
-      state: {id}
-    })
+    const product = this.products.find(({id}: IProduct) => id)
+
+    this.cardService.cardInfoRedirect(id, product!.typeOfProduct.name);
   }
 
   public changePage(page: number) {

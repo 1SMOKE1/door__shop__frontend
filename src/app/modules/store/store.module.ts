@@ -17,6 +17,7 @@ import { ShowCertificateComponent } from './components/certificates/show-certifi
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StoreRoutingOutletComponent } from './components/store-routing-outlet/store-routing-outlet.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ChooseDoorComponent,
     CertificatesComponent,
     ShowCertificateComponent,
+    StoreRoutingOutletComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     MatDialogModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ]
 })
 export class StoreModule { }
