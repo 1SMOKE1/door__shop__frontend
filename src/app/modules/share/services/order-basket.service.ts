@@ -12,7 +12,6 @@ export class OrderBasketService {
   }
 
   public scroll(el: HTMLElement){
-    console.log(el)
     el.scrollIntoView({behavior: 'smooth'});
   }
 }

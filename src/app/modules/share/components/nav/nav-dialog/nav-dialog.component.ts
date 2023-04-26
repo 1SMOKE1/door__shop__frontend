@@ -25,8 +25,6 @@ export class NavDialogComponent {
 
   public closeDialogToConsultationForm(): void{
     this.closeDialog();
-    // this.dialogRef.afterClosed().subscribe(() => {
-    //   this.navService.animationScrollToConsultationMobile();
-    // })
+    
   }
 }
