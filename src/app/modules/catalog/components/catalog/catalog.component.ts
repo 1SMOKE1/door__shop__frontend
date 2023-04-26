@@ -5,6 +5,7 @@ import { IGetProducts } from 'src/app/modules/share/interfaces/common/get-produc
 import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
 import { HttpProductService } from 'src/app/modules/share/services/http-product.service';
 import { CardService } from '../../services/card.service';
+import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
 
 @Component({
   selector: 'dsf-catalog',
@@ -39,10 +40,8 @@ export class CatalogComponent implements OnInit{
     })
   }
 
-  public cardBigRedirect(id: number): void{
-    const product = this.products.find(({id}: IProduct) => id)
-
-    this.cardService.cardInfoRedirect(id, product!.typeOfProduct.name);
+  public cardBigRedirect(id: number, typeOfProductName: TypeOfProductEnum): void{
+    this.cardService.cardInfoRedirect(id, typeOfProductName);
   }
 
   public changePage(page: number) {

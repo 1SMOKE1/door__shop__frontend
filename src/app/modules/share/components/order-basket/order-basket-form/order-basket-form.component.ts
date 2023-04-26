@@ -1,9 +1,7 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICartLine } from '../../../interfaces/common/cart-line.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidationService } from '../../../services/validation.service';
-import { OrderBasketService } from '../../../services/order-basket.service';
-import { OrderBasketComponent } from '../order-basket/order-basket.component';
 
 @Component({
   selector: 'dsf-order-basket-form',
@@ -11,8 +9,9 @@ import { OrderBasketComponent } from '../order-basket/order-basket.component';
   styleUrls: ['./order-basket-form.component.scss']
 })
 export class OrderBasketFormComponent{
-
-  @Input() orderBasketRef: HTMLDivElement ;
+  @Output()sendFormEmit: EventEmitter<Event> = new EventEmitter<Event>();
+  @Output()goBackEmit: EventEmitter<Event> = new EventEmitter<Event>();
+  // @Input() orderBasketRef: HTMLDivElement ;
   @Input() cartLines: ICartLine[] = [];
 
   orderForm: FormGroup = new FormGroup({
@@ -37,15 +36,13 @@ export class OrderBasketFormComponent{
 
   constructor(
     private readonly validationService: ValidationService,
-    private readonly orderBasetkService: OrderBasketService
   ){}
 
   
 
 
-
-  public scroll(el: HTMLElement | HTMLDivElement){
-    this.orderBasetkService.scroll(el);
+  goBack(e: Event): void{
+    this.goBackEmit.emit(e);
   }
 
   

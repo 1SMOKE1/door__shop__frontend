@@ -7,9 +7,9 @@
 
 
 
-  <div class="carousel-wrap">
-    <div class="carousel-line">
-      <div #orderBasketRef class="carousel-item">
+  <div class="carousel-basket-wrap" #carouselWrap>
+    <div class="carousel-basket-line" #carouselLine>
+      <div #orderBasketRef class="carousel-basket-item">
         <div class="order-basket-body">
           <div class="delete-btn-wrap">
             <button class="font-p-sm delete-btn" (click)="clearCartLines()">Видалити все</button>
@@ -49,12 +49,12 @@
                 <p class="price font-p">{{getTotal()}}.00 грн</p>
               </div>
             </div>
-            <button (click)="scroll(orderForm)" class="cart-btn-order c1 bg6">Оформити замовлення</button>
+            <button (click)="toOrderForm($event)" class="cart-btn-order c1 bg6">Оформити замовлення</button>
           </div>
         </div>
       </div>
-      <div #orderForm class="carousel-item" >
-        <dsf-order-basket-form [cartLines]="cartLines" [orderBasketRef]="orderBasketRef" *ngIf="!sendForm; else afterMessage"></dsf-order-basket-form>
+      <div #orderForm class="carousel-basket-item" >
+        <dsf-order-basket-form [cartLines]="cartLines" *ngIf="!sendForm; else afterMessage" (goBackEmit)="goBackFromForm($event)" (sendFormEmit)="sendEmitFromForm($event)"></dsf-order-basket-form>
         <ng-template #afterMessage>
           <div class="after-message">
             <img src="assets/nav/ok.svg" class="after-message-img" alt="">

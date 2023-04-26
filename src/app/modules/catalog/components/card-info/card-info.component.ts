@@ -52,6 +52,7 @@ export class CardInfoComponent implements OnInit{
     .getProduct(id, typeOfProductName)
     .subscribe((product: IProduct) => {
       this.product = product;
+      console.log(this.product);
       if(this.product === null)
       this.router.navigate(['store', 'page-not-found'])
     })
