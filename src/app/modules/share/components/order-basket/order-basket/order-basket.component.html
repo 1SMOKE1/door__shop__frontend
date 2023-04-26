@@ -1,6 +1,4 @@
-
-
-<div #orderBasket class="order-basket" *ngIf="cartLines.length !== 0; else emptyBasket">
+<div #orderBasket class="order-basket" *ngIf="cartLineService.cartLines.length !== 0; else emptyBasket">
   <div class="order-basket-header">
     <h2 class="order-basket-title font-h2 c6">Кошик замовлень</h2>
     <button class="order-basket-close" mat-dialog-close><img src="assets/catalog/icons/close_icon.svg" alt=""></button>
@@ -9,15 +7,15 @@
 
 
 
-  <div class="carousel-wrap" #carouselWrap>
-    <div class="carousel-line" #carouselLine>
-      <div class="carousel-item">
+  <div class="carousel-wrap">
+    <div class="carousel-line">
+      <div #orderBasketRef class="carousel-item">
         <div class="order-basket-body">
           <div class="delete-btn-wrap">
             <button class="font-p-sm delete-btn" (click)="clearCartLines()">Видалити все</button>
           </div>
 
-          <div class="cart" *ngFor="let cart of cartLines">
+          <div class="cart" *ngFor="let cart of cartLineService.cartLines">
             <div class="cart-img-wrap">
               <img class="cart-img" [src]="cart.product.images" alt="">
             </div>
@@ -51,12 +49,12 @@
                 <p class="price font-p">{{getTotal()}}.00 грн</p>
               </div>
             </div>
-            <!-- <button (click)="toOrderForm($event)" #btnToForm class="cart-btn-order c1 bg6">Оформити замовлення</button> -->
+            <button (click)="scroll(orderForm)" class="cart-btn-order c1 bg6">Оформити замовлення</button>
           </div>
         </div>
       </div>
       <div #orderForm class="carousel-item" >
-        <!-- <dsa-order-form [cartLines]="cartLines" (goBackEmit)="goBackFromForm($event)" (sendFormEmit)="sendEmitFromForm($event)" *ngIf="!sendForm; else afterMessage"></dsa-order-form> -->
+        <dsf-order-basket-form [cartLines]="cartLines" [orderBasketRef]="orderBasketRef" *ngIf="!sendForm; else afterMessage"></dsf-order-basket-form>
         <ng-template #afterMessage>
           <div class="after-message">
             <img src="assets/nav/ok.svg" class="after-message-img" alt="">
@@ -75,10 +73,7 @@
 </div>
 
 <ng-template #emptyBasket>
-  <!-- [style.width]="window!.innerWidth <= 1200 ? '0' : '960px'" -->
-  <div 
-  
-   class="order-basket">
+  <div class="order-basket">
     <div class="order-basket-header">
       <h2 class="order-basket-title font-h2 c6">Кошик замовлень</h2>
       <button class="order-basket-close" mat-dialog-close><img src="assets/catalog/icons/close_icon.svg" alt=""></button>

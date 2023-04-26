@@ -1,17 +1,17 @@
 <nav class="nav">
   <div class="container">
     <ul class="nav-menu">
-      <li [routerLink]="'/store'" class="dropdown dropdown-4">
+      <li [routerLink]="''" class="dropdown dropdown-4">
         {{ "На головну" | uppercase }}
       </li>
-      <li [routerLink]="'/catalog'" class="dropdown dropdown-4">
+      <li [routerLink]="'/store/catalog'" class="dropdown dropdown-4">
         {{ "Каталог" | uppercase }}
       </li>
       <li class="dropdown dropdown-4">
         {{ "Контроль якості" | uppercase }}
         <ul class="dropdown_menu dropdown_menu-4">
-          <li [routerLink]="'/guarantee'" class="dropdown_item-1">Гарантії</li>
-          <li [routerLink]="'/certificates'" class="dropdown_item-2">
+          <li [routerLink]="'/store/guarantee'" class="dropdown_item-1">Гарантії</li>
+          <li [routerLink]="'/store/certificates'" class="dropdown_item-2">
             Сертифікати
           </li>
         </ul>
@@ -19,19 +19,19 @@
       <li class="dropdown dropdown-4">
         {{ "Як замовити" | uppercase }}
         <ul class="dropdown_menu dropdown_menu-4">
-          <li [routerLink]="'/choose-door'" class="dropdown_item-1">
+          <li [routerLink]="'/store/choose-door'" class="dropdown_item-1">
             Вибір дверей
           </li>
-          <li [routerLink]="'/how-order'" class="dropdown_item-2">
+          <li [routerLink]="'/store/how-order'" class="dropdown_item-2">
             Оплата і доставка
           </li>
           <li (click)="scrollToConsultationForm()" class="dropdown_item-3">
             Замовити консультацію
           </li>
-          <li [routerLink]="'/door-zamir'" class="dropdown_item-4">
+          <li [routerLink]="'/store/door-zamir'" class="dropdown_item-4">
             Замір дверей
           </li>
-          <li [routerLink]="'/door-installation'" class="dropdown_item-5">
+          <li [routerLink]="'/store/door-installation'" class="dropdown_item-5">
             Монтаж
           </li>
         </ul>

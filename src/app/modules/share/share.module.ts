@@ -4,7 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { OrderBasketComponent } from './components/order-basket/order-basket.component';
+import { OrderBasketComponent } from './components/order-basket/order-basket/order-basket.component';
 import { NavComponent } from './components/nav/nav/nav.component';
 import { NavDialogComponent } from './components/nav/nav-dialog/nav-dialog.component';
 import { NavLogoComponent } from './components/nav/nav-logo/nav-logo.component';
@@ -22,7 +22,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
-
+import { OrderBasketFormComponent } from './components/order-basket/order-basket-form/order-basket-form.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { MatInputModule } from '@angular/material/input';
     FooterComponent,
     OwlCarouselComponent,
     SidebarComponent,
+    OrderBasketFormComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [
@@ -52,7 +56,9 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatExpansionModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    MatRadioModule
   ],
   exports: [
     HeaderComponent,

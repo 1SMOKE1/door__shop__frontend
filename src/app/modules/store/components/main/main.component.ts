@@ -21,6 +21,7 @@ import { IConsultationForm } from '../../interfaces/common/consultation-form.int
 import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
+import { CardService } from 'src/app/modules/catalog/services/card.service';
 
 @Component({
   selector: 'dsf-main',
@@ -46,7 +47,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly validationService: ValidationService,
     private readonly httpProductService: HttpProductService,
     private readonly mainService: MainService,
-    private readonly snackbar: MatSnackBar
+    private readonly snackbar: MatSnackBar,
+    private readonly cardService: CardService
   ) {}
 
   consultationForm: FormGroup<IConsultationForm> = new FormGroup({
@@ -149,7 +151,10 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public redirectToCard(id: number): void {
-    this.router.navigate(['catalog', 'card', id]);
+    
+    const product = this.products.find((el: IProduct) => el.id === id);
+
+    this.cardService.cardInfoRedirect(id, product!.typeOfProduct.name)
   }
 
   private blimingForm(classAdd: string, elementRef: ElementRef) {
@@ -166,6 +171,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.httpProductService
       .getHttpProducts()
       .pipe(map((el: IProduct[]) => el.filter((el: IProduct) => el.homePage)))
-      .subscribe((products: IProduct[]) => (this.products = products));
+      .subscribe((products: IProduct[]) => {
+        this.products = products;
+      });
   }
 }
