@@ -3,21 +3,74 @@
     <section  class="card">
       <h2 *ngIf="product" class="card-title font-h2">{{product.typeOfProduct.name}} “{{product.name}}” бренду “{{product.productProducer?.name}}”</h2>
       <div class="card-flex-wrapper">
-        <div class="card-first-block">
-          <div class="card-img-wrap">
-            <img class="card-img-big" [src]="product?.images" alt="">
+        <div class="card-photo-block">
+          <div  class="card-img-wrap">
+            <img *ngIf="product !== null" class="card-img-big" [src]="product.images[0]" alt="">
           </div>
-          <div class="card-photos-group-wrap">
-            <div *ngFor="let photo of photoArr"  class="card-photos-wrap">
-              <img class="card-img-small" [src]="product?.images" alt="">
-            </div>
+        </div>
+        <div *ngIf="product !== null" [ngSwitch]="true" class="card-calculator-block">
+          <div *ngSwitchCase="product!.typeOfProduct.name === 'Двері міжкімнатні'" class="card-calculator-content">
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Ширина полотна</mat-label>
+              <mat-select [(value)]="selectedFabricMaterialWidth">
+                <mat-option *ngFor="let item of product!.fabricMaterialWidth" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Короб</mat-label>
+              <mat-select [(value)]="selectedFrameMaterial">
+                <mat-option *ngFor="let item of product!.doorFrameMaterial" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Добірна дошка</mat-label>
+              <mat-select [(value)]="selectedDoorSelectionBoard">
+                <mat-option *ngFor="let item of product!.doorSelectionBoard" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Лиштва</mat-label>
+              <mat-select [(value)]="selectedDoorWelt">
+                <mat-option *ngFor="let item of product!.doorWelt" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Дверна ручка</mat-label>
+              <mat-select [(value)]="selectedDoorHand">
+                <mat-option *ngFor="let item of product!.doorHand" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Дверний механізм</mat-label>
+              <mat-select [(value)]="selectedDoorMechanism">
+                <mat-option *ngFor="let item of product!.doorMechanism" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Дверні петлі</mat-label>
+              <mat-select [(value)]="selectedDoorLoops">
+                <mat-option *ngFor="let item of product!.doorLoops" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Дверний стопор</mat-label>
+              <mat-select [(value)]="selectedDoorStopper">
+                <mat-option *ngFor="let item of product!.doorStopper" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Роздвижна система</mat-label>
+              <mat-select [(value)]="selectedDoorSlidingSystem">
+                <mat-option *ngFor="let item of product!.doorSlidingSystem" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
         <div class="card-info-wrap">
-          <div class="info-left-block" >
-            <p class="info-title-1 info-title font-p-sm " *ngIf="product?.inStock === 'В наявності'">{{product?.inStock}}</p>
-            <p class="info-title-2 info-title font-p-sm " *ngIf="product?.inStock === 'Під замовлення'">{{product?.inStock}}</p>
-            <p class="info-title-3 info-title font-p-sm " *ngIf="product?.inStock === 'Немає в наявності'">{{product?.inStock}}</p>
+          <div [ngSwitch]="true" class="info-left-block" >
+            <p class="info-title-1 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'В наявності'">{{product?.inStock}}</p>
+            <p class="info-title-2 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'Під замовлення'">{{product?.inStock}}</p>
+            <p class="info-title-3 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'Немає в наявності'">{{product?.inStock}}</p>
             <button class="info-btn bg6 c1" (click)="toBasket()" ><img class="info-icon-basket" src="assets/header/basket.png" alt="">{{'купити'|uppercase}}</button>
             <div class="info-phone-group">
               <div class="info-phone-wrap">
@@ -38,37 +91,16 @@
               <span class="info-p-span text-underline">Безкоштовна доставка</span>: Доставка в по місту у подарунок, при купівлі товару на суму від 30 000 грн.
             </p>
           </div>
-          <div class="info-right-block">
-            <div class="info-price-wrap info-price-wrap-big bg9">
-              <p class="font-p">{{product?.price}} грн</p>
-            </div>
-            <div class="info-add-price">
-              <mat-expansion-panel 
-                                 class="mat-expansion-panel-header-titel"
-                                 >
-              <mat-expansion-panel-header>
-                <mat-panel-title class="mat-panel-title">
-                  ціна з монтажем
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                  <div class="drop-body">
-                    <div class="info-price-wrap info-price-wrap-small bg9">
-                      <p class="font-p-sm">{{product?.installationPrice}} грн</p>
-                    </div>
-                  </div>
-              </mat-expansion-panel>
-            </div>
-            
-          </div>
+
           
           
         </div>
       </div>
     </section>
-    <section [ngSwitch]="product ? product!.typeOfProduct.name : null" class="info">
+    <!-- <section [ngSwitch]="product ? product!.typeOfProduct.name : null" class="info">
       <div class="info-table-wrap">
         <h2 class="info-title">{{'Характеристика'|uppercase}}</h2>
-        <table *ngSwitchCase="'Двері міжкінатні'"  class="info-table">
+        <table class="info-table">
           <tr>
             <th>Назва</th>
             <td>{{product?.name}}</td>
@@ -89,150 +121,85 @@
             <th>На складі</th>
             <td>{{product?.inStock}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері міжкінатні'" >
             <th>Оздоблення поверхні</th>
             <td>{{product?.finishingTheSurface?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері міжкінатні'" >
             <th>Матеріал дверної коробки</th>
             <td>{{product?.frameMaterial?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері міжкінатні'" >
             <th>Конструктивні особливості</th>
             <td>{{product?.structuralFeatures?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері міжкінатні'" >
             <th>Тип відкривання</th>
             <td>{{product?.openingType?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері міжкінатні'" >
             <th>Тип монтажу</th>
             <td>{{product?.installationType?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері міжкінатні'" >
             <th>Спосіб відкривання</th>
             <td>{{product?.openingMethod?.join('/')}}</td>
           </tr>
-        </table>
-        <table  *ngSwitchCase="'Двері вхідні'" class="info-table">
-          <tr>
-            <th>Назва</th>
-            <td>{{product?.name}}</td>
-          </tr>
-          <tr>
-            <th>Виробник</th>
-            <td>{{product?.productProducer?.name}}</td>
-          </tr>
-          <tr>
-            <th>Країна виробник</th>
-            <td>{{product?.country}}</td>
-          </tr>
-          <tr>
-            <th>Стан</th>
-            <td>{{product?.state}}</td>
-          </tr>
-          <tr>
-            <th>На складі</th>
-            <td>{{product?.inStock}}</td>
-          </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері вхідні'">
             <th>Кількість ущільнюючих контурів</th>
             <td>{{product?.amountOfSealingMaterials?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері вхідні'">
             <th>Матеріал дверного полотна</th>
             <td>{{product?.fabricMaterial?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері вхідні'">
             <th>Призначення двері</th>
             <td>{{product?.purpose?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері вхідні'">
             <th>Спосіб відкривання</th>
             <td>{{product?.openingMethod?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері вхідні'">
             <th>Покриття</th>
             <td>{{product?.covering?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Двері вхідні'">
             <th>Матеріал дверної коробки</th>
             <td>{{product?.frameMaterial?.join('/')}}</td>
           </tr>
-        </table>
-        <table  *ngSwitchCase="'Вікна'" class="info-table">
-          <tr>
-            <th>Назва</th>
-            <td>{{product?.name}}</td>
-          </tr>
-          <tr>
-            <th>Виробник</th>
-            <td>{{product?.productProducer?.name}}</td>
-          </tr>
-          <tr>
-            <th>Країна виробник</th>
-            <td>{{product?.country}}</td>
-          </tr>
-          <tr>
-            <th>Стан</th>
-            <td>{{product?.state}}</td>
-          </tr>
-          <tr>
-            <th>На складі</th>
-            <td>{{product?.inStock}}</td>
-          </tr>
-          <tr>
+          <tr *ngSwitchCase="'Вікна'" >
             <th>Профіль</th>
             <td>{{product?.profile?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Вікна'" >
             <th>Конструкція</th>
             <td>{{product?.construction?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Вікна'" >
             <th>Стеклопакети</th>
             <td>{{product?.glassUnit?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Вікна'" >
             <th>Ламінація</th>
             <td>{{product?.lamination?.join('/')}}</td>
           </tr>
-          <tr>
+          <tr *ngSwitchCase="'Вікна'" >
             <th>Стекла</th>
             <td>{{product?.glasses?.join('/')}}</td>
           </tr>
         </table>
-        <table  *ngSwitchCase="'Фурнітура'" class="info-table">
-          <tr>
-            <th>Назва</th>
-            <td>{{product?.name}}</td>
-          </tr>
-          <tr>
-            <th>Виробник</th>
-            <td>{{product?.productProducer?.name}}</td>
-          </tr>
-          <tr>
-            <th>Країна виробник</th>
-            <td>{{product?.country}}</td>
-          </tr>
-          <tr>
-            <th>Стан</th>
-            <td>{{product?.state}}</td>
-          </tr>
-          <tr>
-            <th>На складі</th>
-            <td>{{product?.inStock}}</td>
-          </tr>
-        </table>
-      </div>
-      
-      <div class="info-table-wrap">
-        <h2 class="info-title">{{'Опис'|uppercase}}</h2>
-        <div class="info-table-block">
-          <p>{{product?.description ? product?.description : 'Опис товару відсутній'}}</p>
+        <div class="info-table-wrap">
+          <h2 class="info-title">{{'Опис'|uppercase}}</h2>
+          <div class="info-table-block">
+            <p>{{product?.description ? product?.description : 'Опис товару відсутній'}}</p>
+          </div>
         </div>
       </div>
-    </section>
+      
+      
+    </section> -->
   </div>
 </main>
 

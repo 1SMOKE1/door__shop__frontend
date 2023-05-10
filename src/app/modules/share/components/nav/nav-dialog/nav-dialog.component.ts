@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { NavService } from '../../../services/nav.service';
+import { NavService } from '../../../services/common/nav.service';
+import { ScrollConditionEnum } from '../../../enums/scroll-condition.enum';
 
 @Component({
   selector: 'dsf-nav-dialog',
@@ -13,18 +13,20 @@ export class NavDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<NavDialogComponent>,
     private navService: NavService,
-    private router: Router,
   ) {}
 
-  ngOnInit(): void {
-  }
 
   public closeDialog(): void{
     this.dialogRef.close()
   }
 
   public closeDialogToConsultationForm(): void{
-    this.closeDialog();
-    
+    this.closeDialog(); 
+    this.navService.freeFormStream(`${ScrollConditionEnum.CONSULTATION}`);
+  }
+
+  public closeDialogToZamirForm(): void{
+    this.closeDialog(); 
+    this.navService.freeFormStream(`${ScrollConditionEnum.ZAMIR}`);
   }
 }

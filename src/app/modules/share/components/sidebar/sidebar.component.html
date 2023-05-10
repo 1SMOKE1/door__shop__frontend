@@ -11,18 +11,11 @@
     <div class="sidebar-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
       <mat-checkbox class="sidebar-checkbox"
-        color="primary"
+        color="accent"
        *ngFor="let checkbox of interiorDoorProducers"
        (change)="fillConditionArr(checkbox)">
         {{checkbox.name}}
       </mat-checkbox>
-      <!-- <hr color="#999999" width="100%" size="0.5px"> -->
-      <!-- <div class="sidebar-sub-menu">
-        <mat-checkbox class="sidebar-checkbox">Двері прихованого<br> монтажу</mat-checkbox>
-        <mat-checkbox class="sidebar-checkbox">Пофарбовані міжкімнатні<br> двері</mat-checkbox>
-        <mat-checkbox class="sidebar-checkbox">Двері ПВХ покриття</mat-checkbox>
-        <mat-checkbox class="sidebar-checkbox">Двері ламіновані</mat-checkbox>
-      </div> -->
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel >
@@ -34,17 +27,11 @@
     <div class="sidebar-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
       <mat-checkbox class="sidebar-checkbox"
-        color="primary"
+        color="accent"
        *ngFor="let checkbox of entranceDoorProducers"
        (change)="fillConditionArr(checkbox)">
         {{checkbox.name}}
       </mat-checkbox>
-      <!-- <hr color="#999999" width="100%" size="0.5px"> -->
-      <!-- <div class="sidebar-sub-menu">
-        <mat-checkbox class="sidebar-checkbox">Двері прихованого<br> монтажу</mat-checkbox>
-        <mat-checkbox class="sidebar-checkbox">Двері ПВХ покриття</mat-checkbox>
-        <mat-checkbox class="sidebar-checkbox">Двері ламіновані</mat-checkbox>
-      </div> -->
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel >
@@ -56,7 +43,7 @@
     <div class="mat-expansion-panel-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
       <mat-checkbox class="sidebar-checkbox"
-        color="primary"
+        color="accent"
        *ngFor="let checkbox of furnitureProducers"
        (change)="fillConditionArr(checkbox)">
         {{checkbox.name}}
@@ -72,7 +59,7 @@
     <div class="mat-expansion-panel-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
       <mat-checkbox class="sidebar-checkbox"
-        color="primary"
+        color="accent"
        *ngFor="let checkbox of windowProducers"
        (change)="fillConditionArr(checkbox)">
         {{checkbox.name}}
@@ -87,8 +74,8 @@
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Назва товара</mat-label>
       <input
-        [ngModel]="model"
-        (ngModelChange)="modelChanged.next($event)"
+        [(ngModel)]="model"
+        (ngModelChange)="modelChanged()"
         matInput
         placeholder="Впишіть Назву товара"
       />

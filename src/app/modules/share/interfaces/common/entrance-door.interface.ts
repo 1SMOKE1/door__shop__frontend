@@ -1,7 +1,6 @@
 import { CountryEnum } from "../../enums/country.enum";
 import { GuaranteeEnum } from "../../enums/guarantee.enum";
 import { InStockEnum } from "../../enums/in-stock.enum";
-import { StateEnum } from "../../enums/state.enum";
 import { TypeOfProductEnum } from "../../enums/type-of-product.enum";
 
 export interface IEntranceDoor{
@@ -18,25 +17,33 @@ export interface IEntranceDoor{
 
   guarantee: GuaranteeEnum;
 
-  state: StateEnum;
-
   price: number;
-
-  installationPrice: number;
 
   inStock: InStockEnum;
 
-  amountOfSealingMaterials: string[];
+  frameMaterialThickness?: string[] | null, // Товщина короба
 
-  fabricMaterial: string[];
+  doorInsulation?: string[] | null // Утеплення
 
-  purpose: string[];
+  covering?: string[] | null, // Оздоблення
 
-  openingMethod: string[];
+  doorPeephole?: boolean, // Глазок
 
-  covering: string[];
+  openingType?: string[] | null, // Тип відкривання
 
-  frameMaterial: string[];
+  size?: string[] | null, // Розмір
+
+  lowerLock?: string[] | null, // Нижній замок
+
+  upperLock?: string[] | null, // Верхній замок
+
+  weight?: string[] | null, // Вага
+
+  metalThickness?: number, // Товщина металу
+
+  frameMaterialConstruction?: string[] | null; // Конструкція короба
+  
+  sealerCircuit?: string[] | null; // Контур Ущільнення
 
   homePage?: boolean;
 

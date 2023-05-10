@@ -1,0 +1,55 @@
+@import 'colors';
+@import 'mixins';
+
+
+.login{
+  &_main{
+    min-height: 100vh;
+    background-color: rgb(199, 199, 199);
+  }
+  &_content{
+    min-height: 50vh;
+    display: grid;
+    place-items: center;
+  }
+}
+
+.container{
+  @include container(1300);
+}
+
+.form{
+  display: grid;
+  place-items: center;
+  background-color: $c21;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 14px;
+  padding: 20px;
+  width: 30%;
+  @media(max-width: 1000px){
+    width: 40%;
+  }
+  @media(max-width: 800px){
+    width: 50%;
+  }
+  @media(max-width: 600px){
+    width: 70%;
+  }
+  @media(max-width: 400px) {
+    width: 80%;
+  }
+  &_title{
+    margin: 40px 0;
+    text-align: center;
+  }
+  &_email, 
+  &_password{
+    width: 100%;
+  }
+}
+
+
+
+
+
+

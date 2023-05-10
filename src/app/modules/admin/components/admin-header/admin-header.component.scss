@@ -1,0 +1,41 @@
+@import 'colors';
+@import 'mixins';
+
+.header{
+  height: auto;
+  padding: 20px;
+  background-color: $c6;
+}
+
+.nav{
+  display: flex;
+  &-list{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    @media(max-width: 500px){
+      flex-direction: column;
+    }
+  }
+  &-item{
+    margin-right: 20px;
+    &:last-child{
+      margin-right: 0;
+    }
+    @media(max-width: 500px){
+      margin: 0 0 10px 0;
+      &:last-child{
+        margin: 0;
+      }
+    }
+  }
+  &-link{
+    padding: 5px 10px;
+    background-color: $c2;
+    color: $c1
+  }
+}
+
+.container{
+  @include container(1200px)
+}

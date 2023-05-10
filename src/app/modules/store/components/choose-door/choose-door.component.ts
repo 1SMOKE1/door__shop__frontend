@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ValidationService } from 'src/app/modules/share/services/validation.service';
+import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
 
 @Component({
   selector: 'dsf-choose-door',

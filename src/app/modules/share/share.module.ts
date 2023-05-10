@@ -25,6 +25,8 @@ import { MatInputModule } from '@angular/material/input';
 import { OrderBasketFormComponent } from './components/order-basket/order-basket-form/order-basket-form.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { CountUpDirective } from './directives/count-up.directive';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,7 @@ import { MatRadioModule } from '@angular/material/radio';
     SidebarComponent,
     OrderBasketFormComponent,
     PageNotFoundComponent,
-
+    CountUpDirective,
   ],
   imports: [
     CommonModule,
@@ -58,7 +60,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatCheckboxModule,
     HttpClientModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSidenavModule
   ],
   exports: [
     HeaderComponent,

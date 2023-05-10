@@ -1,46 +1,54 @@
+import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
 import { CountryEnum } from "../../enums/country.enum";
 import { GuaranteeEnum } from "../../enums/guarantee.enum";
 import { InStockEnum } from "../../enums/in-stock.enum";
-import { StateEnum } from "../../enums/state.enum";
 import { TypeOfProductEnum } from "../../enums/type-of-product.enum";
 
-export interface IInteriorDoor{
 
+export interface IInteriorDoor{
   id: number;
 
   name: string;
 
   productProducerName: string;
 
-  typeOfProduct: TypeOfProductEnum;
+  typeOfProductName: TypeOfProductEnum;
 
   country: CountryEnum;
 
   guarantee: GuaranteeEnum;
 
-  state: StateEnum;
-
   price: number;
-
-  installationPrice: number;
 
   inStock: InStockEnum;
 
-  finishingTheSurface: string[];
+  fabricMaterialThickness: number; // Товщина полотна // для обох дверей
 
-  frameMaterial: string[];
+  fabricMaterialHeight: number; // Висота полотна
 
-  structuralFeatures: string[];
+  fabricMaterialWidth: ICalculatorChar[]; // Ширина полотна
 
-  openingType: string[];
+  doorIsolation: ICalculatorChar[]; // Шумоізоляція
 
-  installationType: string[];
+  doorFrameMaterial: ICalculatorChar[]; // Короб
 
-  openingMethod: string[];
+  doorSelectionBoard: ICalculatorChar[]; // Добірна дошка
 
-  description?: string;
+  doorWelt: ICalculatorChar[]; // Лиштва
 
-  home_page?: boolean;
+  doorHand: ICalculatorChar[]; // Ручка
+
+  doorMechanism: ICalculatorChar[]; // Механізм
+
+  doorLoops: ICalculatorChar[]; // Петлі
+
+  doorStopper: ICalculatorChar[]; // Стопор
+
+  doorSlidingSystem: ICalculatorChar[]; // Роздвижна система
+
+  description: string;
+
+  homePage: boolean;
 
   images: string[];
 }
