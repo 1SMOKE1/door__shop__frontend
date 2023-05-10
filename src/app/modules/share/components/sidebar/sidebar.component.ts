@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IProductProducer } from '../../interfaces/common/product-producer.interface';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Options, LabelType, ChangeContext } from '@angular-slider/ngx-slider';
-import { SidebarService } from '../../services/sidebar.service';
-import { HttpProductProducerService } from '../../services/http-product-producer.service';
-
+import { SidebarService } from '../../services/common/sidebar.service';
+import { HttpProductProducerService } from '../../services/common/http-product-producer.service';
+import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'dsf-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   interiorDoorProducers: IProductProducer[] = [];
   entranceDoorProducers: IProductProducer[] = [];
   furnitureProducers: IProductProducer[] = [];
   windowProducers: IProductProducer[] = [];
 
   model: string = '';
-  modelChanged: Subject<string> = new Subject<string>();
+
+  modelChangedSubscription: Subscription;
 
   value: number = 0;
   highValue: number = 20000;
@@ -50,16 +50,20 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductProducers();
-    this.modelChanged
-      .pipe(
-        debounceTime(1000), // wait 300ms after the last event before emitting last event
-        distinctUntilChanged() // only emit if value is different from previous value
-      )
-      .subscribe((model: string) => {
-        this.sidebarService.setSearchValue(model);
-        // this.search.emit(model);
-        this.sidebarService.doFiltration();
-      });
+    this.modelChangedSubscription =  this.sidebarService.modelChanged$
+    .pipe(
+      debounceTime(500), // wait 300ms after the last event before emitting last event
+      distinctUntilChanged() // only emit if value is different from previous value
+    )
+    .subscribe((model: string) => this.sidebarService.setSearchValue(model))
+  }
+
+  ngOnDestroy(): void {
+    this.modelChangedSubscription.unsubscribe();
+  }
+
+  public modelChanged(){
+    this.sidebarService.modelChanged.next(this.model);
   }
 
   public fillConditionArr(condition: IProductProducer) {

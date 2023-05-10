@@ -9,7 +9,7 @@
 
   <div class="carousel-basket-wrap" #carouselWrap>
     <div class="carousel-basket-line" #carouselLine>
-      <div #orderBasketRef class="carousel-basket-item">
+      <div class="carousel-basket-item">
         <div class="order-basket-body">
           <div class="delete-btn-wrap">
             <button class="font-p-sm delete-btn" (click)="clearCartLines()">Видалити все</button>
@@ -17,7 +17,7 @@
 
           <div class="cart" *ngFor="let cart of cartLineService.cartLines">
             <div class="cart-img-wrap">
-              <img class="cart-img" [src]="cart.product.images" alt="">
+              <img *ngIf="cart.product" class="cart-img" [src]="cart.product.images[0]" alt="">
             </div>
             <p class="cart-text">{{cart.product.name}}</p>
             <div class="cart-count-wrap">
@@ -73,13 +73,13 @@
 </div>
 
 <ng-template #emptyBasket>
-  <div class="order-basket">
+  <div class="order-basket-empty" style="width: 80vw;">
     <div class="order-basket-header">
       <h2 class="order-basket-title font-h2 c6">Кошик замовлень</h2>
       <button class="order-basket-close" mat-dialog-close><img src="assets/catalog/icons/close_icon.svg" alt=""></button>
     </div>
     <hr width="100%" size="0.5px" color="#999999">
-    <div class="empty-basket">
+    <div class="empty-basket" >
       <img class="empty-basket-img" src="assets/catalog/icons/empty_basket.svg" alt="">
       <h2 class="font-h2">Кошик пустий</h2>
       <p (click)="toCatalog()" class="font-p-big empty-basket-text c6">Але це можна виправити :-)</p>

@@ -1,0 +1,90 @@
+<h1 class="font-h1 products-title" align="center">Продукти</h1>
+<div class="btns-wrap">
+  <button class=" font-h2 products-create-btn" (click)="createInteriorDoorCard()">+ "Міжкімнатні двері"</button>
+  <button class=" font-h2 products-create-btn" (click)="createEntranceDoorCard()">+ "Вхідні двері"</button>
+  <button class=" font-h2 products-create-btn" (click)="createWindowCard()">+ "Вікно"</button>
+  <button class=" font-h2 products-create-btn" (click)="createFurnitureCard()">+ "Фурнітуру"</button>
+  <button class=" font-h2 products-create-btn" (click)="excel()" >Excel File</button>
+</div>
+<dsf-nav-logo></dsf-nav-logo>
+<main class="main">
+  <div class="container">
+    <section [ngSwitch]="true" class="catalog">
+      <h1 class="catalog-title font-h1-title">
+        {{'каталог'|uppercase}}
+      </h1>
+      <div class="catalog-wrap">
+        <div class="catalog-sidebar">
+          <dsf-sidebar></dsf-sidebar>
+        </div>
+        <div *ngSwitchCase="products.length !== 0 && !emptyProducts" class="catalog-cards-wrap">
+          <div *ngFor="let product of products | paginate: {itemsPerPage: 8, currentPage: page, totalItems: productsLength} " class="card">  
+            <img *ngIf="product.images" class="card-img" [src]="product.images[0]" alt="">
+            <div class="card-body">
+              <h3 class="card-title">{{product.name}}</h3>
+              <div class="btn-block">
+                <button class="card-btn" (click)="cardBigRedirect(product.id, product.typeOfProduct.name)">
+                  <mat-icon class="material-symbols-outlined">
+                    saved_search
+                  </mat-icon>
+                </button>
+                <button class="card-btn" (click)="updateProduct(product, product.typeOfProduct.name)">
+                  <mat-icon class="material-symbols-outlined">
+                    edit
+                  </mat-icon>
+                </button>
+                <button class="card-btn" (click)="deleteProduct(product.id, product.typeOfProduct.name)">
+                  <mat-icon class="material-symbols-outlined">
+                    delete
+                  </mat-icon>
+                </button>
+              </div>
+              <h3 class="card-price">{{product.price}} грн</h3>
+              </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="products.length === 0 && !emptyProducts" class="spinner-wrap">
+          <mat-progress-spinner color="accent" mode="determinate" [value]="spinnerValue"></mat-progress-spinner>
+        </div>
+        <div *ngSwitchCase="products.length === 0 && emptyProducts" class="spinner-wrap">
+          <h1>НЕМАЄ ТОВАРІВ ЗА ВАШИМ ЗАПИТОМ</h1>
+        </div>
+      </div>
+    </section>
+    <div class="paginator_wrap">
+      <pagination-controls (pageChange)="changePage(page = $event)" [responsive]="true"></pagination-controls>
+    </div>
+  </div>
+</main>
+<section class="on_main_page">
+  <h1 class="font-h1 products-title" align="center">На головній сторінці</h1>
+  <div class="catalog-cards-wrap">
+    <div *ngFor="let product of products" class="card">  
+      <img *ngIf="product.images" class="card-img" [src]="product.images[0]" alt="">
+      <div class="card-body">
+        <h3 class="card-title">{{product.name}}</h3>
+        <div class="btn-block">
+          <button class="card-btn" (click)="cardBigRedirect(product.id, product.typeOfProduct.name)">
+            <mat-icon class="material-symbols-outlined">
+              saved_search
+            </mat-icon>
+          </button>
+          <button class="card-btn" (click)="updateProduct(product, product.typeOfProduct.name)">
+            <mat-icon class="material-symbols-outlined">
+              edit
+            </mat-icon>
+          </button>
+          <button class="card-btn" (click)="deleteProduct(product.id, product.typeOfProduct.name)">
+            <mat-icon class="material-symbols-outlined">
+              delete
+            </mat-icon>
+          </button>
+        </div>
+        <h3 class="card-price">{{product.price}} грн</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

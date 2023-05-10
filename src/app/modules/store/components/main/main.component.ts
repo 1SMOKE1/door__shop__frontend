@@ -8,12 +8,11 @@ import {
 } from '@angular/core';
 import { ISecondNavLink } from '../../interfaces/common/second-nav-link.interface';
 import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
-import { Router } from '@angular/router';
-import { NavService } from 'src/app/modules/share/services/nav.service';
+import { NavService } from 'src/app/modules/share/services/common/nav.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from 'src/app/modules/share/services/validation.service';
+import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
 import { ScrollConditionEnum } from 'src/app/modules/share/enums/scroll-condition.enum';
-import { HttpProductService } from 'src/app/modules/share/services/http-product.service';
+import { HttpProductService } from 'src/app/modules/share/services/common/http-product.service';
 import { map } from 'rxjs';
 import { MainService } from '../../services/common/main.service';
 import { IZamirForm } from '../../interfaces/common/zamir-form.interface';
@@ -22,6 +21,7 @@ import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interfa
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
 import { CardService } from 'src/app/modules/catalog/services/card.service';
+import { HandleFormsErrorService } from 'src/app/modules/share/services/errors/handle-forms-error.service';
 
 @Component({
   selector: 'dsf-main',
@@ -42,13 +42,13 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('freeZamir') freeZamir: ElementRef;
   @ViewChild('freeConsultation') freeConsultation: ElementRef;
   constructor(
-    private readonly router: Router,
     private readonly navService: NavService,
     private readonly validationService: ValidationService,
     private readonly httpProductService: HttpProductService,
     private readonly mainService: MainService,
     private readonly snackbar: MatSnackBar,
-    private readonly cardService: CardService
+    private readonly cardService: CardService,
+    private readonly handleFormsErrorService: HandleFormsErrorService
   ) {}
 
   consultationForm: FormGroup<IConsultationForm> = new FormGroup({
@@ -110,13 +110,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
           duration: 10000,
         });
       },
-      error: (err: Error) => {
-        this.snackbar.open(err.message, 'X', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          duration: 10000,
-        });
-      },
+      error: (err: Error) => 
+        this.handleFormsErrorService.snackbarShowError(err)
     });
   }
 
@@ -137,15 +132,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         )
       },
       error: (err: Error) => {
-        this.snackbar.open(
-          err.message,
-          'X',
-          {
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            duration: 10000,
-          }
-        )
+        this.handleFormsErrorService.snackbarShowError(err)
       }
     });
   }

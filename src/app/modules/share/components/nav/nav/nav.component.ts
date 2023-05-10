@@ -3,7 +3,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NavDialogComponent } from '../nav-dialog/nav-dialog.component';
 import { Observable, Subscription, map } from 'rxjs';
-import { NavService } from '../../../services/nav.service';
+import { NavService } from '../../../services/common/nav.service';
 import { ScrollConditionEnum } from '../../../enums/scroll-condition.enum';
 
 
@@ -47,11 +47,11 @@ export class NavComponent implements OnInit, OnDestroy{
   }
 
   public scrollToConsultationForm(): void{
-    this.navService.freeFormSream(`${ScrollConditionEnum.CONSULTATION}`);
+    this.navService.freeFormStream(`${ScrollConditionEnum.CONSULTATION}`);
   }
 
   public scrollToZamirForm(): void{
-    this.navService.freeFormSream(`${ScrollConditionEnum.ZAMIR}`);
+    this.navService.freeFormStream(`${ScrollConditionEnum.ZAMIR}`);
   }
 
 

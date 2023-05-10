@@ -2,7 +2,6 @@
 
   <form class="order-form" [formGroup]="orderForm" >
     <div class="order-form-input">
-      <p>Ім'я</p>
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{'Ім\'я' | titlecase}}</mat-label>
         <input class="form-field-input" type="text" formControlName="name" matInput placeholder="Введіть своє ім'я">
@@ -16,29 +15,26 @@
    
 
     <div class="order-form-input">
-      <p>Телефон</p>
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{'Телефон' | titlecase}}</mat-label>
         <input class="form-field-input" type="tel" formControlName="phone" matInput placeholder="Введіть свій телефон">
         <mat-error *ngIf="orderForm.get('phone')?.invalid || orderForm.get('phone')?.touched && orderForm.get('phone')?.dirty">
-          Не коррекно введений номер
+          Не вірно введений номер
         </mat-error>
       </mat-form-field>
     </div>
     
     <div class="order-form-input">
-      <p>Email</p>
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{'email' | titlecase}}</mat-label>
         <input class="form-field-input" type="email" formControlName="email" matInput placeholder="Введіть свій email">
         <mat-error *ngIf="orderForm.get('email')?.invalid || (orderForm.get('email')?.touched && orderForm.get('email')?.dirty)">
-          Не коррекно ведений email
+          Не вірно ведений email
         </mat-error>
       </mat-form-field>
     </div>
     
     <div class="order-form-input">
-      <p>Адресса доставки</p>
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{'Адресса доставки' | titlecase}}</mat-label>
         <input class="form-field-input" formControlName="address" matInput placeholder="Введіть свою адрессу">
@@ -47,14 +43,14 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <mat-radio-group formControlName="kindOfPayvment" class="radio-wrap" aria-label="Виберіть тип продукту" color="primary">
+    <mat-radio-group formControlName="kindOfPayment" class="radio-wrap" aria-label="Виберіть тип продукту" color="primary">
       <mat-radio-button class="radio-item" checked="true" value="Готівка">Готівка</mat-radio-button>
       <mat-radio-button class="radio-item" value="Термінал">Термінал</mat-radio-button>
     </mat-radio-group>
     
     <div class="button-wrap">
       <button (click)="goBack($event)" type="button"  class="order-form-btn font-p-sm yellow c1">Повернутись</button>
-      <!-- <button [disabled]="orderForm.invalid" type="button" class="order-form-btn font-p-sm c1 bg6" (click)="submit($event)">Відправити</button> -->
+      <button [disabled]="orderForm.invalid" type="button" class="order-form-btn font-p-sm c1 bg6" (click)="submit($event)">Відправити</button>
     </div>
   </form>
   

@@ -1,0 +1,30 @@
+<main class="login_main">
+  <div class="container">
+    <div class="login_content">
+      <form class="form" [formGroup]="adminForm">
+        <h1 class="form_title font-h1 font-bold">Вхід до адмінки</h1>
+        <mat-form-field class="form_email" appearance="outline" color="accent">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email" >
+          <mat-error *ngIf="adminForm.get('email')?.errors && !adminForm.get('email')?.hasError('required')">
+            Будь ласка впишіть коректний <strong>email</strong> адрес
+          </mat-error>
+          <mat-error *ngIf="adminForm.get('email')?.hasError('required')">
+            Email є <strong>обов'язковим</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form_password" appearance="outline" color="accent">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" >
+          <mat-error *ngIf="adminForm.get('password')?.errors && !adminForm.get('password')?.hasError('required')">
+            Будь ласка впишіть коректний <strong>password</strong> адрес
+          </mat-error>
+          <mat-error *ngIf="adminForm.get('password')?.hasError('required')">
+            Password є <strong>обов'язковим</strong>
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="signIn()" [disabled]="adminForm.invalid">Увійти</button>
+      </form>
+    </div>
+  </div>
+</main>

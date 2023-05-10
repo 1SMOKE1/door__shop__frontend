@@ -1,7 +1,6 @@
 import { CountryEnum } from "../../enums/country.enum";
 import { GuaranteeEnum } from "../../enums/guarantee.enum";
 import { InStockEnum } from "../../enums/in-stock.enum";
-import { StateEnum } from "../../enums/state.enum";
 import { TypeOfProductEnum } from "../../enums/type-of-product.enum";
 
 export interface IWindow{
@@ -18,23 +17,37 @@ export interface IWindow{
 
   guarantee: GuaranteeEnum;
 
-  state: StateEnum;
-
   price: number;
-
-  installationPrice: number;
 
   inStock: InStockEnum;
 
-  profile: string[];
+  mosquitNet?: string[] | null, // Москітна сітка
 
-  construction: string[];
+  windowSill?: string[] | null, // Підвіконня
 
-  glassUnit: string[];
+  windowEbb?: string[] | null, // Віконний відлив
 
-  lamination: string[];
+  windowHand?: string[] | null, // Віконна ручка
+  
+  childLock?: string[] | null, // Дитячий замок
 
-  glasses: string[];
+  housewifeStub?: string[] | null, // Заглушка домогосподарки
+
+  glassPocketAdd?: string[] | null, // Додаткові стеклопакети
+
+  lamination?: string[] | null, // Ламінація
+
+  profile?: string[] | null, // Профіль
+
+  windowWidth?: number, // Ширина вікна
+
+  windowHeight?: number, // Висота вікна
+
+  camerasCount?: string[] | null, // Кількість камер
+
+  features?: string[] | null, // Особливості
+  
+  sectionsCount?: string[] | null, // Кількість секцій
 
   description?: string;
 

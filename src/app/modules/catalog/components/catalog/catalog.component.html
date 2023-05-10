@@ -1,29 +1,30 @@
 <main class="main">
   <div class="container">
-    <section class="catalog">
+    <section [ngSwitch]="true" class="catalog">
       <h1 class="catalog-title font-h1-title">
         {{'каталог'|uppercase}}
       </h1>
       <div class="catalog-wrap">
         <div class="catalog-sidebar">
-          <!-- <dsf-sidebar (filteredProducts)="getFilteredProducts()" (search)="getSearch($event)" class="catalog-sidebar"></dsf-sidebar> -->
           <dsf-sidebar></dsf-sidebar>
         </div>
-        <div class="catalog-cards-wrap">
+        <div *ngSwitchCase="products.length !== 0 && !emptyProducts" class="catalog-cards-wrap">
           <div *ngFor="let product of products | paginate: {itemsPerPage: 8, currentPage: page, totalItems: productsLength} " class="card">  
-            <img class="card-img" [src]="product.images" alt="">
+            <img *ngIf="product.images" class="card-img" [src]="product.images[0]" alt="">
             <div class="card-body">
               <h3 class="card-title">{{product.name}}</h3>
               <button class="card-btn" (click)="cardBigRedirect(product.id, product.typeOfProduct.name)">Купити</button>
               <h3 class="card-price">{{product.price}} грн</h3>
             </div>
           </div>
-
         </div>
-        
+        <div *ngSwitchCase="products.length === 0 && !emptyProducts" class="spinner-wrap">
+          <mat-progress-spinner color="accent" mode="determinate" [value]="spinnerValue"></mat-progress-spinner>
+        </div>
+        <div *ngSwitchCase="products.length === 0 && emptyProducts" class="spinner-wrap">
+          <h1>НЕМАЄ ТОВАРІВ ЗА ВАШИМ ЗАПИТОМ</h1>
+        </div>
       </div>
-
-
     </section>
     <div class="paginator_wrap">
       <pagination-controls (pageChange)="changePage(page = $event)" [responsive]="true"></pagination-controls>
