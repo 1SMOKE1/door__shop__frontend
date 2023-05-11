@@ -124,9 +124,11 @@ export class InteriorDoorComponent implements OnInit {
     this.initDoorSlidingSystemItems();
     this.initFurnitureItems();
 
+    this.initSlashStylingOfFormFields()
+
     if (this.isEditMode() && this.data != null)
       this.interiorDoorForm.patchValue(this.data);
-      this.initSlashStylingOfFormFields()
+      
       
   }
 
@@ -213,7 +215,6 @@ export class InteriorDoorComponent implements OnInit {
       .updateInteriorDoor(this.interiorDoorForm.value, this.imagesFileList)
       .subscribe({
         next: (data: IInteriorDoor) => {
-          console.log(this.data, 'after sending data');
           this.data = data;
           this.interiorDoorForm.patchValue(data);
           this.initSlashStylingOfFormFields();

@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.development';
 import { IUpdateInteriorDoor } from '../../interfaces/update-interior-door.interface';
 import { IInteriorDoor } from 'src/app/modules/share/interfaces/common/interior-door.interface';
 import { UpdateInteriorDoorModel } from '../../models/update-interiori-door.model';
-import { ICalculatorChar } from '../../interfaces/calculator-char.interface';
+
 
 
 @Injectable({
@@ -40,7 +40,7 @@ export class InteriorDoorService {
 
     const formData = this.createFormData(body, images);
 
-    return this.http.put<IInteriorDoorResponse>(url, formData)
+    return this.http.patch<IInteriorDoorResponse>(url, formData)
     .pipe(
       map((data: IInteriorDoorResponse): IInteriorDoor => {
         return this.convertingInteriorDoor(data)
@@ -53,8 +53,6 @@ export class InteriorDoorService {
     images: FileList | null
   ): FormData {
     const formData = new FormData();
-
-    console.log(product, 'before sending');
 
     formData.append('name', product.name);
     formData.append('country', product.country);
@@ -98,11 +96,6 @@ export class InteriorDoorService {
       for (const element of images) {
         formData.append('images', element);
       }
-
-
-    for (const value of formData.values()) {
-      console.log(value, 'before sending to server formData value');
-    }
 
     return formData;
   }
