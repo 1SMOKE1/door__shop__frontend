@@ -112,14 +112,14 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" color="accent">
-      <mat-label>Товщина полотна</mat-label>
+      <mat-label>Товщина короба</mat-label>
       <input type="number" matInput formControlName="frameMaterialThickness" />
       <mat-error
         *ngIf="
           entranceDoorForm.get('frameMaterialThickness')?.hasError('required')
         "
       >
-        Товщина полотна є <strong>обов'язковою</strong> характеристикою
+        Товщина короба є <strong>обов'язковою</strong> характеристикою
       </mat-error>
       <mat-error
         *ngIf="
@@ -130,28 +130,29 @@
         Число має бути більшим за <strong>0</strong> (позитивним)
       </mat-error>
     </mat-form-field>
-    <!-- <div>
+
+    <div>
       <div class="product-constant__wrap">
         <mat-form-field
           appearance="outline"
           class="form-field"
           style="width: 80%"
         >
-          <mat-label>Ширина полотна</mat-label>
+          <mat-label>Утеплення</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="fabricMaterialWidth"
+            formControlName="doorInsulation"
             multiple
           >
             <mat-option
-              *ngFor="let item of fabricMaterialWidthItems"
+              *ngFor="let item of doorInsulationItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
         <button
-          (click)="addFabricMaterialWidth()"
+          (click)="addDoorInsulation()"
           class="btn-circle"
           mat-icon-button
         >
@@ -159,7 +160,7 @@
         </button>
       </div>
 
-      <p>{{ slashStylingOfFormField("fabricMaterialWidth") }}</p>
+      <p>{{ slashStylingOfFormField("doorInsulation") }}</p>
     </div>
     <div>
       <div class="product-constant__wrap">
@@ -168,25 +169,30 @@
           class="form-field"
           style="width: 80%"
         >
-          <mat-label>Шумоізоляція</mat-label>
+          <mat-label>Оздоблення</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="doorIsolation"
+            formControlName="covering"
             multiple
           >
             <mat-option
-              *ngFor="let item of doorIsolationItems"
+              *ngFor="let item of doorCoveringItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
-        <button (click)="addDoorIsolation()" class="btn-circle" mat-icon-button>
+        <button (click)="addDoorCovering()" class="btn-circle" mat-icon-button>
           <mat-icon>add</mat-icon>
         </button>
       </div>
 
-      <p>{{ slashStylingOfFormField("doorIsolation") }}</p>
+      <p>{{ slashStylingOfFormField("covering") }}</p>
+    </div>
+
+    <div class="product-constant__wrap">
+      <input type="checkbox" formControlName="doorPeephole" />
+      <label>Глазок</label>
     </div>
     <div>
       <div class="product-constant__wrap">
@@ -195,28 +201,28 @@
           class="form-field"
           style="width: 80%"
         >
-          <mat-label>Короб</mat-label>
+          <mat-label>Тип відкривання</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="doorFrameMaterial"
+            formControlName="openingType"
             multiple
           >
             <mat-option
-              *ngFor="let item of doorFrameMaterialItems"
+              *ngFor="let item of doorOpeningTypeItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
         <button
-          (click)="addDoorFrameMaterial()"
+          (click)="addOpeningType()"
           class="btn-circle"
           mat-icon-button
         >
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <p>{{ slashStylingOfFormField("doorFrameMaterial") }}</p>
+      <p>{{ slashStylingOfFormField("openingType") }}</p>
     </div>
     <div>
       <div class="product-constant__wrap">
@@ -225,56 +231,76 @@
           class="form-field"
           style="width: 80%"
         >
-          <mat-label>Добірна дошка</mat-label>
+          <mat-label>Розмір</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="doorSelectionBoard"
+            formControlName="size"
             multiple
           >
             <mat-option
-              *ngFor="let item of doorSelectionBoardItems"
+              *ngFor="let item of doorSizeItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
         <button
-          (click)="addDoorSelectionBoard()"
+          (click)="addDoorSize()"
           class="btn-circle"
           mat-icon-button
         >
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <p>{{ slashStylingOfFormField("doorSelectionBoard") }}</p>
+      <p>{{ slashStylingOfFormField("size") }}</p>
     </div>
     <div>
       <div class="product-constant__wrap">
         <mat-form-field
           appearance="outline"
           class="form-field"
-          style="width: 80%"
+          style="width: 100%"
         >
-          <mat-label>Лиштва</mat-label>
+          <mat-label>Нижній замок</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="doorWelt"
+            formControlName="lowerLock"
             multiple
           >
             <mat-option
-              *ngFor="let item of doorWeltItems"
+              *ngFor="let item of doorLowerLockItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
-        <button (click)="addDoorWelt()" class="btn-circle" mat-icon-button>
-          <mat-icon>add</mat-icon>
-        </button>
       </div>
-      <p>{{ slashStylingOfFormField("doorWelt") }}</p>
+      <p>{{ slashStylingOfFormField("lowerLock") }}</p>
     </div>
 
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field
+          appearance="outline"
+          class="form-field"
+          style="width: 100%"
+        >
+          <mat-label>Верхній замок</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="upperLock"
+            multiple
+          >
+            <mat-option
+              *ngFor="let item of doorUpperLockItems"
+              [value]="item.name"
+              >{{ item.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <p>{{ slashStylingOfFormField("upperLock") }}</p>
+    </div>
     <div>
       <div class="product-constant__wrap">
         <mat-form-field
@@ -306,22 +332,29 @@
           class="form-field"
           style="width: 100%"
         >
-          <mat-label>Дверний механізм</mat-label>
+          <mat-label>Вага</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="doorMechanism"
+            formControlName="weight"
             multiple
           >
             <mat-option
-              *ngFor="let item of doorMechanismItems"
+              *ngFor="let item of doorWeightItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
+        <button (click)="addDoorWeight()" class="btn-circle" mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
-      <p>{{ slashStylingOfFormField("doorMechanism") }}</p>
+      <p>{{ slashStylingOfFormField("weight") }}</p>
     </div>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Товщина металу</mat-label>
+      <input type="number" matInput formControlName="metalThickness" />
+    </mat-form-field>
     <div>
       <div class="product-constant__wrap">
         <mat-form-field
@@ -329,44 +362,28 @@
           class="form-field"
           style="width: 100%"
         >
-          <mat-label>Дверні петлі</mat-label>
+          <mat-label>Конструкція короба</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="doorLoops"
+            formControlName="frameMaterialConstuction"
             multiple
           >
             <mat-option
-              *ngFor="let item of doorLoopsItems"
+              *ngFor="let item of doorFrameMaterialConstructionItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
-      </div>
-      <p>{{ slashStylingOfFormField("doorLoops") }}</p>
-    </div>
-    <div>
-      <div class="product-constant__wrap">
-        <mat-form-field
-          appearance="outline"
-          class="form-field"
-          style="width: 100%"
+        <button
+          (click)="addDoorFrameMaterialConstruction()"
+          class="btn-circle"
+          mat-icon-button
         >
-          <mat-label>Дверний стопор</mat-label>
-          <mat-select
-            class="form-field-input"
-            formControlName="doorStopper"
-            multiple
-          >
-            <mat-option
-              *ngFor="let item of doorStopperItems"
-              [value]="item.name"
-              >{{ item.name }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
-      <p>{{ slashStylingOfFormField("doorStopper") }}</p>
+      <p>{{ slashStylingOfFormField("frameMaterialConstuction") }}</p>
     </div>
 
     <div>
@@ -376,28 +393,29 @@
           class="form-field"
           style="width: 80%"
         >
-          <mat-label>Роздвижна система</mat-label>
+          <mat-label>Контур ущільнення</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="doorSlidingSystem"
+            formControlName="sealerCircuit"
             multiple
           >
             <mat-option
-              *ngFor="let item of doorSlidingSystemItems"
+              *ngFor="let item of doorSealerCircuitItems"
               [value]="item.name"
               >{{ item.name }}</mat-option
             >
           </mat-select>
         </mat-form-field>
         <button
-          (click)="addDoorSlidingSystem()"
+          (click)="addDoorSealerCircuit()"
           class="btn-circle"
           mat-icon-button
         >
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <p>{{ slashStylingOfFormField("doorSlidingSystem") }}</p>
+      
+      <p>{{ slashStylingOfFormField("sealerCircuit") }}</p>
     </div>
     <div class="product-constant__wrap">
       <input type="checkbox" formControlName="homePage" />
@@ -427,6 +445,6 @@
       <button mat-raised-button color="accent" (click)="submit()">
         {{ isEditMode() ? "Редагувати" : "Створити" }}
       </button>
-    </div> -->
+    </div>
   </form>
 </mat-dialog-content>

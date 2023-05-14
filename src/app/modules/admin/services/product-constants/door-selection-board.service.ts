@@ -9,32 +9,32 @@ import { ICalculatorChar } from '../../interfaces/calculator-char.interface';
 })
 export class DoorSelectionBoardService {
 
-  baseUrl: string = environment.baseUrl;
+  baseUrl: string = `${environment.baseUrl}/door-selection-board`;
 
   constructor(
     private readonly http: HttpClient
   ) { }
 
   public getAllDoorSelectionBoardItems(): Observable<ICalculatorChar[]>{
-    const url: string = `${this.baseUrl}/door-selection-board`;
+    const url: string = `${this.baseUrl}`;
 
     return this.http.get<ICalculatorChar[]>(url);
   }
 
   public createOneDoorSelectionBoardItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/door-selection-board`;
+    const url: string = `${this.baseUrl}`;
 
     return this.http.post<ICalculatorChar>(url, body);
   }
 
   public updateOneDoorSelectionBoardItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/door-selection-board/${body.id}`;
+    const url: string = `${this.baseUrl}/${body.id}`;
 
     return this.http.put<ICalculatorChar>(url, body);
   }
 
   public deleteOneDoorSelectionBoardItem(id: number): Observable<string>{
-    const url: string = `${this.baseUrl}/door-selection-board/${id}`;
+    const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);
   }

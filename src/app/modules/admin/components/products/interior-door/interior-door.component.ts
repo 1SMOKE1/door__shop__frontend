@@ -124,10 +124,12 @@ export class InteriorDoorComponent implements OnInit {
     this.initDoorSlidingSystemItems();
     this.initFurnitureItems();
 
-    this.initSlashStylingOfFormFields()
+    
 
-    if (this.isEditMode() && this.data != null)
+    if (this.isEditMode() && this.data != null){
       this.interiorDoorForm.patchValue(this.data);
+      this.initSlashStylingOfFormFields()
+    }
       
       
   }
@@ -200,13 +202,7 @@ export class InteriorDoorComponent implements OnInit {
             this.snackbarConfigService.getSnackBarConfig()
           );
         },
-        error: (err: Error) => {
-          this.snackbar.open(
-            `${err.message}`,
-            'X',
-            this.snackbarConfigService.getSnackBarConfig()
-          );
-        },
+        error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
       });
   }
 
@@ -224,13 +220,7 @@ export class InteriorDoorComponent implements OnInit {
             this.snackbarConfigService.getSnackBarConfig()
           );
         },
-        error: (err: Error) => {
-          this.snackbar.open(
-            `${err.message}`,
-            'X',
-            this.snackbarConfigService.getSnackBarConfig()
-          );
-        },
+        error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
       });
   }
 
@@ -259,37 +249,21 @@ export class InteriorDoorComponent implements OnInit {
     this.fabricMaterialWidthService.getAllFabricMaterialWidthItems().subscribe({
       next: (items: ICalculatorChar[]) =>
         (this.fabricMaterialWidthItems = items),
-      error: (err: Error) => {
-        this.snackbar.open(
-          err.message,
-          'X',
-          this.snackbarConfigService.getSnackBarConfig()
-        );
-      },
+        error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
     });
   }
 
   private initDoorIsolationItems() {
     this.doorIsolationService.getAllDoorIsolationItems().subscribe({
       next: (items: ICalculatorChar[]) => (this.doorIsolationItems = items),
-      error: (err: Error) =>
-        this.snackbar.open(
-          err.message,
-          'X',
-          this.snackbarConfigService.getSnackBarConfig()
-        ),
+      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
     });
   }
 
   private initDoorFrameMaterialItems() {
     this.doorFrameMaterialService.getAllDoorFrameMaterialItems().subscribe({
       next: (items: ICalculatorChar[]) => (this.doorFrameMaterialItems = items),
-      error: (err: Error) =>
-        this.snackbar.open(
-          err.message,
-          'X',
-          this.snackbarConfigService.getSnackBarConfig()
-        ),
+      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
     });
   }
 
@@ -298,53 +272,33 @@ export class InteriorDoorComponent implements OnInit {
       next: (items: ICalculatorChar[]) => {
         this.doorSelectionBoardItems = items;
       },
-      error: (err: Error) =>
-        this.snackbar.open(
-          err.message,
-          'X',
-          this.snackbarConfigService.getSnackBarConfig()
-        ),
+      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
     });
   }
 
   private initDoorWeltItems() {
     this.doorWeltService.getAllDoorWeltItems().subscribe({
       next: (items: ICalculatorChar[]) => (this.doorWeltItems = items),
-      error: (err: Error) =>
-        this.snackbar.open(
-          err.message,
-          'X',
-          this.snackbarConfigService.getSnackBarConfig()
-        ),
+      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
     });
   }
 
   private initDoorSlidingSystemItems() {
     this.doorSlidingSystemService.getDoorSlidingSystemItems().subscribe({
       next: (items: ICalculatorChar[]) => (this.doorSlidingSystemItems = items),
-      error: (err: Error) =>
-        this.snackbar.open(
-          err.message,
-          'X',
-          this.snackbarConfigService.getSnackBarConfig()
-        ),
+      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
     });
   }
 
   private initFurnitureItems() {
     this.funritureService.getAllFurniture().subscribe({
-      next: (data: IFurniture[]) => {
-        this.doorHandItems = this.convertToCalculatorChar(data);
-        this.doorMechanismItems = this.convertToCalculatorChar(data);
-        this.doorLoopsItems = this.convertToCalculatorChar(data);
-        this.doorStopperItems = this.convertToCalculatorChar(data);
+      next: (items: IFurniture[]) => {
+        this.doorHandItems = this.convertToCalculatorChar(items);
+        this.doorMechanismItems = this.convertToCalculatorChar(items);
+        this.doorLoopsItems = this.convertToCalculatorChar(items);
+        this.doorStopperItems = this.convertToCalculatorChar(items);
       },
-      error: (err: Error) =>
-        this.snackbar.open(
-          err.message,
-          'X',
-          this.snackbarConfigService.getSnackBarConfig()
-        ),
+      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
     });
   }
 
@@ -367,4 +321,6 @@ export class InteriorDoorComponent implements OnInit {
     this.interiorDoorForm.get('doorStopper')?.setValue(this.data?.doorStopper.map((el) => el.name))
     this.interiorDoorForm.get('doorSlidingSystem')?.setValue(this.data?.doorSlidingSystem.map((el) => el.name))
   }
+
+
 }

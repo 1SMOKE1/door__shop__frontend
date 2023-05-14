@@ -1,0 +1,28 @@
+@import 'colors';
+
+.content{
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10%;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+mat-dialog-content{
+  background-color: $c9;
+}
+
+.list-item{
+  display: flex;
+  flex-direction: column;
+  &-wrap{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+p{
+  margin: 0;
+}

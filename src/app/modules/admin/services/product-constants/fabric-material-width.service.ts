@@ -9,32 +9,32 @@ import { Observable } from 'rxjs';
 })
 export class FabricMaterialWidthService {
 
-  baseUrl: string = environment.baseUrl;
+  baseUrl: string = `${environment.baseUrl}/fabric-material-width`;
 
   constructor(
     private readonly http: HttpClient
   ) { }
 
   public getAllFabricMaterialWidthItems(): Observable<ICalculatorChar[]>{
-    const url: string = `${this.baseUrl}/fabric-material-width`;
+    const url: string = `${this.baseUrl}`;
 
     return this.http.get<ICalculatorChar[]>(url);
   }
 
   public createOneFabricMaterialWidthItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/fabric-material-width`;
+    const url: string = `${this.baseUrl}`;
 
     return this.http.post<ICalculatorChar>(url, body);
   }
 
   public updateOneFabricMaterialWidthItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/fabric-material-width/${body.id}`;
+    const url: string = `${this.baseUrl}/${body.id}`;
 
     return this.http.put<ICalculatorChar>(url, body);
   }
 
   public deleteOneFabricMaterialWidthItem(id: number): Observable<string>{
-    const url: string = `${this.baseUrl}/fabric-material-width/${id}`;
+    const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);
   }

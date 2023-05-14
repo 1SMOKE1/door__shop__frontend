@@ -33,6 +33,13 @@ import { DoorFrameMaterialComponent } from './components/product-constants/door-
 import { DoorSelectionBoardComponent } from './components/product-constants/door-selection-board/door-selection-board.component';
 import { DoorWeltComponent } from './components/product-constants/door-welt/door-welt.component';
 import { DoorSlidingSystemComponent } from './components/product-constants/door-sliding-system/door-sliding-system.component';
+import { DoorInsulationComponent } from './components/product-constants/door-insulation/door-insulation.component';
+import { DoorCoveringComponent } from './components/product-constants/door-covering/door-covering.component';
+import { OpeningTypeComponent } from './components/product-constants/opening-type/opening-type.component';
+import { SizeComponent } from './components/product-constants/size/size.component';
+import { WeightComponent } from './components/product-constants/weight/weight.component';
+import { FrameMaterialConstractionComponent } from './components/product-constants/frame-material-constraction/frame-material-constraction.component';
+import { SealerCircuitComponent } from './components/product-constants/sealer-circuit/sealer-circuit.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +59,13 @@ import { DoorSlidingSystemComponent } from './components/product-constants/door-
     DoorSelectionBoardComponent,
     DoorWeltComponent,
     DoorSlidingSystemComponent,
+    DoorInsulationComponent,
+    DoorCoveringComponent,
+    OpeningTypeComponent,
+    SizeComponent,
+    WeightComponent,
+    FrameMaterialConstractionComponent,
+    SealerCircuitComponent,
   ],
   imports: [
     CommonModule,
