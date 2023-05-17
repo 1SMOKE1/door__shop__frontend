@@ -16,15 +16,15 @@ export class DoorFrameMaterialComponent implements OnInit{
   doorFrameMaterialItems: ICalculatorChar[] = [];
 
   doorFrameMaterialForm: FormGroup = new FormGroup({
-    'name': new FormControl('', [
+    name: new FormControl('', [
       Validators.required,
       Validators.minLength(3)
     ]),
-    'price': new FormControl(0, [
+    price: new FormControl(0, [
       Validators.required,
       Validators.pattern(this.validationService.positiveNumberPattern())
     ]),
-    'id': new FormControl(null)
+    id: new FormControl(null)
   });
 
   constructor(
@@ -86,11 +86,11 @@ export class DoorFrameMaterialComponent implements OnInit{
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         this.doorFrameMaterialItems = this.doorFrameMaterialItems
-        .map((el) => (
+        .map((el) => 
           el.id === id 
           ? {...el, name, price}
           : el
-        ))
+        )
       },
       error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });

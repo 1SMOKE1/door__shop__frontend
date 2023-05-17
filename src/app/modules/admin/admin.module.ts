@@ -42,6 +42,14 @@ import { FrameMaterialConstractionComponent } from './components/product-constan
 import { SealerCircuitComponent } from './components/product-constants/sealer-circuit/sealer-circuit.component';
 import { ProductProducersComponent } from './components/products/product-producers/product-producers.component';
 import { MosquitoNetComponent } from './components/product-constants/mosquito-net/mosquito-net.component';
+import { WindowSillComponent } from './components/product-constants/window-sill/window-sill.component';
+import { WindowEbbComponent } from './components/product-constants/window-ebb/window-ebb.component';
+import { WindowHandComponent } from './components/product-constants/window-hand/window-hand.component';
+import { ChildLockComponent } from './components/product-constants/child-lock/child-lock.component';
+import { HousewifeStubComponent } from './components/product-constants/housewife-stub/housewife-stub.component';
+import { GlassPocketAddComponent } from './components/product-constants/glass-pocket-add/glass-pocket-add.component';
+import { LaminationComponent } from './components/product-constants/lamination/lamination.component';
+import { ProfileComponent } from './components/product-constants/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +78,14 @@ import { MosquitoNetComponent } from './components/product-constants/mosquito-ne
     SealerCircuitComponent,
     ProductProducersComponent,
     MosquitoNetComponent,
+    WindowSillComponent,
+    WindowEbbComponent,
+    WindowHandComponent,
+    ChildLockComponent,
+    HousewifeStubComponent,
+    GlassPocketAddComponent,
+    LaminationComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

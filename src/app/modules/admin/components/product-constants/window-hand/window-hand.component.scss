@@ -1,6 +1,6 @@
-@import 'colors';
+@import "colors";
 
-.content{
+.content {
   display: grid;
   grid-auto-flow: column;
   gap: 10%;
@@ -8,14 +8,14 @@
   margin-bottom: 20px;
 }
 
-mat-dialog-content{
+mat-dialog-content {
   background-color: $c9;
 }
 
-.list-item{
+.list-item {
   display: flex;
   flex-direction: column;
-  &-wrap{
+  &-wrap {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -23,6 +23,6 @@ mat-dialog-content{
   }
 }
 
-p{
+p {
   margin: 0;
 }
