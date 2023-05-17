@@ -1,14 +1,14 @@
-import { ICalculatorChar } from "../../admin/interfaces/calculator-char.interface";
-import { CountryEnum } from "../enums/country.enum";
-import { GuaranteeEnum } from "../enums/guarantee.enum";
-import { InStockEnum } from "../enums/in-stock.enum";
-import { IProductProducer } from "../interfaces/common/product-producer.interface";
-import { IProduct } from "../interfaces/common/product.interface";
-import { ITypeOfProductResponse } from "../interfaces/response/type-of-product.interface";
+import { ICalculatorChar } from '../../admin/interfaces/calculator-char.interface';
+import { ConvertingProductClass } from '../../admin/utils/converting-product.class';
+import { CountryEnum } from '../enums/country.enum';
+import { GuaranteeEnum } from '../enums/guarantee.enum';
+import { InStockEnum } from '../enums/in-stock.enum';
+import { IProductProducer } from '../interfaces/common/product-producer.interface';
+import { IProduct } from '../interfaces/common/product.interface';
+import { ITypeOfProductResponse } from '../interfaces/response/type-of-product.interface';
 
-export class ProductModel implements IProduct{
-
-  private choose: string = '--- Оберіть ---';
+export class ProductModel extends ConvertingProductClass implements IProduct {
+  // private readonly choose: string = '--- Оберіть ---';
 
   constructor(
     public id: number,
@@ -26,110 +26,99 @@ export class ProductModel implements IProduct{
     public doorIsolation: ICalculatorChar[], // Шумоізоляція
     public doorFrameMaterial: ICalculatorChar[], // Короб
     public doorSelectionBoard: ICalculatorChar[], // Добірна дошка
-    public doorWelt:  ICalculatorChar[], // Лиштва
+    public doorWelt: ICalculatorChar[], // Лиштва
     public doorHand: ICalculatorChar[], // Ручка
     public doorMechanism: ICalculatorChar[], // Механізм
     public doorLoops: ICalculatorChar[], // Петлі
-    public doorStopper:  ICalculatorChar[], // Стопор
+    public doorStopper: ICalculatorChar[], // Стопор
     public doorSlidingSystem: ICalculatorChar[], // Роздвижна система
     // Вхідні
-    public frameMaterialThickness: string[], // Товщина короба
-    public doorInsulation: string[], // Утеплення
-    public covering: string[], // Оздоблення
+    public frameMaterialThickness: number, // Товщина короба
+    public doorInsulation: ICalculatorChar[], // Утеплення
+    public covering: ICalculatorChar[], // Оздоблення
     public doorPeephole: boolean, // Глазок
-    public openingType: string[], // Тип відкривання
-    public size: string[], // Розмір
-    public lowerLock: string[], // Нижній замок
-    public upperLock: string[], // Верхній замок
-    public weight: string[], // Вага
+    public openingType: ICalculatorChar[], // Тип відкривання
+    public size: ICalculatorChar[], // Розмір
+    public lowerLock: ICalculatorChar[], // Нижній замок
+    public upperLock: ICalculatorChar[], // Верхній замок
+    public weight: ICalculatorChar[], // Вага
     public metalThickness: number, // Товщина металу
-    public frameMaterialConstruction: string[], // Конструкція короба
-    public sealerCircuit: string[], // Контур Ущільнення
+    public frameMaterialConstruction: ICalculatorChar[], // Конструкція короба
+    public sealerCircuit: ICalculatorChar[], // Контур Ущільнення
     // вікна
-    public mosquitNet: string[], // Москітна сітка
-    public windowSill: string[], // Підвіконня
-    public windowEbb: string[], // Віконний відлив
-    public windowHand: string[], // Віконна ручка
-    public childLock: string[], // Дитячий замок
-    public housewifeStub: string[], // Заглушка домогосподарки
-    public glassPocketAdd: string[], // Додаткові стеклопакети
-    public lamination: string[], // Ламінація
-    public profile: string[], // Профіль
+    public mosquitNet: ICalculatorChar[], // Москітна сітка
+    public windowSill: ICalculatorChar[], // Підвіконня
+    public windowEbb: ICalculatorChar[], // Віконний відлив
+    public windowHand: ICalculatorChar[], // Віконна ручка
+    public childLock: ICalculatorChar[], // Дитячий замок
+    public housewifeStub: ICalculatorChar[], // Заглушка домогосподарки
+    public glassPocketAdd: ICalculatorChar[], // Додаткові стеклопакети
+    public lamination: ICalculatorChar[], // Ламінація
+    public profile: ICalculatorChar[], // Профіль
     public windowWidth: number, // Ширина вікна
     public windowHeight: number, // Висота вікна
-    public camerasCount: string[], // Кількість камер
-    public features: string[], // Особливості
-    public sectionsCount: string[], // Кількість секцій
+    public camerasCount: ICalculatorChar[], // Кількість камер
+    public features: ICalculatorChar[], // Особливості
+    public sectionsCount: ICalculatorChar[], // Кількість секцій
     public description: string,
     public homePage: boolean,
-    public images: string[],
-  ){
-    this.images = this.images?.length !== 0 ? this.images : ['assets/no_image.jpg'];
-    // 
-    this.fabricMaterialThickness = this.fabricMaterialThickness ? this.fabricMaterialThickness : 0;
-    this.fabricMaterialHeight = this.fabricMaterialHeight ? this.fabricMaterialHeight : 0;
-    this.fabricMaterialWidth = this.checkOnNotEmptyCalculatorChar(this.fabricMaterialWidth);
-    this.doorIsolation = this.checkOnNotEmptyCalculatorChar(this.doorIsolation);
-    this.doorFrameMaterial = this.checkOnNotEmptyCalculatorChar(this.doorFrameMaterial);
-    this.doorSelectionBoard = this.checkOnNotEmptyCalculatorChar(this.doorSelectionBoard);
-    this.doorWelt = this.checkOnNotEmptyCalculatorChar(this.doorWelt);
-    this.doorHand = this.checkOnNotEmptyCalculatorChar(this.doorHand);
-    this.doorMechanism = this.checkOnNotEmptyCalculatorChar(this.doorMechanism);
-    this.doorLoops = this.checkOnNotEmptyCalculatorChar(this.doorLoops);
-    this.doorStopper = this.checkOnNotEmptyCalculatorChar(this.doorStopper);
-    this.doorSlidingSystem = this.checkOnNotEmptyCalculatorChar(this.doorSlidingSystem);
+    public images: string[]
+  ) {
+    super();
+    this.images = this.convertImages(this.images);
     //
-    this.frameMaterialThickness = this.checkOnNotEmpty(this.frameMaterialThickness);
-    this.doorInsulation = this.checkOnNotEmpty(this.doorInsulation);
-    this.covering = this.checkOnNotEmpty(this.covering);
-    this.openingType = this.checkOnNotEmpty(this.openingType);
-    this.size = this.checkOnNotEmpty(this.size);
-    this.lowerLock = this.checkOnNotEmpty(this.lowerLock);
-    this.upperLock = this.checkOnNotEmpty(this.upperLock);
-    this.weight = this.checkOnNotEmpty(this.weight);
-    this.metalThickness = this.metalThickness ? this.metalThickness : 0;
-    this.frameMaterialConstruction = this.checkOnNotEmpty(this.frameMaterialConstruction);
-    this.sealerCircuit = this.checkOnNotEmpty(this.sealerCircuit);
+    this.fabricMaterialThickness = this.convertNumber(
+      this.fabricMaterialThickness
+    );
+    this.fabricMaterialHeight = this.convertNumber(this.fabricMaterialHeight);
+    this.fabricMaterialWidth = this.checkOnNotEmptyProductArr(
+      this.fabricMaterialWidth
+    );
+    this.doorIsolation = this.checkOnNotEmptyProductArr(this.doorIsolation);
+    this.doorFrameMaterial = this.checkOnNotEmptyProductArr(
+      this.doorFrameMaterial
+    );
+    this.doorSelectionBoard = this.checkOnNotEmptyProductArr(
+      this.doorSelectionBoard
+    );
+    this.doorWelt = this.checkOnNotEmptyProductArr(this.doorWelt);
+    this.doorHand = this.checkOnNotEmptyProductArr(this.doorHand);
+    this.doorMechanism = this.checkOnNotEmptyProductArr(this.doorMechanism);
+    this.doorLoops = this.checkOnNotEmptyProductArr(this.doorLoops);
+    this.doorStopper = this.checkOnNotEmptyProductArr(this.doorStopper);
+    this.doorSlidingSystem = this.checkOnNotEmptyProductArr(
+      this.doorSlidingSystem
+    );
     //
-    this.mosquitNet = this.checkOnNotEmpty(this.mosquitNet);
-    this.windowSill = this.checkOnNotEmpty(this.windowSill);
-    this.windowEbb = this.checkOnNotEmpty(this.windowEbb);
-    this.windowHand = this.checkOnNotEmpty(this.windowHand);
-    this.childLock = this.checkOnNotEmpty(this.childLock);
-    this.housewifeStub = this.checkOnNotEmpty(this.housewifeStub);
-    this.glassPocketAdd = this.checkOnNotEmpty(this.glassPocketAdd);
-    this.lamination = this.checkOnNotEmpty(this.lamination);
-    this.profile = this.checkOnNotEmpty(this.profile);
-    this.windowWidth = this.windowWidth ? this.windowWidth : 0;
-    this.windowHeight = this.windowHeight ? this.windowHeight : 0;
-    this.camerasCount = this.checkOnNotEmpty(this.camerasCount);
-    this.features = this.checkOnNotEmpty(this.features);
-    this.sectionsCount = this.checkOnNotEmpty(this.sectionsCount);
-  }
-
-  private checkOnNotEmpty(val: string[]| null | undefined): string[]{
-    if(val)
-      switch(true){
-        case val[0] === '':
-          return [this.choose];
-        case val[0] !== '':
-          return [this.choose, ...val];
-        default: 
-          return [];
-      }
-    return []
-  }
-
-  private checkOnNotEmptyCalculatorChar(val: any| null | undefined): ICalculatorChar[]{
-    if(val[0] !== '')
-      switch(true){
-        case val.length === 0 :
-          return [];
-        case val.length !== 0 :
-          return [...val];
-        default: 
-          return [];
-      }
-    return []
+    this.frameMaterialThickness = this.convertNumber(
+      this.frameMaterialThickness
+    );
+    this.doorInsulation = this.checkOnNotEmptyProductArr(this.doorInsulation);
+    this.covering = this.checkOnNotEmptyProductArr(this.covering);
+    this.openingType = this.checkOnNotEmptyProductArr(this.openingType);
+    this.size = this.checkOnNotEmptyProductArr(this.size);
+    this.lowerLock = this.checkOnNotEmptyProductArr(this.lowerLock);
+    this.upperLock = this.checkOnNotEmptyProductArr(this.upperLock);
+    this.weight = this.checkOnNotEmptyProductArr(this.weight);
+    this.metalThickness = this.convertNumber(this.metalThickness);
+    this.frameMaterialConstruction = this.checkOnNotEmptyProductArr(
+      this.frameMaterialConstruction
+    );
+    this.sealerCircuit = this.checkOnNotEmptyProductArr(this.sealerCircuit);
+    //
+    this.mosquitNet = this.checkOnNotEmptyProductArr(this.mosquitNet);
+    this.windowSill = this.checkOnNotEmptyProductArr(this.windowSill);
+    this.windowEbb = this.checkOnNotEmptyProductArr(this.windowEbb);
+    this.windowHand = this.checkOnNotEmptyProductArr(this.windowHand);
+    this.childLock = this.checkOnNotEmptyProductArr(this.childLock);
+    this.housewifeStub = this.checkOnNotEmptyProductArr(this.housewifeStub);
+    this.glassPocketAdd = this.checkOnNotEmptyProductArr(this.glassPocketAdd);
+    this.lamination = this.checkOnNotEmptyProductArr(this.lamination);
+    this.profile = this.checkOnNotEmptyProductArr(this.profile);
+    this.windowWidth = this.convertNumber(this.windowWidth);
+    this.windowHeight = this.convertNumber(this.windowHeight);
+    this.camerasCount = this.checkOnNotEmptyProductArr(this.camerasCount);
+    this.features = this.checkOnNotEmptyProductArr(this.features);
+    this.sectionsCount = this.checkOnNotEmptyProductArr(this.sectionsCount);
   }
 }

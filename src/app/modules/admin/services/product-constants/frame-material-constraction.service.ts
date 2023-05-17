@@ -9,31 +9,31 @@ import { ICalculatorChar } from '../../interfaces/calculator-char.interface';
 })
 export class FrameMaterialConstractionService {
 
-  baseUrl: string = `${environment.baseUrl}/frame-material-construction`;
+  private baseUrl: string = `${environment.baseUrl}/frame-material-construction`;
 
   constructor(
     private readonly http: HttpClient
   ) { }
 
-  public getAllOpeningTypeItems(): Observable<ICalculatorChar[]>{
-    const url: string = `${this.baseUrl}`;
+  public getAllItems(): Observable<ICalculatorChar[]>{
+    const url: string = this.baseUrl;
 
     return this.http.get<ICalculatorChar[]>(url);
   }
 
-  public createOneOpeningTypeItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}`;
+  public createOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+    const url: string = this.baseUrl;
 
     return this.http.post<ICalculatorChar>(url, body);
   }
 
-  public updateOneOpeningTypeItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+  public updateOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
     const url: string = `${this.baseUrl}/${body.id}`;
 
     return this.http.put<ICalculatorChar>(url, body);
   }
 
-  public deleteOneOpeningTypeItem(id: number): Observable<string>{
+  public deleteOneItem(id: number): Observable<string>{
     const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);

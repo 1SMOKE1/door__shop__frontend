@@ -5,6 +5,7 @@ import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FabricMaterialWidthService } from '../../../services/product-constants/fabric-material-width.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-fabric-material-width',
@@ -51,14 +52,14 @@ export class FabricMaterialWidthComponent implements OnInit{
 
   public delete(id: number){
     this.fabricMaterialWidthService
-    .deleteOneFabricMaterialWidthItem(id)
+    .deleteOneItem(id)
     .subscribe({
       next: (message: string) => {
-        this.openSnackBar(message);
+        this.snackbarConfigService.openSnackBar(message);
         this.fabricMaterialWidthItems = this.fabricMaterialWidthItems.filter((el) => el.id !== id);
         this.fabricMaterialWidthForm.reset();
       },
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
@@ -68,14 +69,14 @@ export class FabricMaterialWidthComponent implements OnInit{
   
   private createOneFabricMaterialWidthItem(){
     this.fabricMaterialWidthService
-    .createOneFabricMaterialWidthItem(this.fabricMaterialWidthForm.value)
+    .createOneItem(this.fabricMaterialWidthForm.value)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         if(price)
         this.fabricMaterialWidthItems.push({name, price: +price, id});
         this.fabricMaterialWidthForm.reset();
       },
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
@@ -87,7 +88,7 @@ export class FabricMaterialWidthComponent implements OnInit{
     };
 
     this.fabricMaterialWidthService
-    .updateOneFabricMaterialWidthItem(obj)
+    .updateOneItem(obj)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         this.fabricMaterialWidthItems = this.fabricMaterialWidthItems
@@ -97,25 +98,18 @@ export class FabricMaterialWidthComponent implements OnInit{
           : el
         ))
       },
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
   private initFabricMaterialWidthItems(): void{
     this.fabricMaterialWidthService
-    .getAllFabricMaterialWidthItems()
+    .getAllItems()
     .subscribe({
       next: (data: ICalculatorChar[]) => this.fabricMaterialWidthItems = data,
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
-
-  private openSnackBar(message: string){
-    this.snackbar.open(message, 'X', this.snackbarConfigService.getSnackBarConfig());
-  }
-
-
-
 
 
 }

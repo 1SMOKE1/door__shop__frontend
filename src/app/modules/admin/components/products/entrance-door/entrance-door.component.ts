@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
 import { IEntranceDoor } from 'src/app/modules/share/interfaces/common/entrance-door.interface';
 import { HttpProductProducerService } from 'src/app/modules/share/services/common/http-product-producer.service';
@@ -31,6 +30,8 @@ import { FrameMaterialConstractionService } from '../../../services/product-cons
 import { FrameMaterialConstractionComponent } from '../../product-constants/frame-material-constraction/frame-material-constraction.component';
 import { SealerCircuitService } from '../../../services/product-constants/sealer-circuit.service';
 import { SealerCircuitComponent } from '../../product-constants/sealer-circuit/sealer-circuit.component';
+import { EntranceDoorService } from '../../../services/products/entrance-door.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-entrance-door',
@@ -56,7 +57,7 @@ export class EntranceDoorComponent implements OnInit{
   doorHandItems: ICalculatorChar[] = [];
 
   entranceDoorForm: FormGroup = new FormGroup({
-    id: new FormGroup(0),
+    id: new FormControl(0),
     productProducerName: new FormControl('', [Validators.required]),
     typeOfProductName: new FormControl(TypeOfProductEnum.entranceDoor),
     name: new FormControl('', [Validators.required]),
@@ -83,7 +84,9 @@ export class EntranceDoorComponent implements OnInit{
     lowerLock: new FormControl([]),
     upperLock: new FormControl([]),
     weight: new FormControl([]),
-    metalThickness: new FormControl(0),
+    metalThickness: new FormControl(0, [
+      Validators.pattern(this.validationService.positiveNumberPattern())
+    ]),
     frameMaterialConstuction: new FormControl([]),
     sealerCircuit: new FormControl([]),
     doorHand: new FormControl([]),
@@ -107,8 +110,8 @@ export class EntranceDoorComponent implements OnInit{
     private readonly doorFrameMaterialConstructionService: FrameMaterialConstractionService,
     private readonly sealerCircuitService: SealerCircuitService,
     @Inject(MAT_DIALOG_DATA) public data: IEntranceDoor | null,
-    private readonly snackbar: MatSnackBar,
     private readonly snackbarConfigService: SnackbarConfigService,
+    private readonly entranceDoorService: EntranceDoorService,
   ){}
 
   ngOnInit(): void {
@@ -197,11 +200,43 @@ export class EntranceDoorComponent implements OnInit{
     .subscribe(() => this.initDoorSealerCircuitItems());
   }
 
-  public submit(){
 
+
+  public submit(){
+    if(this.isEditMode())
+      this.updateEntranceDoor();
+    else
+      this.createEntranceDoor();
   }
 
-  private initProductProducers() {
+  private createEntranceDoor(): void {
+    this.entranceDoorService
+      .createEntranceDoor(this.entranceDoorForm.value, this.imagesFileList)
+      .subscribe({
+        next: ({name}) => {
+          this.entranceDoorForm.reset();
+          this.snackbarConfigService.openSnackBar(`Двері вхідні з ім'ям: ${name}, було успішно створено`);
+        },
+        error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+      })
+  }
+
+  private updateEntranceDoor(): void{
+    this.entranceDoorService
+      .updateEntranceDoor(this.entranceDoorForm.value, this.imagesFileList)
+      .subscribe({
+        next: (data: IEntranceDoor) => {
+          this.data = data;
+          this.entranceDoorForm.patchValue(data);
+          this.initSlashStylingOfFormFields();
+          this.snackbarConfigService.openSnackBar(`Двері вхідні з ім'ям: ${data.name}, було успішно змінено`)
+        },
+        error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+      })
+  }
+  
+
+  private initProductProducers(): void {
     this.productProducerService
       .getEntranceDoorProductProducers()
       .subscribe(
@@ -224,37 +259,37 @@ export class EntranceDoorComponent implements OnInit{
 
   private initDoorInsulationItems(){
     this.doorInsulationService
-    .getAllDoorInsulationItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => (this.doorInsulationItems = items),
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
   private initDoorCoveringItems(){
     this.doorCoveringService
-    .getAllDoorCoveringItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => (this.doorCoveringItems = items),
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
   private initDoorOpeningTypeItems(){
     this.doorOpeningTypeService
-    .getAllOpeningTypeItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => (this.doorOpeningTypeItems = items),
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private initDoorSizeItems(){
     this.doorSizeService
-    .getAllDoorSizeItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => (this.doorSizeItems = items),
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
@@ -265,34 +300,34 @@ export class EntranceDoorComponent implements OnInit{
         this.doorUpperLockItems = this.convertToCalculatorChar(items);
         this.doorHandItems = this.convertToCalculatorChar(items);
       }, 
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private initDoorWeightItems(){
     this.doorWeightService
-    .getAllDoorSizeItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => (this.doorWeightItems = items),
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private initDoorFrameMaterialConstructionItems(){
     this.doorFrameMaterialConstructionService
-    .getAllOpeningTypeItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => (this.doorFrameMaterialConstructionItems = items),
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private initDoorSealerCircuitItems(){
     this.sealerCircuitService
-    .getAllSealerCircuitItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => (this.doorSealerCircuitItems = items),
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
@@ -316,5 +351,5 @@ export class EntranceDoorComponent implements OnInit{
     this.entranceDoorForm.get('doorHand')?.setValue(this.data?.doorHand.map((el) => el.name));
   }
 
-  
+
 }

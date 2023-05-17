@@ -15,25 +15,25 @@ export class SizeService {
     private readonly http: HttpClient
   ) { }
 
-  public getAllDoorSizeItems(): Observable<ICalculatorChar[]>{
-    const url: string = `${this.baseUrl}`;
+  public getAllItems(): Observable<ICalculatorChar[]>{
+    const url: string = this.baseUrl;
 
     return this.http.get<ICalculatorChar[]>(url);
   }
 
-  public createOneDoorSizeItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}`;
+  public createOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+    const url: string = this.baseUrl;
 
     return this.http.post<ICalculatorChar>(url, body);
   }
 
-  public updateOneDoorSizeItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+  public updateOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
     const url: string = `${this.baseUrl}/${body.id}`;
 
     return this.http.put<ICalculatorChar>(url, body);
   }
 
-  public deleteOneDoorSizeItem(id: number): Observable<string>{
+  public deleteOneItem(id: number): Observable<string>{
     const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);

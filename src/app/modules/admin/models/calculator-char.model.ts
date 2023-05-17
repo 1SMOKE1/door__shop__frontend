@@ -8,4 +8,6 @@ export class CalculatorCharModel implements ICalculatorChar{
     public price?: number,
     public id?: number
   ){}
+
+  
 } 

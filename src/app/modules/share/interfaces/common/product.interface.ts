@@ -28,33 +28,33 @@ export interface IProduct{
   doorStopper:  ICalculatorChar[], // Стопор
   doorSlidingSystem: ICalculatorChar[], // Роздвижна система
   // Вхідні
-  frameMaterialThickness: string[], // Товщина короба
-  doorInsulation: string[] // Утеплення
-  covering: string[], // Оздоблення
+  frameMaterialThickness: number, // Товщина короба
+  doorInsulation: ICalculatorChar[] // Утеплення
+  covering: ICalculatorChar[], // Оздоблення
   doorPeephole: boolean, // Глазок
-  openingType: string[], // Тип відкривання
-  size: string[], // Розмір
-  lowerLock: string[], // Нижній замок
-  upperLock: string[], // Верхній замок
-  weight: string[], // Вага
+  openingType: ICalculatorChar[], // Тип відкривання
+  size: ICalculatorChar[], // Розмір
+  lowerLock: ICalculatorChar[], // Нижній замок
+  upperLock: ICalculatorChar[], // Верхній замок
+  weight: ICalculatorChar[], // Вага
   metalThickness: number, // Товщина металу
-  frameMaterialConstruction: string[]; // Конструкція короба
-  sealerCircuit: string[]; // Контур Ущільнення
+  frameMaterialConstruction: ICalculatorChar[]; // Конструкція короба
+  sealerCircuit: ICalculatorChar[]; // Контур Ущільнення
   // вікна
-  mosquitNet: string[], // Москітна сітка
-  windowSill: string[], // Підвіконня
-  windowEbb: string[], // Віконний відлив
-  windowHand: string[], // Віконна ручка
-  childLock: string[], // Дитячий замок
-  housewifeStub: string[], // Заглушка домогосподарки
-  glassPocketAdd: string[], // Додаткові стеклопакети
-  lamination: string[], // Ламінація
-  profile: string[], // Профіль
+  mosquitNet: ICalculatorChar[], // Москітна сітка
+  windowSill: ICalculatorChar[], // Підвіконня
+  windowEbb: ICalculatorChar[], // Віконний відлив
+  windowHand: ICalculatorChar[], // Віконна ручка
+  childLock: ICalculatorChar[], // Дитячий замок
+  housewifeStub: ICalculatorChar[], // Заглушка домогосподарки
+  glassPocketAdd: ICalculatorChar[], // Додаткові стеклопакети
+  lamination: ICalculatorChar[], // Ламінація
+  profile: ICalculatorChar[], // Профіль
   windowWidth: number, // Ширина вікна
   windowHeight: number, // Висота вікна
-  camerasCount: string[], // Кількість камер
-  features: string[], // Особливості
-  sectionsCount: string[], // Кількість секцій
+  camerasCount: ICalculatorChar[], // Кількість камер
+  features: ICalculatorChar[], // Особливості
+  sectionsCount: ICalculatorChar[], // Кількість секцій
   description: string, // Опис
   homePage: boolean,
   images: string[],

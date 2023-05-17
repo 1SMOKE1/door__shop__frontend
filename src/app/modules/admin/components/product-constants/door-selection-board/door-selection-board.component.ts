@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
 import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
 import { DoorSelectionBoardService } from '../../../services/product-constants/door-selection-board.service';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-door-selection-board',
@@ -30,7 +30,6 @@ export class DoorSelectionBoardComponent implements OnInit{
   constructor(
     private readonly validationService: ValidationService,
     private readonly doorSelectionBoardService: DoorSelectionBoardService,
-    private readonly snackbar: MatSnackBar,
     private readonly snackbarConfigService: SnackbarConfigService
   ){}
 
@@ -51,16 +50,14 @@ export class DoorSelectionBoardComponent implements OnInit{
 
   public delete(id: number){
     this.doorSelectionBoardService
-    .deleteOneDoorSelectionBoardItem(id)
+    .deleteOneItem(id)
     .subscribe({
       next: (message: string) => {
-        this.openSnackBar(message);
+        this.snackbarConfigService.openSnackBar(message);
         this.doorSelectionBoardItems = this.doorSelectionBoardItems.filter((el) => el.id !== id);
         this.doorSelectionBoardForm.reset();
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
@@ -72,7 +69,7 @@ export class DoorSelectionBoardComponent implements OnInit{
     };
 
     this.doorSelectionBoardService
-    .updateOneDoorSelectionBoardItem(obj)
+    .updateOneItem(obj)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         this.doorSelectionBoardItems = this.doorSelectionBoardItems
@@ -82,24 +79,20 @@ export class DoorSelectionBoardComponent implements OnInit{
           : el
         ))
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
   private createOneDoorSelectionBoardItem(){
     this.doorSelectionBoardService
-    .createOneDoorSelectionBoardItem(this.doorSelectionBoardForm.value)
+    .createOneItem(this.doorSelectionBoardForm.value)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         if(price)
         this.doorSelectionBoardItems.push({name, price: +price, id});
         this.doorSelectionBoardForm.reset();
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
@@ -109,20 +102,13 @@ export class DoorSelectionBoardComponent implements OnInit{
 
   private initDoorSelectionBoardItems(){
     this.doorSelectionBoardService
-    .getAllDoorSelectionBoardItems()
+    .getAllItems()
     .subscribe({
       next: (data: ICalculatorChar[]) => {
         this.doorSelectionBoardItems = data;
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
-
-  private openSnackBar(message: string){
-    this.snackbar.open(message, 'X', this.snackbarConfigService.getSnackBarConfig());
-  }
-
 
 }

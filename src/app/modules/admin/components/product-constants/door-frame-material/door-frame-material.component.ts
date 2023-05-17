@@ -3,8 +3,8 @@ import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { DoorFrameMaterialService } from '../../../services/product-constants/door-frame-material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-door-frame-material',
@@ -30,7 +30,6 @@ export class DoorFrameMaterialComponent implements OnInit{
   constructor(
     private readonly doorFrameMaterialService: DoorFrameMaterialService,
     private readonly validationService: ValidationService,
-    private readonly snackbar: MatSnackBar,
     private readonly snackbarConfigService: SnackbarConfigService
   ){}
 
@@ -51,31 +50,27 @@ export class DoorFrameMaterialComponent implements OnInit{
 
   public delete(id: number){
     this.doorFrameMaterialService
-    .deleteOneDoorFrameMaterialItem(id)
+    .deleteOneItem(id)
     .subscribe({
       next: (message: string) => {
-        this.openSnackBar(message);
+        this.snackbarConfigService.openSnackBar(message);
         this.doorFrameMaterialItems = this.doorFrameMaterialItems.filter((el) => el.id !== id);
         this.doorFrameMaterialForm.reset();
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private createDoorFrameMaterialItem(){
     this.doorFrameMaterialService
-    .createOneDoorFrameMaterialItem(this.doorFrameMaterialForm.value)
+    .createOneItem(this.doorFrameMaterialForm.value)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         if(price)
         this.doorFrameMaterialItems.push({name, price: +price, id});
         this.doorFrameMaterialForm.reset();
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
@@ -87,7 +82,7 @@ export class DoorFrameMaterialComponent implements OnInit{
     };
 
     this.doorFrameMaterialService
-    .updateOneDoorFrameMaterialItem(obj)
+    .updateOneItem(obj)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         this.doorFrameMaterialItems = this.doorFrameMaterialItems
@@ -97,28 +92,22 @@ export class DoorFrameMaterialComponent implements OnInit{
           : el
         ))
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
   private initDoorFrameMaterialItems(): void{
     this.doorFrameMaterialService
-    .getAllDoorFrameMaterialItems()
+    .getAllItems()
     .subscribe({
       next: (data: ICalculatorChar[]) => {
         this.doorFrameMaterialItems = data;
       },
-      error: (err: Error) => {
-        this.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
-  private openSnackBar(message: string){
-    this.snackbar.open(message, 'X', this.snackbarConfigService.getSnackBarConfig());
-  }
+
 
   private isEditMode(): boolean{
     return !!this.doorFrameMaterialForm.get('id')?.value;

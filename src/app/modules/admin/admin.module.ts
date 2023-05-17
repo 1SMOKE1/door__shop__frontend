@@ -40,6 +40,8 @@ import { SizeComponent } from './components/product-constants/size/size.componen
 import { WeightComponent } from './components/product-constants/weight/weight.component';
 import { FrameMaterialConstractionComponent } from './components/product-constants/frame-material-constraction/frame-material-constraction.component';
 import { SealerCircuitComponent } from './components/product-constants/sealer-circuit/sealer-circuit.component';
+import { ProductProducersComponent } from './components/products/product-producers/product-producers.component';
+import { MosquitoNetComponent } from './components/product-constants/mosquito-net/mosquito-net.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { SealerCircuitComponent } from './components/product-constants/sealer-ci
     WeightComponent,
     FrameMaterialConstractionComponent,
     SealerCircuitComponent,
+    ProductProducersComponent,
+    MosquitoNetComponent,
   ],
   imports: [
     CommonModule,

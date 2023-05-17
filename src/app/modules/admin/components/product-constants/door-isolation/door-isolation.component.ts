@@ -3,6 +3,7 @@ import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
 import { DoorIsolationService } from '../../../services/product-constants/door-isolation.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-door-isolation',
@@ -43,28 +44,26 @@ export class DoorIsolationComponent implements OnInit{
 
   public delete(id: number){
     this.doorIsolationService
-    .deleteOneDoorIsolationItem(id)
+    .deleteOneItem(id)
     .subscribe({
       next: (message: string) => {
         this.snackbarConfigService.openSnackBar(message);
         this.doorIsolationItems = this.doorIsolationItems.filter((el) => el.id !== id);
         this.doorIsolationForm.reset();
       },
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private createOneDoorIsolationItem(){
     this.doorIsolationService
-    .createOneDoorIsolationItem(this.doorIsolationForm.value)
+    .createOneItem(this.doorIsolationForm.value)
     .subscribe({
       next: ({name, id}: ICalculatorChar) => {
         this.doorIsolationItems.push({name, id});
         this.doorIsolationForm.reset();
       },
-      error: (err: Error) => {
-        this.snackbarConfigService.openSnackBar(err.message);
-      }
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.openSnackBar(err.message)
     })
   }
 
@@ -75,7 +74,7 @@ export class DoorIsolationComponent implements OnInit{
     };
 
     this.doorIsolationService
-    .updateOneDoorIsolationItem(obj)
+    .updateOneItem(obj)
     .subscribe({
       next: ({name, id}: ICalculatorChar) => {
         this.doorIsolationItems = this.doorIsolationItems
@@ -85,16 +84,16 @@ export class DoorIsolationComponent implements OnInit{
           : el
         ))
       },
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
   private initDoorIsolationItems(): void{
     this.doorIsolationService
-    .getAllDoorIsolationItems()
+    .getAllItems()
     .subscribe({
       next: (items: ICalculatorChar[]) => this.doorIsolationItems = items,
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 

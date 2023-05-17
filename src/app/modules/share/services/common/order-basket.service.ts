@@ -13,7 +13,7 @@ import { HandleFormsErrorService } from '../errors/handle-forms-error.service';
 })
 export class OrderBasketService {
 
-  baseUrl: string = environment.baseUrl;
+  private baseUrl: string = `${environment.baseUrl}/orders`;
 
   constructor(
     private readonly http: HttpClient,
@@ -21,7 +21,7 @@ export class OrderBasketService {
   ){}
 
   public createOrder(newOrder: ICreateOrder): Observable<ICreateOrder>{
-    const url: string = `${this.baseUrl}/orders`;
+    const url: string = this.baseUrl;
 
     return this.http.post<IOrderResponse>(url, newOrder)
     .pipe(

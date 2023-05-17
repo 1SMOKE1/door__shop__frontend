@@ -3,100 +3,92 @@ import { SnackbarConfigService } from 'src/app/modules/share/services/common/sna
 import { SizeService } from '../../../services/product-constants/size.service';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-size',
   templateUrl: './size.component.html',
-  styleUrls: ['./size.component.scss']
+  styleUrls: ['./size.component.scss'],
 })
-export class SizeComponent implements OnInit{
-
+export class SizeComponent implements OnInit {
   doorSizeItems: ICalculatorChar[] = [];
 
   doorSizeForm: FormGroup = new FormGroup({
-    'name': new FormControl('', [
-      Validators.required,
-      Validators.minLength(3)
-    ]),
-    'id': new FormControl(null)
-  })
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    id: new FormControl(null),
+  });
 
   constructor(
+    private readonly doorSizeService: SizeService,
     private readonly snackbarConfigService: SnackbarConfigService,
-    private readonly doorSizeService: SizeService
-  ){}
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.initDoorSizeItems();
   }
 
-  public submit(){
-    if(this.isEditMode())
-      this.updateOneDoorSizeItem();
-    else 
-      this.createOneDoorSizeItem();
+  public submit(): void {
+    if (this.isEditMode()) this.updateOneDoorSizeItem();
+    else this.createOneDoorSizeItem();
   }
 
-  public edit(item: ICalculatorChar){
+  public edit(item: ICalculatorChar): void {
     this.doorSizeForm.patchValue(item);
   }
 
-  public delete(id: number){
-    this.doorSizeService
-    .deleteOneDoorSizeItem(id)
-    .subscribe({
+  public delete(id: number): void {
+    this.doorSizeService.deleteOneItem(id).subscribe({
       next: (message: string) => {
         this.snackbarConfigService.openSnackBar(message);
         this.doorSizeItems = this.doorSizeItems.filter((el) => el.id !== id);
         this.doorSizeForm.reset();
       },
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
-    })
+      error: (err: HttpErrorResponse) =>
+        this.snackbarConfigService.showError(err),
+    });
   }
 
-  private createOneDoorSizeItem(){
+  private createOneDoorSizeItem(): void {
     this.doorSizeService
-    .createOneDoorSizeItem(this.doorSizeForm.value)
-    .subscribe({
-      next: ({name, id}: ICalculatorChar) => {
-        this.doorSizeItems.push({name, id});
-        this.doorSizeForm.reset();
-      },
-      error: (err: Error) =>  this.snackbarConfigService.openSnackBar(err.message)
-    })
+      .createOneItem(this.doorSizeForm.value)
+      .subscribe({
+        next: ({ name, id }: ICalculatorChar) => {
+          this.doorSizeItems.push({ name, id });
+          this.doorSizeForm.reset();
+        },
+        error: (err: Error) =>
+          this.snackbarConfigService.openSnackBar(err.message),
+      });
   }
 
-  private updateOneDoorSizeItem(){
+  private updateOneDoorSizeItem(): void {
     const obj: ICalculatorChar = {
       name: this.doorSizeForm.get('name')?.value,
       id: +this.doorSizeForm.get('id')?.value,
     };
 
-    this.doorSizeService
-    .updateOneDoorSizeItem(obj)
-    .subscribe({
-      next: ({name, id}: ICalculatorChar) => {
-        this.doorSizeItems = this.doorSizeItems
-        .map((el) => (
-          el.id === id 
-          ? {...el, name}
-          : el
-        ))
+    this.doorSizeService.updateOneItem(obj).subscribe({
+      next: ({ name, id }: ICalculatorChar) => {
+        this.doorSizeItems = this.doorSizeItems.map((el) =>
+          el.id === id ? { ...el, name } : el
+        );
       },
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
-    })
+      error: (err: HttpErrorResponse) =>
+        this.snackbarConfigService.showError(err),
+    });
   }
 
-  private initDoorSizeItems(){
-    this.doorSizeService
-    .getAllDoorSizeItems()
-    .subscribe({
-      next: (items: ICalculatorChar[]) => this.doorSizeItems = items,
-      error: (err: Error) => this.snackbarConfigService.openSnackBar(err.message)
-    })
+  private initDoorSizeItems(): void {
+    this.doorSizeService.getAllItems().subscribe({
+      next: (items: ICalculatorChar[]) => (this.doorSizeItems = items),
+      error: (err: HttpErrorResponse) =>
+        this.snackbarConfigService.showError(err),
+    });
   }
 
-  private isEditMode(): boolean{
+  private isEditMode(): boolean {
     return !!this.doorSizeForm.get('id')?.value;
   }
 }

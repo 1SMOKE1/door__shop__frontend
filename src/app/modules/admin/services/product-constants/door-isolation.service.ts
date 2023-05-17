@@ -9,31 +9,31 @@ import { ICalculatorChar } from '../../interfaces/calculator-char.interface';
 })
 export class DoorIsolationService {
 
-  baseUrl: string = `${environment.baseUrl}/door-isolation`;
+  private baseUrl: string = `${environment.baseUrl}/door-isolation`;
 
   constructor(
     private readonly http: HttpClient
   ) { }
 
-  public getAllDoorIsolationItems(): Observable<ICalculatorChar[]>{
-    const url: string = `${this.baseUrl}`;
+  public getAllItems(): Observable<ICalculatorChar[]>{
+    const url: string = this.baseUrl;
 
     return this.http.get<ICalculatorChar[]>(url);
   }
 
-  public createOneDoorIsolationItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}`;
+  public createOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+    const url: string = this.baseUrl;
 
     return this.http.post<ICalculatorChar>(url, body);
   }
 
-  public updateOneDoorIsolationItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+  public updateOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
     const url: string = `${this.baseUrl}/${body.id}`;
 
     return this.http.put<ICalculatorChar>(url, body);
   }
 
-  public deleteOneDoorIsolationItem(id: number): Observable<string>{
+  public deleteOneItem(id: number): Observable<string>{
     const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);

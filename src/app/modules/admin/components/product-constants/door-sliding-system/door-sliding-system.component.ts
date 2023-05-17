@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
 import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
 import { DoorSlidingSystemService } from '../../../services/product-constants/door-sliding-system.service';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-door-sliding-system',
@@ -29,7 +29,6 @@ export class DoorSlidingSystemComponent implements OnInit{
 
   constructor(
     private readonly validationService: ValidationService,
-    private readonly snackbar: MatSnackBar,
     private readonly snackbarConfigService: SnackbarConfigService,
     private readonly doorSlidingSystemService: DoorSlidingSystemService
   ){}
@@ -51,27 +50,27 @@ export class DoorSlidingSystemComponent implements OnInit{
 
   public delete(id: number){
     this.doorSlidingSystemService
-    .deleteDoorSlidingSystemItem(id)
+    .deleteOneItem(id)
     .subscribe({
       next: (message: string) => {
-        this.openSnackBar(message);
+        this.snackbarConfigService.openSnackBar(message);
         this.doorSlidingSystemItems = this.doorSlidingSystemItems.filter((el) => el.id !== id);
         this.doorSlidingSystemForm.reset();
       },
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private createOneDoorSlidingSystem(){
     this.doorSlidingSystemService
-    .createDoorSlidingSystemItem(this.doorSlidingSystemForm.value)
+    .createOneItem(this.doorSlidingSystemForm.value)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         if(price)
         this.doorSlidingSystemItems.push({name, price: +price, id});
         this.doorSlidingSystemForm.reset();
       },
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
@@ -83,7 +82,7 @@ export class DoorSlidingSystemComponent implements OnInit{
     };
 
     this.doorSlidingSystemService
-    .updateDoorSlidingSystemItem(obj)
+    .updateOneItem(obj)
     .subscribe({
       next: ({name, price, id}: ICalculatorChar) => {
         this.doorSlidingSystemItems = this.doorSlidingSystemItems
@@ -93,7 +92,7 @@ export class DoorSlidingSystemComponent implements OnInit{
           : el
         ))
       },
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     });
   }
 
@@ -105,14 +104,12 @@ export class DoorSlidingSystemComponent implements OnInit{
 
   private initDoorSlidingSystemItems(){
     this.doorSlidingSystemService
-    .getDoorSlidingSystemItems()
+    .getAllItems()
     .subscribe({
       next: (data: ICalculatorChar[]) => this.doorSlidingSystemItems = data,
-      error: (err: Error) => this.openSnackBar(err.message)
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
-  private openSnackBar(message: string){
-    this.snackbar.open(message, 'X', this.snackbarConfigService.getSnackBarConfig());
-  }
+
 }
