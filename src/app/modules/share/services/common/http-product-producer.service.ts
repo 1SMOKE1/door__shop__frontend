@@ -12,38 +12,52 @@ import { ProductProducerModel } from '../../models/product-producer.model';
   providedIn: 'root',
 })
 export class HttpProductProducerService {
-  baseUrl: string = environment.baseUrl;
+  
+  private baseUrl: string = `${environment.baseUrl}/product-producers`;
 
   constructor(private readonly http: HttpClient) {}
 
-  public getProductProducers(): Observable<IProductProducerResponse[]> {
-    const url: string = `${this.baseUrl}/product-producers`;
+  public getProductProducers(): Observable<IProductProducer[]> {
+    const url: string = this.baseUrl;
 
-    return this.http.get<IProductProducerResponse[]>(url);
+    return this.http.get<IProductProducerResponse[]>(url)
+    .pipe(
+      map((data: IProductProducerResponse[]): IProductProducer[] => 
+        data.map((el: IProductProducerResponse): IProductProducer => this.convertProductProducer(el)))
+    )
   }
 
-  public getProductProducer(id: string): Observable<IProductProducerResponse> {
-    const url: string = `${this.baseUrl}/product-producers/${id}`;
+  public getProductProducer(id: string): Observable<IProductProducer> {
+    const url: string = `${this.baseUrl}/${id}`;
 
-    return this.http.get<IProductProducerResponse>(url);
+    return this.http.get<IProductProducerResponse>(url)
+    .pipe(
+      map((data: IProductProducerResponse): IProductProducer => this.convertProductProducer(data))
+    )
   }
 
-  public createProductProducer(productProducer: IProductProducer): Observable<IProductProducerResponse> {
-    const url: string = `${this.baseUrl}/product-producers`;
+  public createProductProducer(productProducer: IProductProducer): Observable<IProductProducer> {
+    const url: string = this.baseUrl;
 
-    return this.http.post<IProductProducerResponse>(url, productProducer);
+    return this.http.post<IProductProducerResponse>(url, productProducer)
+    .pipe(
+      map((data: IProductProducerResponse): IProductProducer => this.convertProductProducer(data))
+    )
   }
 
-  public updateProductProducer(productProducer: IProductProducer): Observable<IProductProducerResponse> {
-    const url: string = `${this.baseUrl}/product-producers/${productProducer.id}`;
+  public updateProductProducer(productProducer: IProductProducer): Observable<IProductProducer> {
+    const url: string = `${this.baseUrl}/${productProducer.id}`;
 
-    return this.http.put<IProductProducerResponse>(url, productProducer);
+    return this.http.patch<IProductProducerResponse>(url, productProducer)
+    .pipe(
+      map((data: IProductProducerResponse): IProductProducer => this.convertProductProducer(data))
+    )
   }
 
-  public deleteProductProducer(id: string): Observable<IProductProducer> {
-    const url: string = `${this.baseUrl}/product-producers/${id}`;
+  public deleteProductProducer(id: number): Observable<string> {
+    const url: string = `${this.baseUrl}/${id}`;
 
-    return this.http.delete<IProductProducer>(url);
+    return this.http.delete<string>(url);
   }
 
   public getEntranceDoorProductProducers(): Observable<IProductProducer[]> {
@@ -64,16 +78,15 @@ export class HttpProductProducerService {
 
   private getCustomProductProducers(condition: string): Observable<IProductProducer[]> {
     return this.getProductProducers().pipe(
-      map((el: IProductProducerResponse[]) => 
-        el.filter((el: IProductProducerResponse) => 
-          el.type_of_product.name === condition
-          )),
-      map((el: IProductProducerResponse[]) => 
-       el.map((el: IProductProducerResponse): IProductProducer => 
-        new ProductProducerModel(el.id, el.name, {id: el.type_of_product.id, name: el.type_of_product.name})
-        )
-      )
+      map((el: IProductProducer[]) => 
+       el.filter((el: IProductProducer) => 
+        el.typeOfProduct.name === condition
+      ))
     );
+  }
+
+  private convertProductProducer({id, name, type_of_product}: IProductProducerResponse): IProductProducer{
+    return new ProductProducerModel(id, name, {id: type_of_product.id, name: type_of_product.name});
   }
 
 

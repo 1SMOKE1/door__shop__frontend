@@ -13,7 +13,8 @@ import { IGetProductsResponse } from '../../interfaces/response/get-products.int
   providedIn: 'root',
 })
 export class FiltrationService {
-  baseUrl: string = environment.baseUrl;
+  
+  private baseUrl: string = environment.baseUrl;
 
   constructor(
     private readonly http: HttpClient,

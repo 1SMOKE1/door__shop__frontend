@@ -29,33 +29,33 @@ export interface IProductResponse{
   door_stopper?:  IFurniture[], // Стопор
   door_sliding_system?: ICalculatorChar[], // Роздвижна система
   // Міжкімнатні
-  frame_material_thickness?: string[], // Товщина короба
-  door_insulation?: string[] // Утеплення
-  door_covering?: string[], // Оздоблення
+  frame_material_thickness?: number, // Товщина короба
+  door_insulation?: ICalculatorChar[] // Утеплення
+  door_covering?: ICalculatorChar[], // Оздоблення
   door_peephole?: boolean, // Глазок
-  opening_type?: string[], // Тип відкривання
-  door_size?: string[], // Розмір
-  lower_lock?: string[], // Нижній замок
-  upper_lock?: string[], // Верхній замок
-  door_weight?: string[], // Вага
+  opening_type?: ICalculatorChar[], // Тип відкривання
+  door_size?: ICalculatorChar[], // Розмір
+  lower_lock?: IFurniture[], // Нижній замок
+  upper_lock?: IFurniture[], // Верхній замок
+  door_weight?: ICalculatorChar[], // Вага
   metal_thickness?: number, // Товщина металу
-  frame_material_construction?: string[]; // Конструкція короба
-  sealer_circuit?: string[]; // Контур Ущільнення
+  frame_material_construction?: ICalculatorChar[]; // Конструкція короба
+  sealer_circuit?: ICalculatorChar[]; // Контур Ущільнення
   // вікна
-  mosquit_net?: string[], // Москітна сітка
-  window_sill?: string[], // Підвіконня
-  window_ebb?: string[], // Віконний відлив
-  window_hand?: string[], // Віконна ручка
-  child_lock?: string[], // Дитячий замок
-  housewife_stub?: string[], // Заглушка домогосподарки
-  glass_pocket_add?: string[], // Додаткові стеклопакети
-  window_lamination?: string[], // Ламінація
-  window_profile?: string[], // Профіль
+  mosquito_net?: ICalculatorChar[], // Москітна сітка
+  window_sill?: ICalculatorChar[], // Підвіконня
+  window_ebb?: ICalculatorChar[], // Віконний відлив
+  window_hand?: ICalculatorChar[], // Віконна ручка
+  child_lock?: ICalculatorChar[], // Дитячий замок
+  housewife_stub?: ICalculatorChar[], // Заглушка домогосподарки
+  glass_pocket_add?: ICalculatorChar[], // Додаткові стеклопакети
+  window_lamination?: ICalculatorChar[], // Ламінація
+  window_profile?: ICalculatorChar[], // Профіль
   window_width?: number, // Ширина вікна
   window_height?: number, // Висота вікна
-  cameras_count?: string[], // Кількість камер
-  features?: string[], // Особливості
-  sections_count?: string[], // Кількість секцій
+  cameras_count?: ICalculatorChar[], // Кількість камер
+  features?: ICalculatorChar[], // Особливості
+  sections_count?: ICalculatorChar[], // Кількість секцій
   description?: string, // Опис
   home_page?: boolean,
   images?: string[],

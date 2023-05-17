@@ -9,32 +9,32 @@ import { ICalculatorChar } from '../../interfaces/calculator-char.interface';
 })
 export class DoorSlidingSystemService {
 
-  baseUrl: string = environment.baseUrl;
+  private baseUrl: string = `${environment.baseUrl}/door-sliding-system`;
 
   constructor(
     private readonly http: HttpClient
   ) { }
 
-  public getDoorSlidingSystemItems(): Observable<ICalculatorChar[]>{
-    const url: string = `${this.baseUrl}/door-sliding-system`;
+  public getAllItems(): Observable<ICalculatorChar[]>{
+    const url: string = this.baseUrl;
 
     return this.http.get<ICalculatorChar[]>(url);
   }
 
-  public createDoorSlidingSystemItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/door-sliding-system`;
+  public createOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+    const url: string = this.baseUrl;
 
     return this.http.post<ICalculatorChar>(url, body);
   }
 
-  public updateDoorSlidingSystemItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/door-sliding-system/${body.id}`;
+  public updateOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+    const url: string = `${this.baseUrl}/${body.id}`;
 
     return this.http.put<ICalculatorChar>(url, body);
   }
 
-  public deleteDoorSlidingSystemItem(id: number): Observable<string>{
-    const url: string = `${this.baseUrl}/door-sliding-system/${id}`;
+  public deleteOneItem(id: number): Observable<string>{
+    const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);
   }

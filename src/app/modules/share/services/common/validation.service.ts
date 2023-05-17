@@ -17,6 +17,6 @@ export class ValidationService {
   }
 
   public positiveNumberPattern(): RegExp{
-    return /^[+]?\d+([.]\d+)?$/;
+    return /^[^0]+[+]?\d+([.]\d+)?$/;
   }
 }

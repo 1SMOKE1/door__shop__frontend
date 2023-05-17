@@ -6,22 +6,26 @@ import { environment } from 'src/environments/environment.development';
 import { IUpdateInteriorDoor } from '../../interfaces/update-interior-door.interface';
 import { IInteriorDoor } from 'src/app/modules/share/interfaces/common/interior-door.interface';
 import { UpdateInteriorDoorModel } from '../../models/update-interiori-door.model';
-import { ICalculatorChar } from '../../interfaces/calculator-char.interface';
+import { ProductsService } from '../products.service';
+
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class InteriorDoorService {
-  baseUrl: string = environment.baseUrl;
+  baseUrl: string = `${environment.baseUrl}/interior-door`;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly productsService: ProductsService
+    ) {}
 
   public createInteriorDoor(
     body: IUpdateInteriorDoor,
     images: FileList | null
   ): Observable<IInteriorDoor> {
-    const url: string = `${this.baseUrl}/interior-door`;
+    const url: string = this.baseUrl;
 
     const formData = this.createFormData(body, images);
 
@@ -36,25 +40,29 @@ export class InteriorDoorService {
     images: FileList | null
   ): Observable<IInteriorDoor> {
 
-    const url: string = `${this.baseUrl}/interior-door/${body.id}`;
+    const url: string = `${this.baseUrl}/${body.id}`;
 
     const formData = this.createFormData(body, images);
 
-    return this.http.put<IInteriorDoorResponse>(url, formData)
+    return this.http.patch<IInteriorDoorResponse>(url, formData)
     .pipe(
-      map((data: IInteriorDoorResponse): IInteriorDoor => {
-        return this.convertingInteriorDoor(data)
-      })
+      map((data: IInteriorDoorResponse): IInteriorDoor => this.convertingInteriorDoor(data))
     )
   }
+
+  public deleteIneriorDoor(id: number): Observable<string> {
+
+    const url: string = `${this.baseUrl}/${id}`
+
+    return this.http.delete<string>(url);
+  }
+
 
   private createFormData(
     product: IUpdateInteriorDoor,
     images: FileList | null
   ): FormData {
     const formData = new FormData();
-
-    console.log(product, 'before sending');
 
     formData.append('name', product.name);
     formData.append('country', product.country);
@@ -79,16 +87,16 @@ export class InteriorDoorService {
         ? product.fabricMaterialHeight.toString()
         : ''
     );
-    this.convertArr(formData, product, 'fabricMaterialWidth');
-    this.convertArr(formData, product, 'doorIsolation');
-    this.convertArr(formData, product, 'doorFrameMaterial');
-    this.convertArr(formData, product, 'doorSelectionBoard');
-    this.convertArr(formData, product, 'doorWelt');
-    this.convertArr(formData, product, 'doorSlidingSystem');
-    this.convertArr(formData, product, 'doorHand');
-    this.convertArr(formData, product, 'doorMechanism');
-    this.convertArr(formData, product, 'doorLoops');
-    this.convertArr(formData, product, 'doorStopper');
+    this.productsService.convertArr(formData, product, 'fabricMaterialWidth');
+    this.productsService.convertArr(formData, product, 'doorIsolation');
+    this.productsService.convertArr(formData, product, 'doorFrameMaterial');
+    this.productsService.convertArr(formData, product, 'doorSelectionBoard');
+    this.productsService.convertArr(formData, product, 'doorWelt');
+    this.productsService.convertArr(formData, product, 'doorSlidingSystem');
+    this.productsService.convertArr(formData, product, 'doorHand');
+    this.productsService.convertArr(formData, product, 'doorMechanism');
+    this.productsService.convertArr(formData, product, 'doorLoops');
+    this.productsService.convertArr(formData, product, 'doorStopper');
     formData.append(
       'homePage',
       product.homePage ? `${product.homePage}` : `${false}`
@@ -99,24 +107,9 @@ export class InteriorDoorService {
         formData.append('images', element);
       }
 
-
-    for (const value of formData.values()) {
-      console.log(value, 'before sending to server formData value');
-    }
-
     return formData;
   }
 
-  private convertArr(formData: FormData, product: any, field: string) {
-    
-    
-    if (product[`${field}`] && product[`${field}`].length !== 0)
-      return product[`${field}`].forEach((item: string) =>
-        formData.append(`${field}[]`, item)
-      );
-    else 
-    return formData.append(`${field}[]`, [].toString());
-  }
 
   private convertingInteriorDoor({
     id,
@@ -159,11 +152,11 @@ export class InteriorDoorService {
       door_isolation,
       door_frame_material,
       door_selection_board,
-      door_welt ? door_welt : [],
-      door_hand ? door_hand : [],
-      door_mechanism ? door_mechanism : [],
-      door_loops ? door_loops : [],
-      door_stopper ? door_stopper : [],      
+      door_welt,
+      door_hand,
+      door_mechanism,
+      door_loops,
+      door_stopper,      
       door_sliding_system,
       description,
       home_page,

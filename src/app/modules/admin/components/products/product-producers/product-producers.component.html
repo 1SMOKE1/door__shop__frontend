@@ -1,0 +1,94 @@
+<div class="product_producer-wrap">
+  <div align="end">
+    <button (click)="closeDialog()" class="btn-close" type="button" mat-button [mat-dialog-close]="curProductProducer" cdkFocusInitial>
+      close
+    </button>
+  </div>
+  <h1 mat-dialog-title align="center">Виробник</h1>
+
+  <form [formGroup]="productProducerForm">
+    <div mat-dialog-content class="clear-scroll-x">
+      <div class="form-field-wrap">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Виробник</mat-label>
+          <input
+            formControlName="name"
+            matInput
+            placeholder="Впишіть нового виробника"
+          />
+          <mat-error *ngIf="productProducerForm.get('name')?.errors && !productProducerForm.get('name')?.hasError('required')">
+            Мінімум 3 символи
+          </mat-error>
+          <mat-error *ngIf="productProducerForm.get('name')?.hasError('required')">
+            Назва є <strong>обов'язковою</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          class="btn-confirm"
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="submit()"
+        >
+          OK
+        </button>
+      </div>
+
+      <div class="product-form-input">
+        <mat-form-field appearance="outline" class="form-field"  >
+          <mat-select
+            class="form-field-input"
+            formControlName="typeOfProductName"
+            matInput
+            placeholder="Тип продукту"
+          >
+            <mat-option           
+              *ngFor="let typeOfProduct of typeOfProductItems"
+              [value]="typeOfProduct.name"
+              >{{ typeOfProduct.name }}</mat-option
+            >
+          </mat-select>
+          <mat-error
+            *ngIf="
+              productProducerForm.get('typeOfProductName')?.invalid ||
+              (productProducerForm.get('typeOfProductName')?.touched &&
+                productProducerForm.get('typeOfProductName')?.dirty)
+            "
+          >
+            Обов'язкове поле
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-list>
+        <ng-container *ngFor="let productProducer of productProducerItems">
+          <mat-list-item>
+            <div class="list-item-wrap">
+              <div class="list-item">
+                <p>Виробник: {{ productProducer.name }}</p>
+                <p>ФП: {{ productProducer.typeOfProduct.name }}</p>
+              </div>
+              <div *ngIf="productProducer !== null">
+                <button (click)="edit(productProducer)" mat-icon-button>
+                  <mat-icon>mode_edit_outline</mat-icon>
+                </button>
+                <button
+                  *ngIf="productProducer.id"
+                  mat-icon-button
+                  (click)="delete(productProducer.id)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+        <mat-list-item *ngIf="productProducerItems.length === 0"
+          >Empty</mat-list-item
+        >
+      </mat-list>
+    </div>
+  </form>
+</div>

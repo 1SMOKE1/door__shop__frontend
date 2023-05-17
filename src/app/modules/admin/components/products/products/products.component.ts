@@ -12,6 +12,10 @@ import { FurnitureComponent } from '../furniture/furniture.component';
 import { WindowComponent } from '../window/window.component';
 import { ExcelComponent } from '../excel/excel.component';
 import { UpdateInteriorDoorModel } from '../../../models/update-interiori-door.model';
+import { InteriorDoorService } from '../../../services/products/interior-door.service';
+import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UpdateEntranceDoorModel } from '../../../models/update-entrance-door.model';
 
 @Component({
   selector: 'dsf-products',
@@ -34,7 +38,9 @@ export class ProductsComponent implements OnInit, OnDestroy{
   constructor(
     private readonly cardService: CardService,
     private readonly sidebarService: SidebarService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly snackbarConfigService: SnackbarConfigService,
+    private readonly interiorDoorService: InteriorDoorService
   ){}
 
   ngOnInit(): void {
@@ -177,16 +183,16 @@ export class ProductsComponent implements OnInit, OnDestroy{
             +price, inStock,
             fabricMaterialThickness ? +fabricMaterialThickness : 0,
             fabricMaterialHeight ? +fabricMaterialHeight : 0,
-            fabricMaterialWidth ? fabricMaterialWidth : [],
-            doorIsolation ? doorIsolation : [],
-            doorFrameMaterial ? doorFrameMaterial : [],
-            doorSelectionBoard ? doorSelectionBoard : [],
-            doorWelt ? doorWelt : [],
-            doorHand ? doorHand : [],
-            doorMechanism ? doorMechanism : [],
-            doorLoops ? doorLoops : [],
-            doorStopper ? doorStopper : [],
-            doorSlidingSystem ? doorSlidingSystem : [],
+            fabricMaterialWidth,
+            doorIsolation,
+            doorFrameMaterial,
+            doorSelectionBoard,
+            doorWelt,
+            doorHand,
+            doorMechanism,
+            doorLoops,
+            doorStopper,
+            doorSlidingSystem,
             description,
             homePage,
             images
@@ -198,7 +204,30 @@ export class ProductsComponent implements OnInit, OnDestroy{
       }
       case TypeOfProductEnum.entranceDoor: {
         const dialogRef = this.dialog.open(EntranceDoorComponent, {
-          data: product
+          data: new UpdateEntranceDoorModel(
+            id,
+            name,
+            productProducer!.name,
+            typeOfProduct.name, country, guarantee,
+            +price, inStock,
+            fabricMaterialThickness ? +fabricMaterialThickness : 0,
+            frameMaterialThickness ? +frameMaterialThickness : 0,
+            doorInsulation,
+            covering,
+            doorPeephole,
+            openingType,
+            size,
+            lowerLock,
+            upperLock,
+            doorHand,
+            weight,
+            metalThickness ? +metalThickness : 0,
+            frameMaterialConstruction,
+            sealerCircuit,
+            description,
+            homePage,
+            images
+          )
         });
         dialogRef.afterClosed()
         .subscribe(() => this.getFilteredProducts());
@@ -225,6 +254,22 @@ export class ProductsComponent implements OnInit, OnDestroy{
   }
 
   public deleteProduct(id: number, typeOfProductName: string){
-    
+    switch(typeOfProductName){
+      case TypeOfProductEnum.interiorDoor:
+        this.interiorDoorService
+        .deleteIneriorDoor(id)
+        .subscribe({
+          next: (answer: string) => this.snackbarConfigService.openSnackBar(answer),
+          error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+        })
+        break;
+      case TypeOfProductEnum.entranceDoor:
+        break;
+      case TypeOfProductEnum.furniture:
+        break;
+      case  TypeOfProductEnum.windows:
+        break;
+    }
+
   }
 }

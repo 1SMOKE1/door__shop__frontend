@@ -9,32 +9,32 @@ import { ICalculatorChar } from '../../interfaces/calculator-char.interface';
 })
 export class DoorWeltService {
 
-  baseUrl: string = environment.baseUrl;
+  private baseUrl: string = `${environment.baseUrl}/door-welt`;
 
   constructor(
     private readonly http: HttpClient
   ) { }
 
-  public getAllDoorWeltItems(): Observable<ICalculatorChar[]>{
-    const url: string = `${this.baseUrl}/door-welt`;
+  public getAllItems(): Observable<ICalculatorChar[]>{
+    const url: string = this.baseUrl;
 
     return this.http.get<ICalculatorChar[]>(url);
   }
 
-  public createOneDoorWeltItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/door-welt`;
+  public createOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+    const url: string = this.baseUrl;
 
     return this.http.post<ICalculatorChar>(url, body);
   }
 
-  public updateOneDoorWeltItem(body: ICalculatorChar): Observable<ICalculatorChar>{
-    const url: string = `${this.baseUrl}/door-welt/${body.id}`;
+  public updateOneItem(body: ICalculatorChar): Observable<ICalculatorChar>{
+    const url: string = `${this.baseUrl}/${body.id}`;
 
     return this.http.put<ICalculatorChar>(url, body);
   }
 
-  public deleteOneDoorWeltItem(id: number): Observable<string>{
-    const url: string = `${this.baseUrl}/door-welt/${id}`;
+  public deleteOneItem(id: number): Observable<string>{
+    const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);
   }

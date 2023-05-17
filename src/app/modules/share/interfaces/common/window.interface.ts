@@ -1,3 +1,4 @@
+import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
 import { CountryEnum } from "../../enums/country.enum";
 import { GuaranteeEnum } from "../../enums/guarantee.enum";
 import { InStockEnum } from "../../enums/in-stock.enum";
@@ -21,33 +22,33 @@ export interface IWindow{
 
   inStock: InStockEnum;
 
-  mosquitNet?: string[] | null, // Москітна сітка
+  mosquitNet: ICalculatorChar[], // Москітна сітка
 
-  windowSill?: string[] | null, // Підвіконня
+  windowSill: ICalculatorChar[], // Підвіконня
 
-  windowEbb?: string[] | null, // Віконний відлив
+  windowEbb: ICalculatorChar[], // Віконний відлив
 
-  windowHand?: string[] | null, // Віконна ручка
+  windowHand: ICalculatorChar[], // Віконна ручка
   
-  childLock?: string[] | null, // Дитячий замок
+  childLock: ICalculatorChar[], // Дитячий замок
 
-  housewifeStub?: string[] | null, // Заглушка домогосподарки
+  housewifeStub: ICalculatorChar[], // Заглушка домогосподарки
 
-  glassPocketAdd?: string[] | null, // Додаткові стеклопакети
+  glassPocketAdd: ICalculatorChar[], // Додаткові стеклопакети
 
-  lamination?: string[] | null, // Ламінація
+  lamination: ICalculatorChar[], // Ламінація
 
-  profile?: string[] | null, // Профіль
+  profile: ICalculatorChar[], // Профіль
 
-  windowWidth?: number, // Ширина вікна
+  windowWidth: number, // Ширина вікна
 
-  windowHeight?: number, // Висота вікна
+  windowHeight: number, // Висота вікна
 
-  camerasCount?: string[] | null, // Кількість камер
+  camerasCount: ICalculatorChar[], // Кількість камер
 
-  features?: string[] | null, // Особливості
+  features: ICalculatorChar[], // Особливості
   
-  sectionsCount?: string[] | null, // Кількість секцій
+  sectionsCount: ICalculatorChar[], // Кількість секцій
 
   description?: string;
 

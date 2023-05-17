@@ -1,0 +1,45 @@
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+<mat-dialog-content class="mat-typography" >
+  <h2 mat-dialog-title>Вага</h2>
+  <form class="content" [formGroup]="doorWeightForm">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Назва</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="doorWeightForm.get('name')?.errors && !doorWeightForm.get('name')?.hasError('required')">
+        Мінімум 3 символи
+      </mat-error>
+      <mat-error *ngIf="doorWeightForm.get('name')?.hasError('required')">
+        Назва є <strong>обов'язковою</strong>
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" [disabled]="doorWeightForm.invalid" (click)="submit()">ok</button>
+  </form>
+  <mat-list>
+    <ng-container *ngFor="let item of doorWeightItems">
+      <mat-list-item>
+        <div class="list-item-wrap">
+          <div class="list-item">
+            <p>Назва: {{ item.name }}</p>
+          </div>
+          <div>
+            <button (click)="edit(item)" mat-icon-button>
+              <mat-icon>mode_edit_outline</mat-icon>
+            </button>
+            <button *ngIf="item.id"
+              mat-icon-button
+              (click)="delete(item.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+    <mat-list-item *ngIf="doorWeightItems.length === 0"
+      >Empty</mat-list-item
+    >
+  </mat-list>
+</mat-dialog-content>

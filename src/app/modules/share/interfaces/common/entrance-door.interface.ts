@@ -1,3 +1,4 @@
+import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
 import { CountryEnum } from "../../enums/country.enum";
 import { GuaranteeEnum } from "../../enums/guarantee.enum";
 import { InStockEnum } from "../../enums/in-stock.enum";
@@ -21,29 +22,33 @@ export interface IEntranceDoor{
 
   inStock: InStockEnum;
 
-  frameMaterialThickness?: string[] | null, // Товщина короба
+  fabricMaterialThickness: number
 
-  doorInsulation?: string[] | null // Утеплення
+  frameMaterialThickness: number, // Товщина короба
 
-  covering?: string[] | null, // Оздоблення
+  doorInsulation: ICalculatorChar[] // Утеплення
 
-  doorPeephole?: boolean, // Глазок
+  covering: ICalculatorChar[], // Оздоблення
 
-  openingType?: string[] | null, // Тип відкривання
+  doorPeephole: boolean, // Глазок
 
-  size?: string[] | null, // Розмір
+  openingType: ICalculatorChar[], // Тип відкривання
 
-  lowerLock?: string[] | null, // Нижній замок
+  size: ICalculatorChar[], // Розмір
 
-  upperLock?: string[] | null, // Верхній замок
+  lowerLock: ICalculatorChar[], // Нижній замок
 
-  weight?: string[] | null, // Вага
+  upperLock: ICalculatorChar[], // Верхній замок
 
-  metalThickness?: number, // Товщина металу
+  weight: ICalculatorChar[], // Вага
 
-  frameMaterialConstruction?: string[] | null; // Конструкція короба
+  metalThickness: number, // Товщина металу
+
+  frameMaterialConstruction: ICalculatorChar[]; // Конструкція короба
   
-  sealerCircuit?: string[] | null; // Контур Ущільнення
+  sealerCircuit: ICalculatorChar[]; // Контур Ущільнення
+  
+  doorHand: ICalculatorChar[];
 
   homePage?: boolean;
 

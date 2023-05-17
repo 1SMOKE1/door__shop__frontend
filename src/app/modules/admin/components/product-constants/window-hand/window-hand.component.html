@@ -1,0 +1,57 @@
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+<mat-dialog-content class="mat-typography" >
+  <h2 mat-dialog-title>Дверна ручка</h2>
+  <form class="content" [formGroup]="windowHandForm">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Назва</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="windowHandForm.get('name')?.errors && !windowHandForm.get('name')?.hasError('required')">
+        Мінімум 3 символи
+      </mat-error>
+      <mat-error *ngIf="windowHandForm.get('name')?.hasError('required')">
+        Назва є <strong>обов'язковою</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Ціна</mat-label>
+      <input type="number" matInput formControlName="price">
+      <mat-error *ngIf="windowHandForm.get('price')?.hasError('required')">
+        Ціна є <strong>обов'язковою</strong> характеристикою
+      </mat-error>
+      <mat-error *ngIf="windowHandForm.get('price')?.errors &&!windowHandForm.get('price')?.hasError('required')">
+        Число має бути більшим за <strong>0</strong> (позитивним)
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" [disabled]="windowHandForm.invalid" (click)="submit()">ok</button>
+  </form>
+  <mat-list>
+    <ng-container *ngFor="let item of windowHandItems">
+      <mat-list-item>
+        <div class="list-item-wrap">
+          <div class="list-item">
+            <p>Назва: {{ item.name }}</p>
+            <p>Ціна: {{ item.price }}</p>
+          </div>
+          <div>
+            <button (click)="edit(item)" mat-icon-button>
+              <mat-icon>mode_edit_outline</mat-icon>
+            </button>
+            <button *ngIf="item.id"
+              mat-icon-button
+              (click)="delete(item.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+    <mat-list-item *ngIf="windowHandItems.length === 0"
+      >Empty</mat-list-item
+    >
+  </mat-list>
+</mat-dialog-content>
+
