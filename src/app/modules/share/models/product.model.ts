@@ -46,7 +46,7 @@ export class ProductModel extends ConvertingProductClass implements IProduct {
     public frameMaterialConstruction: ICalculatorChar[], // Конструкція короба
     public sealerCircuit: ICalculatorChar[], // Контур Ущільнення
     // вікна
-    public mosquitNet: ICalculatorChar[], // Москітна сітка
+    public mosquitoNet: ICalculatorChar[], // Москітна сітка
     public windowSill: ICalculatorChar[], // Підвіконня
     public windowEbb: ICalculatorChar[], // Віконний відлив
     public windowHand: ICalculatorChar[], // Віконна ручка
@@ -106,7 +106,7 @@ export class ProductModel extends ConvertingProductClass implements IProduct {
     );
     this.sealerCircuit = this.checkOnNotEmptyProductArr(this.sealerCircuit);
     //
-    this.mosquitNet = this.checkOnNotEmptyProductArr(this.mosquitNet);
+    this.mosquitoNet = this.checkOnNotEmptyProductArr(this.mosquitoNet);
     this.windowSill = this.checkOnNotEmptyProductArr(this.windowSill);
     this.windowEbb = this.checkOnNotEmptyProductArr(this.windowEbb);
     this.windowHand = this.checkOnNotEmptyProductArr(this.windowHand);

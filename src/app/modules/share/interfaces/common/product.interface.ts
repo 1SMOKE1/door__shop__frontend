@@ -41,7 +41,7 @@ export interface IProduct{
   frameMaterialConstruction: ICalculatorChar[]; // Конструкція короба
   sealerCircuit: ICalculatorChar[]; // Контур Ущільнення
   // вікна
-  mosquitNet: ICalculatorChar[], // Москітна сітка
+  mosquitoNet: ICalculatorChar[], // Москітна сітка
   windowSill: ICalculatorChar[], // Підвіконня
   windowEbb: ICalculatorChar[], // Віконний відлив
   windowHand: ICalculatorChar[], // Віконна ручка

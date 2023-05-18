@@ -124,12 +124,13 @@ export class InteriorDoorComponent implements OnInit {
     this.initDoorSlidingSystemItems();
     this.initFurnitureItems();
 
-    
-
     if (this.isEditMode() && this.data != null){
       this.interiorDoorForm.patchValue(this.data);
-      this.initSlashStylingOfFormFields()
+      this.initSlashStylingOfFormFields();
     }
+      
+      
+    
       
       
   }

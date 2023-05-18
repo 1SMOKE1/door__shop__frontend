@@ -50,6 +50,9 @@ import { HousewifeStubComponent } from './components/product-constants/housewife
 import { GlassPocketAddComponent } from './components/product-constants/glass-pocket-add/glass-pocket-add.component';
 import { LaminationComponent } from './components/product-constants/lamination/lamination.component';
 import { ProfileComponent } from './components/product-constants/profile/profile.component';
+import { CamerasCountComponent } from './components/product-constants/cameras-count/cameras-count.component';
+import { FeaturesComponent } from './components/product-constants/features/features.component';
+import { SectionCountComponent } from './components/product-constants/section-count/section-count.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +89,9 @@ import { ProfileComponent } from './components/product-constants/profile/profile
     GlassPocketAddComponent,
     LaminationComponent,
     ProfileComponent,
+    CamerasCountComponent,
+    FeaturesComponent,
+    SectionCountComponent,
   ],
   imports: [
     CommonModule,

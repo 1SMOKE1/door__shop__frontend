@@ -1,83 +1,84 @@
 import { Component, OnInit } from '@angular/core';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
-import { DoorIsolationService } from '../../../services/product-constants/door-isolation.service';
+import { FeaturesService } from '../../../services/product-constants/features.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'dsf-door-isolation',
-  templateUrl: './door-isolation.component.html',
-  styleUrls: ['./door-isolation.component.scss']
+  selector: 'dsf-features',
+  templateUrl: './features.component.html',
+  styleUrls: ['./features.component.scss']
 })
-export class DoorIsolationComponent implements OnInit{
 
-  doorIsolationItems: ICalculatorChar[] = [];
+export class FeaturesComponent implements OnInit{
 
-  doorIsolationForm: FormGroup = new FormGroup({
+  featuresItems: ICalculatorChar[] = [];
+
+  featuresForm: FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(3)
     ]),
     id: new FormControl(null)
-  });
+  })
 
   constructor(
     private readonly snackbarConfigService: SnackbarConfigService,
-    private readonly doorIsolationService: DoorIsolationService
+    private readonly featuresService: FeaturesService
   ){}
 
   ngOnInit(): void {
-    this.initDoorIsolationItems();
+    this.initFeaturesItems();
   }
 
   public submit(){
     if(this.isEditMode())
-      this.updateOneDoorIsolationItem();
+      this.updateOneFeaturesItem();
     else 
-      this.createOneDoorIsolationItem();
+      this.createOneFeaturesItem();
   }
 
   public edit(item: ICalculatorChar){
-    this.doorIsolationForm.patchValue(item);
+    this.featuresForm.patchValue(item);
   }
 
   public delete(id: number){
-    this.doorIsolationService
+    this.featuresService
     .deleteOneItem(id)
     .subscribe({
       next: (message: string) => {
         this.snackbarConfigService.openSnackBar(message);
-        this.doorIsolationItems = this.doorIsolationItems.filter((el) => el.id !== id);
-        this.doorIsolationForm.reset();
+        this.featuresItems = this.featuresItems.filter((el) => el.id !== id);
+        this.featuresForm.reset();
       },
       error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
-  private createOneDoorIsolationItem(){
-    this.doorIsolationService
-    .createOneItem(this.doorIsolationForm.value)
+  private createOneFeaturesItem(){
+    this.featuresService
+    .createOneItem(this.featuresForm.value)
     .subscribe({
       next: ({name, id}: ICalculatorChar) => {
-        this.doorIsolationItems.push({name, id});
-        this.doorIsolationForm.reset();
+        this.featuresItems.push({name, id});
+        this.featuresForm.reset();
       },
       error: (err: HttpErrorResponse) => this.snackbarConfigService.openSnackBar(err.message)
     })
   }
 
-  private updateOneDoorIsolationItem(){
+  private updateOneFeaturesItem(){
     const obj: ICalculatorChar = {
-      name: this.doorIsolationForm.get('name')?.value,
-      id: +this.doorIsolationForm.get('id')?.value,
+      name: this.featuresForm.get('name')?.value,
+      id: +this.featuresForm.get('id')?.value,
     };
 
-    this.doorIsolationService
+    this.featuresService
     .updateOneItem(obj)
     .subscribe({
       next: ({name, id}: ICalculatorChar) => {
-        this.doorIsolationItems = this.doorIsolationItems
+        this.featuresItems = this.featuresItems
         .map((el) => (
           el.id === id 
           ? {...el, name}
@@ -88,16 +89,16 @@ export class DoorIsolationComponent implements OnInit{
     });
   }
 
-  private initDoorIsolationItems(): void{
-    this.doorIsolationService
+  private initFeaturesItems(): void{
+    this.featuresService
     .getAllItems()
     .subscribe({
-      next: (items: ICalculatorChar[]) => this.doorIsolationItems = items,
+      next: (items: ICalculatorChar[]) => this.featuresItems = items,
       error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }
 
   private isEditMode(): boolean{
-    return !!this.doorIsolationForm.get('id')?.value;
+    return !!this.featuresForm.get('id')?.value;
   }
 }

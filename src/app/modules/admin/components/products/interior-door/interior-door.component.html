@@ -145,8 +145,8 @@
             formControlName="doorFrameMaterial"
             multiple
           >
-            <mat-option *ngFor="let item of doorFrameMaterialItems" [value]="item.name">{{item.name}}</mat-option>
-          </mat-select>
+          <mat-option *ngFor="let item of doorFrameMaterialItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
         </mat-form-field>
         <button
           (click)="addDoorFrameMaterial()"
@@ -167,7 +167,7 @@
             formControlName="doorSelectionBoard"
             multiple
           >
-            <mat-option *ngFor="let item of doorSelectionBoardItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of doorSelectionBoardItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
         <button
@@ -189,7 +189,7 @@
             formControlName="doorWelt"
             multiple
           >
-            <mat-option *ngFor="let item of doorWeltItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of doorWeltItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
         <button
@@ -214,7 +214,7 @@
             formControlName="doorHand"
             multiple
           >
-            <mat-option *ngFor="let item of doorHandItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of doorHandItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -230,7 +230,7 @@
             formControlName="doorMechanism"
             multiple
           >
-            <mat-option *ngFor="let item of doorMechanismItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of doorMechanismItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -245,7 +245,7 @@
             formControlName="doorLoops"
             multiple
           >
-            <mat-option *ngFor="let item of doorLoopsItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of doorLoopsItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -260,7 +260,7 @@
             formControlName="doorStopper"
             multiple
           >
-            <mat-option *ngFor="let item of doorStopperItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of doorStopperItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -277,7 +277,7 @@
             formControlName="doorSlidingSystem"
             multiple
           >
-            <mat-option *ngFor="let item of doorSlidingSystemItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of doorSlidingSystemItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
         <button

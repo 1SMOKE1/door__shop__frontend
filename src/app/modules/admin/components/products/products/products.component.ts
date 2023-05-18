@@ -16,6 +16,7 @@ import { InteriorDoorService } from '../../../services/products/interior-door.se
 import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UpdateEntranceDoorModel } from '../../../models/update-entrance-door.model';
+import { UpdateWindowModel } from '../../../models/update-window.model';
 
 @Component({
   selector: 'dsf-products',
@@ -154,7 +155,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
       frameMaterialConstruction,
       sealerCircuit,
       // 
-      mosquitNet,
+      mosquitoNet,
       windowSill,
       windowEbb,
       windowHand,
@@ -243,7 +244,33 @@ export class ProductsComponent implements OnInit, OnDestroy{
       }
       case TypeOfProductEnum.windows: {
         const dialogRef = this.dialog.open(WindowComponent, {
-          data: product
+          data: new UpdateWindowModel(
+            id, 
+            name, 
+            productProducer!.name,
+            typeOfProduct.name, 
+            country, 
+            guarantee, 
+            +price,
+            inStock,
+            mosquitoNet,
+            windowSill,
+            windowEbb,
+            windowHand,
+            childLock,
+            housewifeStub,
+            glassPocketAdd,
+            lamination,
+            profile,
+            windowWidth ? +windowWidth : 0,
+            windowHeight ? +windowHeight : 0,
+            camerasCount,
+            features,
+            sectionsCount,
+            description,
+            homePage,
+            images
+          )
         });
         dialogRef.afterClosed()
         .subscribe(() => this.getFilteredProducts());
