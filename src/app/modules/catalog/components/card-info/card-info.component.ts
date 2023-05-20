@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderBasketComponent } from 'src/app/modules/share/components/order-basket/order-basket/order-basket.component';
 import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
@@ -17,7 +17,7 @@ import { ConvertingProductClass } from 'src/app/modules/admin/utils/converting-p
   templateUrl: './card-info.component.html',
   styleUrls: ['./card-info.component.scss'],
 })
-export class CardInfoComponent extends ConvertingProductClass implements OnInit, OnDestroy{
+export class CardInfoComponent extends ConvertingProductClass implements OnInit{
 
   product: IProduct | null = null;
   productSubject: Subject<IProduct> = new Subject();
@@ -114,10 +114,6 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit,
         },
         error: () => this.router.navigate(['store', 'page-not-found'])
       });
-  }
-
-  ngOnDestroy(): void {
-    this.productSubscription.unsubscribe();
   }
 
   private addCartLine(): void{

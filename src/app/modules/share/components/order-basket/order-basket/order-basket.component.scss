@@ -53,8 +53,18 @@
     height: auto;
   }
   &-text{
-    margin-right: 95px;
     text-decoration: underline;
+    text-align: center;
+    &-list{
+      margin: 20px 0;
+    }
+    &-wrap{
+      width: 45%;
+    }
+    &-add{
+      text-align: start;
+      list-style-type: circle;
+    }
     @media (max-width: 600px) {
       width: 50%;
       margin-right: 0;

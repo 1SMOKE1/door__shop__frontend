@@ -19,7 +19,31 @@
             <div class="cart-img-wrap">
               <img *ngIf="cart.product" class="cart-img" [src]="cart.product.images[0]" alt="">
             </div>
-            <p class="cart-text font-bold">{{cart.product.name}}</p>
+            <div class="cart-text-wrap">
+              <p class="cart-text font-bold">{{cart.product.name}}</p>
+              <ul class="cart-text-list">
+                <li class="cart-text-add" *ngIf="cart.product.fabricMaterialWidth !== null">Ширина полотна: {{cart.product.fabricMaterialWidth.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorFrameMaterial !== null">Короб: {{cart.product.doorFrameMaterial.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorSelectionBoard !== null">Добірна дошка: {{cart.product.doorSelectionBoard.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorWelt !== null">Лиштва: {{cart.product.doorWelt.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorHand !== null">Дверна ручка: {{cart.product.doorHand.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorMechanism !== null">Дверний механізм: {{cart.product.doorMechanism.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorLoops !== null">Дверні петлі: {{cart.product.doorLoops.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorStopper !== null">Дверний стопор: {{cart.product.doorStopper.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.doorSlidingSystem !== null">Роздвижна система: {{cart.product.doorSlidingSystem.name}}</li>
+
+                <li class="cart-text-add" *ngIf="cart.product.mosquitoNet !== null">Москітна сітка: {{cart.product.mosquitoNet.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.windowSill !== null">Підвіконня: {{cart.product.windowSill.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.windowEbb !== null">Відлив: {{cart.product.windowEbb.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.windowHand !== null">Ручка віконна: {{cart.product.windowHand.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.childLock !== null">Дитячий замок: {{cart.product.childLock.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.housewifeStub !== null">Заглушка домогосподарки: {{cart.product.housewifeStub.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.glassPocketAdd !== null">Доповнення до стеклопакету: {{cart.product.glassPocketAdd.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.lamination !== null">Ламінація: {{cart.product.lamination.name}}</li>
+                <li class="cart-text-add" *ngIf="cart.product.profile !== null">Профіль: {{cart.product.profile.name}}</li>
+              </ul>
+            </div>
+            
             <div class="cart-count-wrap">
               <p class="font-p-sm text-underline">Кількість</p>
               <div class="cart-count">
