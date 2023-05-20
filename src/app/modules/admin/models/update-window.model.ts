@@ -53,7 +53,7 @@ export class UpdateWindowModel
 
     public features: ICalculatorChar[], // Обосливості
 
-    public sectionCount: ICalculatorChar[], // Кількість секцій
+    public sectionsCount: ICalculatorChar[], // Кількість секцій
 
     public description: string,
 
@@ -78,6 +78,6 @@ export class UpdateWindowModel
     this.windowHeight = this.convertNumber(this.windowHeight);
     this.camerasCount = this.checkOnNotEmptyArr(this.camerasCount);
     this.features = this.checkOnNotEmptyArr(this.features);
-    this.sectionCount = this.checkOnNotEmptyArr(this.sectionCount);
+    this.sectionsCount = this.checkOnNotEmptyArr(this.sectionsCount);
   }
 }

@@ -5,7 +5,8 @@ import { InStockEnum } from "../../enums/in-stock.enum";
 import { ITypeOfProductResponse } from "../response/type-of-product.interface";
 import { IProductProducer } from "./product-producer.interface";
 
-export interface IProduct{
+export interface IProductCaltulator{
+
   id: number;
   typeOfProduct: ITypeOfProductResponse; // Тип продкута
   productProducer: IProductProducer | null; // Производитель
@@ -17,16 +18,16 @@ export interface IProduct{
   //  Міжкімнатні
   fabricMaterialThickness: number, // Товщина полотна // для обох дверей
   fabricMaterialHeight: number, // Висота полотна
-  fabricMaterialWidth: ICalculatorChar[], // Ширина полотна
+  fabricMaterialWidth: ICalculatorChar | null, // Ширина полотна
   doorIsolation: ICalculatorChar[], // Шумоізоляція
-  doorFrameMaterial: ICalculatorChar[], // Короб
-  doorSelectionBoard: ICalculatorChar[], // Добірна дошка
-  doorWelt:  ICalculatorChar[], // Лиштва
-  doorHand: ICalculatorChar[], // Ручка
-  doorMechanism: ICalculatorChar[], // Механізм
-  doorLoops: ICalculatorChar[], // Петлі
-  doorStopper:  ICalculatorChar[], // Стопор
-  doorSlidingSystem: ICalculatorChar[], // Роздвижна система
+  doorFrameMaterial: ICalculatorChar | null, // Короб
+  doorSelectionBoard: ICalculatorChar | null, // Добірна дошка
+  doorWelt:  ICalculatorChar | null, // Лиштва
+  doorHand: ICalculatorChar | null, // Ручка
+  doorMechanism: ICalculatorChar | null, // Механізм
+  doorLoops: ICalculatorChar | null, // Петлі
+  doorStopper:  ICalculatorChar | null, // Стопор
+  doorSlidingSystem: ICalculatorChar | null, // Роздвижна система
   // Вхідні
   frameMaterialThickness: number, // Товщина короба
   doorInsulation: ICalculatorChar[] // Утеплення
@@ -41,15 +42,15 @@ export interface IProduct{
   frameMaterialConstruction: ICalculatorChar[]; // Конструкція короба
   sealerCircuit: ICalculatorChar[]; // Контур Ущільнення
   // вікна
-  mosquitoNet: ICalculatorChar[], // Москітна сітка
-  windowSill: ICalculatorChar[], // Підвіконня
-  windowEbb: ICalculatorChar[], // Віконний відлив
-  windowHand: ICalculatorChar[], // Віконна ручка
-  childLock: ICalculatorChar[], // Дитячий замок
-  housewifeStub: ICalculatorChar[], // Заглушка домогосподарки
-  glassPocketAdd: ICalculatorChar[], // Додаткові стеклопакети
-  lamination: ICalculatorChar[], // Ламінація
-  profile: ICalculatorChar[], // Профіль
+  mosquitoNet: ICalculatorChar | null, // Москітна сітка
+  windowSill: ICalculatorChar | null, // Підвіконня
+  windowEbb: ICalculatorChar | null, // Віконний відлив
+  windowHand: ICalculatorChar | null, // Віконна ручка
+  childLock: ICalculatorChar | null, // Дитячий замок
+  housewifeStub: ICalculatorChar | null, // Заглушка домогосподарки
+  glassPocketAdd: ICalculatorChar | null, // Додаткові стеклопакети
+  lamination: ICalculatorChar | null, // Ламінація
+  profile: ICalculatorChar | null, // Профіль
   windowWidth: number, // Ширина вікна
   windowHeight: number, // Висота вікна
   camerasCount: ICalculatorChar[], // Кількість камер

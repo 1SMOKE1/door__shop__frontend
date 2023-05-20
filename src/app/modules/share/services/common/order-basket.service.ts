@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ICreateOrder } from '../../interfaces/common/order.interface';
 import { environment } from 'src/environments/environment.development';
 import { IOrderResponse } from '../../interfaces/response/order.interface';
 import CreateOrderModel from '../../models/create-order.model';
-import { HandleFormsErrorService } from '../errors/handle-forms-error.service';
+
 
 
 @Injectable({
@@ -17,7 +17,6 @@ export class OrderBasketService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly handleFormsErrorService: HandleFormsErrorService
   ){}
 
   public createOrder(newOrder: ICreateOrder): Observable<ICreateOrder>{
@@ -26,7 +25,6 @@ export class OrderBasketService {
     return this.http.post<IOrderResponse>(url, newOrder)
     .pipe(
       map((el: IOrderResponse): ICreateOrder => this.convertOrder(el)),
-      catchError(this.handleFormsErrorService.handleErrorFormsMain)
     )
   }
 

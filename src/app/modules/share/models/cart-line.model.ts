@@ -1,12 +1,12 @@
 import { ICartLine } from "../interfaces/common/cart-line.interface";
-import { IProduct } from "../interfaces/common/product.interface";
+import { IProductCaltulator } from "../interfaces/common/product-calculator.interface";
 
 export class CartLine implements ICartLine{
 
   public quantity: number = 1;
 
   constructor(
-    public product: IProduct,
+    public product: IProductCaltulator,
   ){}
 
   get subTotal(): number{

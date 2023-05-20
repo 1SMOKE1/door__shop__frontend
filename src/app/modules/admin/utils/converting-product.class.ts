@@ -2,6 +2,9 @@ import { IFurniture } from "../../share/interfaces/common/furniture.interface";
 import { ICalculatorChar } from "../interfaces/calculator-char.interface";
 
 export class ConvertingProductClass {
+
+  public readonly chooseConst: ICalculatorChar = {id: 0, name: '--- Оберіть ---', price: 0};
+
   protected checkOnNotEmptyArr(val: ICalculatorChar[] | null | undefined): ICalculatorChar[]{
     if(val)
       switch(true){
@@ -42,4 +45,11 @@ export class ConvertingProductClass {
   protected convertCalculatorChar(arr: IFurniture[] | ICalculatorChar[]):ICalculatorChar[] {
     return arr.map((el) => ({name: el.name, price: el.price ? +el.price : 0, id: el.id}));
   } 
+
+  protected convertingProp(prop: ICalculatorChar | null): ICalculatorChar | null {
+    return prop?.name === this.chooseConst.name ? null : prop;
+  }
+
+  
+  
 }

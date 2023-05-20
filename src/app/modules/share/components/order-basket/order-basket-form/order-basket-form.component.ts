@@ -6,7 +6,8 @@ import { ICreateOrder } from '../../../interfaces/common/order.interface';
 import CreateOrderModel from '../../../models/create-order.model';
 import { CartLineService } from '../../../services/common/cart-line.service';
 import { OrderBasketService } from '../../../services/common/order-basket.service';
-import { HandleFormsErrorService } from '../../../services/errors/handle-forms-error.service';
+import { SnackbarConfigService } from '../../../services/common/snackbar-config.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dsf-order-basket-form',
@@ -22,7 +23,7 @@ export class OrderBasketFormComponent {
     private readonly validationService: ValidationService,
     private readonly cartLinesService: CartLineService,
     private readonly orderBasketService: OrderBasketService,
-    private readonly handleFormsErrorService: HandleFormsErrorService
+    private readonly snackbarConfigService: SnackbarConfigService
   ) {}
 
   orderForm: FormGroup = new FormGroup({
@@ -60,8 +61,7 @@ export class OrderBasketFormComponent {
     this.orderBasketService.createOrder(newOrder)
     .subscribe({
       next: () => this.sendFormEmit.emit(e),
-      error: (err: Error): void => this.handleFormsErrorService.snackbarShowError(err)  
-      ,
+      error: (err: HttpErrorResponse): void => this.snackbarConfigService.showError(err)  
     });
   }
 

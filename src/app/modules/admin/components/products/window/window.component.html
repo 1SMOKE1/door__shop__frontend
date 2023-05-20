@@ -3,8 +3,7 @@
 </mat-dialog-actions>
 <mat-dialog-content class="mat-typography">
   <h2 mat-dialog-title>
-    {{ isEditMode() ? "редагування" : "створення" }} продукту "Міжкімнатні
-    двері"
+    {{ isEditMode() ? "редагування" : "створення" }} продукту "Вікна"
   </h2>
 
   <form [formGroup]="windowForm" class="content">
@@ -93,6 +92,271 @@
         Наявність на складі є <strong>обов'язковою</strong>
       </mat-error>
     </mat-form-field>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Москітна сітка</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="mosquitoNet"
+            multiple
+          >
+          <mat-option *ngFor="let item of mosquitoNetItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addMosquitoNet()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("mosquitoNet") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Підвіконня</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="windowSill"
+            multiple
+          >
+          <mat-option *ngFor="let item of windowSillItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addWindowSill()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("windowSill") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Відлив</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="windowEbb"
+            multiple
+          >
+          <mat-option *ngFor="let item of windowEbbItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addWindowEbb()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("windowEbb") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Віконна ручка</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="windowHand"
+            multiple
+          >
+          <mat-option *ngFor="let item of windowHandItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addWindowHand()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("windowHand") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Дитячий замок</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="childLock"
+            multiple
+          >
+          <mat-option *ngFor="let item of childLockItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addChildLock()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("childLock") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Заглушка домогосподарки</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="housewifeStub"
+            multiple
+          >
+          <mat-option *ngFor="let item of housewifeStubItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addHousewifeStub()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("housewifeStub") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Доповнення до стеклопакету</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="glassPocketAdd"
+            multiple
+          >
+          <mat-option *ngFor="let item of glassPocketAddItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addGlassPocketAdd()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("glassPocketAdd") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Ламінація</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="lamination"
+            multiple
+          >
+          <mat-option *ngFor="let item of laminationItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addLamination()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("lamination") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Профіль</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="profile"
+            multiple
+          >
+          <mat-option *ngFor="let item of profileItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addProfile()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("profile") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Кількість камер</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="camerasCount"
+            multiple
+          >
+          <mat-option *ngFor="let item of camerasCountItems" [value]="item.name">{{item.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addCamerasCount()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("camerasCount") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Особливості</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="features"
+            multiple
+          >
+          <mat-option *ngFor="let item of featuresItems" [value]="item.name">{{item.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addFeatures()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("features") }}</p>
+    </div>
+    <div>
+      <div class="product-constant__wrap">
+        <mat-form-field appearance="outline" class="form-field" style="width: 80%;">
+          <mat-label>Кількість секцій</mat-label>
+          <mat-select
+            class="form-field-input"
+            formControlName="sectionCount"
+            multiple
+          >
+          <mat-option *ngFor="let item of sectionCountItems" [value]="item.name">{{item.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+        <button
+          (click)="addSectionCount()"
+          class="btn-circle"
+          mat-icon-button
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <p>{{ slashStylingOfFormField("sectionCount") }}</p>
+    </div>
+
 
     <div class="product-constant__wrap">
       <input type="checkbox" formControlName="homePage" />

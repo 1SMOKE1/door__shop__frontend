@@ -12,6 +12,7 @@ import { CartLineService } from '../../../services/common/cart-line.service';
 import { ICartLine } from '../../../interfaces/common/cart-line.interface';
 import { OrderBasketService } from '../../../services/common/order-basket.service';
 import { DOCUMENT } from '@angular/common';
+import { IProductCaltulator } from '../../../interfaces/common/product-calculator.interface';
 
 @Component({
   selector: 'dsf-order-basket',
@@ -46,12 +47,12 @@ export class OrderBasketComponent implements AfterViewInit {
     this.getCartLines();
   }
 
-  decrease(id: number) {
-    this.cartLineService.decrease(id);
+  decrease(product: IProductCaltulator) {
+    this.cartLineService.decrease(product);
   }
 
-  increase(id: number) {
-    this.cartLineService.increase(id);
+  increase(product: IProductCaltulator) {
+    this.cartLineService.increase(product);
   }
 
   clearCartLines(): void {
@@ -63,8 +64,8 @@ export class OrderBasketComponent implements AfterViewInit {
     this.cartLines = this.cartLineService.getCartLines();
   }
 
-  deleteCartLine(id: number): void {
-    this.cartLineService.deleteCartLine(id);
+  deleteCartLine(product: IProductCaltulator): void {
+    this.cartLineService.deleteCartLine(product);
     this.getCartLines();
   }
 

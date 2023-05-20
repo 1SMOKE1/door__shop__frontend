@@ -4,6 +4,7 @@ import { IProductProducer } from '../../interfaces/common/product-producer.inter
 import { FiltrationService } from './filtration.service';
 import { IHoleFiltration } from '../../interfaces/common/hole-filtration.interface';
 import { IGetProducts } from '../../interfaces/common/get-products.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -53,9 +54,11 @@ export class SidebarService {
     this.holeFiltrationWithPagination(
       page ? page : 1,
       itemsPerPage ? itemsPerPage : 8
-    ).subscribe((data) => {
+    ).subscribe({next: (data) => {
       this.filtration.next(data);
-    });
+    },
+    error: (err: HttpErrorResponse) => console.log(err.message)
+  });
   }
 
   public holeFiltrationWithPagination(

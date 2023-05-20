@@ -12,7 +12,7 @@ export interface IWindow{
 
   productProducerName: string;
 
-  typeOfProduct: TypeOfProductEnum;
+  typeOfProductName: TypeOfProductEnum;
 
   country: CountryEnum;
 
@@ -22,7 +22,7 @@ export interface IWindow{
 
   inStock: InStockEnum;
 
-  mosquitNet: ICalculatorChar[], // Москітна сітка
+  mosquitoNet: ICalculatorChar[], // Москітна сітка
 
   windowSill: ICalculatorChar[], // Підвіконня
 
@@ -50,9 +50,9 @@ export interface IWindow{
   
   sectionsCount: ICalculatorChar[], // Кількість секцій
 
-  description?: string;
+  description: string;
 
-  home_page?: boolean;
+  homePage: boolean;
 
   images: string[];
 }

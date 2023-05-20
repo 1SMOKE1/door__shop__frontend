@@ -30,18 +30,18 @@ export class NavService {
       case 'zamir':
         setTimeout(() => {
           this.freeForm.next(`${ScrollConditionEnum.SCROLL}-${ScrollConditionEnum.ZAMIR}`);
-        }, 300);
+        }, 500);
         setTimeout(() => {
           this.freeForm.next(`${ScrollConditionEnum.BLIMING}-${ScrollConditionEnum.ZAMIR}`);
-        }, 300);
+        }, 500);
         break;
       case 'consultation':
         setTimeout(() => {
           this.freeForm.next(`${ScrollConditionEnum.SCROLL}-${ScrollConditionEnum.CONSULTATION}`);
-        }, 300);
+        }, 500);
         setTimeout(() => {
           this.freeForm.next(`${ScrollConditionEnum.BLIMING}-${ScrollConditionEnum.CONSULTATION}`);
-        }, 300);
+        }, 500);
         break;
     }
   }

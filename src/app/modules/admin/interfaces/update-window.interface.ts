@@ -48,7 +48,7 @@ export interface IUpdateWindow{
 
   features: ICalculatorChar[]; // Обосливості
 
-  sectionCount: ICalculatorChar[]; // Кількість секцій
+  sectionsCount: ICalculatorChar[]; // Кількість секцій
 
   description: string,
   
