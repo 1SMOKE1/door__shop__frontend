@@ -11,11 +11,13 @@ import { ShareModule } from '../share/share.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DescriptionComponent } from './components/description/description.component';
 @NgModule({
   declarations: [
     CatalogComponent,
     CatalogRouterOutletComponent,
-    CardInfoComponent
+    CardInfoComponent,
+    DescriptionComponent
   ],
   imports: [
     CommonModule,

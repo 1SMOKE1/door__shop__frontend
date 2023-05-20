@@ -17,6 +17,7 @@ import { SnackbarConfigService } from 'src/app/modules/share/services/common/sna
 import { HttpErrorResponse } from '@angular/common/http';
 import { UpdateEntranceDoorModel } from '../../../models/update-entrance-door.model';
 import { UpdateWindowModel } from '../../../models/update-window.model';
+import { UpdateFurnitureModel } from '../../../models/update-furniture.model';
 
 @Component({
   selector: 'dsf-products',
@@ -236,7 +237,19 @@ export class ProductsComponent implements OnInit, OnDestroy{
       }
       case TypeOfProductEnum.furniture: {
         const dialogRef = this.dialog.open(FurnitureComponent, {
-          data: product
+          data: new UpdateFurnitureModel(
+            id,
+            name,
+            productProducer!.name,
+            typeOfProduct.name,
+            country,
+            guarantee,
+            +price,
+            inStock,
+            description,
+            homePage,
+            images
+          )
         });
         dialogRef.afterClosed()
         .subscribe(() => this.getFilteredProducts());

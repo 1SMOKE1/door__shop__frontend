@@ -1,76 +1,137 @@
 <main class="main">
   <div class="container">
-    <section  class="card">
-      <h2 *ngIf="product" class="card-title font-h2">{{product.typeOfProduct.name}} “{{product.name}}” бренду “{{product.productProducer?.name}}”</h2>
+    <section class="card">
+      <h2 *ngIf="product !== null" class="card-title font-h2">{{product.typeOfProduct.name}} “{{product.name}}” бренду “{{product.productProducer?.name}}”</h2>
       <div class="card-flex-wrapper">
         <div class="card-photo-block">
           <div  class="card-img-wrap">
-            <img *ngIf="product !== null" class="card-img-big" [src]="product.images[0]" alt="">
+            <img *ngIf="product !== null" class="card-img-big" [src]="product!.images[0]" alt="">
           </div>
         </div>
-        <div *ngIf="product !== null" [ngSwitch]="true" class="card-calculator-block">
-          <div *ngSwitchCase="product!.typeOfProduct.name === 'Двері міжкімнатні'" class="card-calculator-content">
+        <div  [ngSwitch]="true" class="card-calculator-block">
+          <div  *ngSwitchCase="(product$ | async)?.typeOfProduct!.name === 'Двері міжкімнатні'" class="card-calculator-content">
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Ширина полотна</mat-label>
-              <mat-select [(value)]="selectedFabricMaterialWidth">
+              <mat-select [(value)]="selectedFabricMaterialWidth" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.fabricMaterialWidth" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Короб</mat-label>
-              <mat-select [(value)]="selectedFrameMaterial">
+              <mat-select [(value)]="selectedFrameMaterial" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorFrameMaterial" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Добірна дошка</mat-label>
-              <mat-select [(value)]="selectedDoorSelectionBoard">
+              <mat-select [(value)]="selectedDoorSelectionBoard" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorSelectionBoard" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Лиштва</mat-label>
-              <mat-select [(value)]="selectedDoorWelt">
+              <mat-select [(value)]="selectedDoorWelt" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorWelt" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Дверна ручка</mat-label>
-              <mat-select [(value)]="selectedDoorHand">
+              <mat-select [(value)]="selectedDoorHand" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorHand" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Дверний механізм</mat-label>
-              <mat-select [(value)]="selectedDoorMechanism">
+              <mat-select [(value)]="selectedDoorMechanism" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorMechanism" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Дверні петлі</mat-label>
-              <mat-select [(value)]="selectedDoorLoops">
+              <mat-select [(value)]="selectedDoorLoops" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorLoops" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Дверний стопор</mat-label>
-              <mat-select [(value)]="selectedDoorStopper">
+              <mat-select [(value)]="selectedDoorStopper" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorStopper" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Роздвижна система</mat-label>
-              <mat-select [(value)]="selectedDoorSlidingSystem">
+              <mat-select [(value)]="selectedDoorSlidingSystem" (valueChange)="addProp()">
                 <mat-option *ngFor="let item of product!.doorSlidingSystem" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div  *ngSwitchCase="(product$ | async)?.typeOfProduct!.name === 'Вікна'" class="card-calculator-content">
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Москітна сітка</mat-label>
+              <mat-select [(value)]="selectedMosquitoNet" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.mosquitoNet" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Підвіконня</mat-label>
+              <mat-select [(value)]="selectedWindowSill" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.windowSill" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Відлив</mat-label>
+              <mat-select [(value)]="selectedWindowEbb" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.windowEbb" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Ручка віконна</mat-label>
+              <mat-select [(value)]="selectedWindowHand" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.windowHand" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Дитячий замок</mat-label>
+              <mat-select [(value)]="selectedChildLock" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.childLock" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Заглушка домогосподарки</mat-label>
+              <mat-select [(value)]="selectedHousewifeStub" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.housewifeStub" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Доповнення до стеклопакету</mat-label>
+              <mat-select [(value)]="selectedGlassPocketAdd" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.glassPocketAdd" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Ламінація</mat-label>
+              <mat-select [(value)]="selectedLamination" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.lamination" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="card-calculator-field" color="primary" >
+              <mat-label>Профіль</mat-label>
+              <mat-select [(value)]="selectedProfile" (valueChange)="addProp()">
+                <mat-option *ngFor="let item of product!.profile" [value]="item" >{{item.name !== '--- Оберіть ---' ? item.name + ' +' + item.price + ' грн' : item.name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
         <div class="card-info-wrap">
-          <div [ngSwitch]="true" class="info-left-block" >
-            <p class="info-title-1 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'В наявності'">{{product?.inStock}}</p>
-            <p class="info-title-2 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'Під замовлення'">{{product?.inStock}}</p>
-            <p class="info-title-3 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'Немає в наявності'">{{product?.inStock}}</p>
+          <div  class="info-left-block" >
+            <div [ngSwitch]="true" class="info-title-wrap">
+              <p class="info-title-1 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'В наявності'">{{product?.inStock}}</p>
+              <p class="info-title-2 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'Під замовлення'">{{product?.inStock}}</p>
+              <p class="info-title-3 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'Немає в наявності'">{{product?.inStock}}</p>
+              <p class="info-title-4 info-title font-p-sm " *ngSwitchCase="product?.inStock === 'Закінчується'">{{product?.inStock}}</p>
+              <p style="text-decoration: underline;">{{product?.price}}.00 грн</p>
+            </div>
+            
             <button class="info-btn bg6 c1" (click)="toBasket()" ><img class="info-icon-basket" src="assets/header/basket.png" alt="">{{'купити'|uppercase}}</button>
             <div class="info-phone-group">
               <div class="info-phone-wrap">
@@ -97,109 +158,7 @@
         </div>
       </div>
     </section>
-    <!-- <section [ngSwitch]="product ? product!.typeOfProduct.name : null" class="info">
-      <div class="info-table-wrap">
-        <h2 class="info-title">{{'Характеристика'|uppercase}}</h2>
-        <table class="info-table">
-          <tr>
-            <th>Назва</th>
-            <td>{{product?.name}}</td>
-          </tr>
-          <tr>
-            <th>Виробник</th>
-            <td>{{product?.productProducer?.name}}</td>
-          </tr>
-          <tr>
-            <th>Країна виробник</th>
-            <td>{{product?.country}}</td>
-          </tr>
-          <tr>
-            <th>Стан</th>
-            <td>{{product?.state}}</td>
-          </tr>
-          <tr>
-            <th>На складі</th>
-            <td>{{product?.inStock}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері міжкінатні'" >
-            <th>Оздоблення поверхні</th>
-            <td>{{product?.finishingTheSurface?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері міжкінатні'" >
-            <th>Матеріал дверної коробки</th>
-            <td>{{product?.frameMaterial?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері міжкінатні'" >
-            <th>Конструктивні особливості</th>
-            <td>{{product?.structuralFeatures?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері міжкінатні'" >
-            <th>Тип відкривання</th>
-            <td>{{product?.openingType?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері міжкінатні'" >
-            <th>Тип монтажу</th>
-            <td>{{product?.installationType?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері міжкінатні'" >
-            <th>Спосіб відкривання</th>
-            <td>{{product?.openingMethod?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері вхідні'">
-            <th>Кількість ущільнюючих контурів</th>
-            <td>{{product?.amountOfSealingMaterials?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері вхідні'">
-            <th>Матеріал дверного полотна</th>
-            <td>{{product?.fabricMaterial?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері вхідні'">
-            <th>Призначення двері</th>
-            <td>{{product?.purpose?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері вхідні'">
-            <th>Спосіб відкривання</th>
-            <td>{{product?.openingMethod?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері вхідні'">
-            <th>Покриття</th>
-            <td>{{product?.covering?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері вхідні'">
-            <th>Матеріал дверної коробки</th>
-            <td>{{product?.frameMaterial?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Вікна'" >
-            <th>Профіль</th>
-            <td>{{product?.profile?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Вікна'" >
-            <th>Конструкція</th>
-            <td>{{product?.construction?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Вікна'" >
-            <th>Стеклопакети</th>
-            <td>{{product?.glassUnit?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Вікна'" >
-            <th>Ламінація</th>
-            <td>{{product?.lamination?.join('/')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Вікна'" >
-            <th>Стекла</th>
-            <td>{{product?.glasses?.join('/')}}</td>
-          </tr>
-        </table>
-        <div class="info-table-wrap">
-          <h2 class="info-title">{{'Опис'|uppercase}}</h2>
-          <div class="info-table-block">
-            <p>{{product?.description ? product?.description : 'Опис товару відсутній'}}</p>
-          </div>
-        </div>
-      </div>
-      
-      
-    </section> -->
+    <dsf-description [product]="product"></dsf-description>
   </div>
 </main>
 

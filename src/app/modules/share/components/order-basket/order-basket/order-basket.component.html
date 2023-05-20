@@ -19,17 +19,17 @@
             <div class="cart-img-wrap">
               <img *ngIf="cart.product" class="cart-img" [src]="cart.product.images[0]" alt="">
             </div>
-            <p class="cart-text">{{cart.product.name}}</p>
+            <p class="cart-text font-bold">{{cart.product.name}}</p>
             <div class="cart-count-wrap">
               <p class="font-p-sm text-underline">Кількість</p>
               <div class="cart-count">
-                <button class="count-btn" (click)="decrease(cart.product.id)">-</button>
+                <button class="count-btn" (click)="decrease(cart.product)">-</button>
               <p class="count-block">{{cart.quantity}}</p>
-              <button class="count-btn" (click)="increase(cart.product.id)">+</button>
+              <button class="count-btn" (click)="increase(cart.product)">+</button>
               </div>
             </div>
             <div class="cart-price-wrap">
-              <div (click)="deleteCartLine(cart.product.id)" class="price-delete-wrap">
+              <div (click)="deleteCartLine(cart.product)" class="price-delete-wrap">
                 <p class="price-delete-btn c6">видалити</p>
                 <img src="assets/catalog/icons/delete_icon.svg" alt="">
               </div>

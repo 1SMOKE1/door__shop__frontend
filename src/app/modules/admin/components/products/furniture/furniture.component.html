@@ -1,1 +1,110 @@
-<p>furniture works!</p>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+<mat-dialog-content class="mat-typography">
+  <h2 mat-dialog-title>
+    {{ isEditMode() ? "редагування" : "створення" }} продукту "Фурнітура"
+  </h2>
+<form [formGroup]="furnitureForm" class="content">
+  <div class="product-constant__wrap">
+    <mat-form-field appearance="outline" color="accent" style="width: 80%">
+      <mat-label>Виробник</mat-label>
+      <mat-select formControlName="productProducerName">
+        <mat-option
+          [value]="producer.name"
+          *ngFor="let producer of furnitureProducers"
+          >{{ producer.name }}</mat-option
+        >
+      </mat-select>
+      <mat-error
+        *ngIf="furnitureForm.get('productProducerName')?.hasError('required')"
+      >
+        Виробник є <strong>обов'язковим</strong>
+      </mat-error>
+    </mat-form-field>
+    <button (click)="addProductProducer()" class="btn-circle" mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Назва продукту</mat-label>
+    <input matInput formControlName="name" />
+    <mat-error
+      *ngIf="
+        furnitureForm.get('name')?.errors &&
+        !furnitureForm.get('name')?.hasError('required')
+      "
+    >
+      Мінімум 3 символи
+    </mat-error>
+    <mat-error *ngIf="furnitureForm.get('name')?.hasError('required')">
+      Назва є <strong>обов'язковою</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Країна виробник</mat-label>
+    <mat-select formControlName="country">
+      <mat-option [value]="country.name" *ngFor="let country of countries">{{
+        country.name
+      }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="furnitureForm.get('country')?.hasError('required')">
+      Країна є <strong>обов'язковою</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Гарантійний термін</mat-label>
+    <mat-select formControlName="guarantee">
+      <mat-option
+        [value]="guarantee.name"
+        *ngFor="let guarantee of guarantees"
+        >{{ guarantee.name }}</mat-option
+      >
+    </mat-select>
+    <mat-error *ngIf="furnitureForm.get('guarantee')?.hasError('required')">
+      Гарантійний термін є <strong>обов'язковим</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Ціна</mat-label>
+    <input type="number" matInput formControlName="price" />
+    <mat-error *ngIf="furnitureForm.get('price')?.hasError('required')">
+      Ціна є <strong>обов'язковою</strong> характеристикою
+    </mat-error>
+    <mat-error
+      *ngIf="
+        furnitureForm.get('price')?.errors &&
+        !furnitureForm.get('price')?.hasError('required')
+      "
+    >
+      Число має бути більшим за <strong>0</strong> (позитивним)
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Наявність на складі</mat-label>
+    <mat-select formControlName="inStock">
+      <mat-option [value]="inStock.name" *ngFor="let inStock of inStocks">{{
+        inStock.name
+      }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="furnitureForm.get('inStock')?.hasError('required')">
+      Наявність на складі є <strong>обов'язковою</strong>
+    </mat-error>
+  </mat-form-field>
+  <div class="product-constant__wrap">
+    <input type="checkbox" formControlName="homePage">
+    <label>Відображати на головній сторінці</label>
+  </div>
+  <div>
+    <textarea formControlName="description" placeholder="Опис" style="width: 100%; min-height: 20vh;">
+    </textarea>
+  </div>
+  <div class="add-images__wrap">
+    <h3 class="font-h2 add-images__title">Завантажити папку з фотографіями</h3>
+    <input class="add-images__btn" type="file" (change)="onImagesFolderSelected($event)" webkitdirectory multiple/>
+  </div>
+  <div class="btn-create">
+    <button mat-raised-button color="accent" (click)="submit()">{{isEditMode() ? 'Редагувати' : 'Створити'}}</button>
+  </div>
+</form>
+</mat-dialog-content>
