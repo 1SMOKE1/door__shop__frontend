@@ -158,6 +158,13 @@
         </div>
       </div>
     </section>
+    <section class="photos-arr-block">
+      <div class="photos-arr-wrap">
+        <div class="photos-arr-img-wrap" *ngFor="let image of product?.images">
+          <img  class="photos-arr-img" [src]="image" alt="">
+        </div>
+      </div>
+    </section>
     <dsf-description [product]="product"></dsf-description>
   </div>
 </main>
