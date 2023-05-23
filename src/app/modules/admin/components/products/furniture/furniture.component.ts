@@ -97,8 +97,9 @@ export class FurnitureComponent implements OnInit{
     this.furnitureService
       .createFurniture(this.furnitureForm.value, this.imagesFileList)
       .subscribe({
-        next: ({ name }) => {
+        next: ({ name, typeOfProductName }) => {
           this.furnitureForm.reset();
+          this.furnitureForm.get('typeOfProductName')?.patchValue(typeOfProductName);
           this.snackbarConfigService.openSnackBar(`Фурнітура з ім'ям: ${name}, було успішно створено`);
         },
         error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)

@@ -72,6 +72,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   });
 
   ngOnInit(): void {
+    localStorage.setItem('access_token', '');
+    localStorage.setItem('refresh_token', '');
     this.getProducts();
   }
 

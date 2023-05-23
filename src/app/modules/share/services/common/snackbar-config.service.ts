@@ -29,6 +29,8 @@ export class SnackbarConfigService {
 
   public convertingErrorMessage(err: Error): string{ 
     switch(true){ 
+      case typeof err.message === 'undefined':
+        return '';
       case typeof err.message === 'string':
         return err.message;
       case typeof err.message === 'object':

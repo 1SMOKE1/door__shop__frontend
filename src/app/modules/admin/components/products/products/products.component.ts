@@ -18,6 +18,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UpdateEntranceDoorModel } from '../../../models/update-entrance-door.model';
 import { UpdateWindowModel } from '../../../models/update-window.model';
 import { UpdateFurnitureModel } from '../../../models/update-furniture.model';
+import { EntranceDoorService } from '../../../services/products/entrance-door.service';
+import { FurnitureService } from '../../../services/products/furniture.service';
+import { WindowService } from '../../../services/products/window.service';
 
 @Component({
   selector: 'dsf-products',
@@ -42,7 +45,10 @@ export class ProductsComponent implements OnInit, OnDestroy{
     private readonly sidebarService: SidebarService,
     private readonly dialog: MatDialog,
     private readonly snackbarConfigService: SnackbarConfigService,
-    private readonly interiorDoorService: InteriorDoorService
+    private readonly interiorDoorService: InteriorDoorService,
+    private readonly entranceDoorService: EntranceDoorService,
+    private readonly furnitureService: FurnitureService,
+    private readonly windowService: WindowService
   ){}
 
   ngOnInit(): void {
@@ -299,17 +305,58 @@ export class ProductsComponent implements OnInit, OnDestroy{
         this.interiorDoorService
         .deleteIneriorDoor(id)
         .subscribe({
-          next: (answer: string) => this.snackbarConfigService.openSnackBar(answer),
+          next: (answer: string) => {
+            this.snackbarConfigService.openSnackBar(answer);
+            this.initProducts(id, typeOfProductName);
+          },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
-        })
+        });
         break;
       case TypeOfProductEnum.entranceDoor:
+        this.entranceDoorService
+        .deleteEntranceDoor(id)
+        .subscribe({
+          next: (answer: string) => {
+            this.snackbarConfigService.openSnackBar(answer);
+            this.initProducts(id, typeOfProductName);
+          },
+          error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+        });
         break;
       case TypeOfProductEnum.furniture:
+        this.furnitureService
+        .deleteFurniture(id)
+        .subscribe({
+          next: (answer: string) => {
+            this.snackbarConfigService.openSnackBar(answer);
+            this.initProducts(id, typeOfProductName);
+          },
+          error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+        });
         break;
       case  TypeOfProductEnum.windows:
+        this.windowService
+        .deleteWindow(id)
+        .subscribe({
+          next: (answer: string) => {
+            this.snackbarConfigService.openSnackBar(answer);
+            this.initProducts(id, typeOfProductName);
+          },
+          error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+        });
         break;
     }
+  }
 
+  private filterProductsArr(products: IProduct[], id: number, typeOfProductName: string): IProduct[]{
+    return products.filter((el) => el.typeOfProduct.name === typeOfProductName).filter((el) => el.id !== id);
+  }
+
+  private initProducts(id: number, typeOfProductName: string): void{
+    this.sidebarService.filtration
+    .subscribe(({products, productsLength}: IGetProducts) => {
+      this.products = this.filterProductsArr(products, id, typeOfProductName);
+      this.productsLength = productsLength;
+    })
   }
 }

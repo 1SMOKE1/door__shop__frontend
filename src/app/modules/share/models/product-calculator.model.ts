@@ -61,6 +61,7 @@ export class ProductCalculatorModel extends ConvertingProductClass implements IP
     public description: string,
     public homePage: boolean,
     public images: string[],
+    public choosenImage: string
   ){
     super();
     this.fabricMaterialWidth = this.convertingProp(this.fabricMaterialWidth);

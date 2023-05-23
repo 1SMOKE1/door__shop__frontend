@@ -32,6 +32,7 @@ import { SealerCircuitService } from '../../../services/product-constants/sealer
 import { SealerCircuitComponent } from '../../product-constants/sealer-circuit/sealer-circuit.component';
 import { EntranceDoorService } from '../../../services/products/entrance-door.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ProductProducersComponent } from '../product-producers/product-producers.component';
 
 @Component({
   selector: 'dsf-entrance-door',
@@ -87,7 +88,7 @@ export class EntranceDoorComponent implements OnInit{
     metalThickness: new FormControl(0, [
       Validators.pattern(this.validationService.positiveNumberPattern())
     ]),
-    frameMaterialConstuction: new FormControl([]),
+    frameMaterialConstruction: new FormControl([]),
     sealerCircuit: new FormControl([]),
     doorHand: new FormControl([]),
     homePage: new FormControl(false),
@@ -200,7 +201,15 @@ export class EntranceDoorComponent implements OnInit{
     .subscribe(() => this.initDoorSealerCircuitItems());
   }
 
+  public addProductProducer(): void {
+    const dialogRef = this.dialog.open(ProductProducersComponent);
 
+    dialogRef.afterClosed()
+    .subscribe((productProducer: IProductProducer | null) => {
+      this.entranceDoorForm.get('productProducerName')?.patchValue(productProducer?.name);
+      this.initProductProducers();
+    })
+  }
 
   public submit(){
     if(this.isEditMode())
@@ -213,8 +222,9 @@ export class EntranceDoorComponent implements OnInit{
     this.entranceDoorService
       .createEntranceDoor(this.entranceDoorForm.value, this.imagesFileList)
       .subscribe({
-        next: ({name}) => {
+        next: ({name, typeOfProductName}) => {
           this.entranceDoorForm.reset();
+          this.entranceDoorForm.get('typeOfProductName')?.patchValue(typeOfProductName);
           this.snackbarConfigService.openSnackBar(`Двері вхідні з ім'ям: ${name}, було успішно створено`);
         },
         error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)

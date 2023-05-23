@@ -78,13 +78,13 @@ export class HttpProductService extends ConvertingProductClass {
     //
     frame_material_thickness,
     door_insulation,
-    door_covering,
+    covering,
     door_peephole,
     opening_type,
-    door_size,
+    size,
     lower_lock,
     upper_lock,
-    door_weight,
+    weight,
     metal_thickness,
     frame_material_construction,
     sealer_circuit,
@@ -150,13 +150,13 @@ export class HttpProductService extends ConvertingProductClass {
         ? this.convertNumber(frame_material_thickness)
         : 0,
       door_insulation ? this.convertCalculatorChar(door_insulation) : [],
-      door_covering ? this.convertCalculatorChar(door_covering) : [],
+      covering ? this.convertCalculatorChar(covering) : [],
       door_peephole ? door_peephole : false,
       opening_type ? this.convertCalculatorChar(opening_type) : [],
-      door_size ? this.convertCalculatorChar(door_size) : [],
+      size ? this.convertCalculatorChar(size) : [],
       lower_lock ? this.convertCalculatorChar(lower_lock) : [],
       upper_lock ? this.convertCalculatorChar(upper_lock) : [],
-      door_weight ? this.convertCalculatorChar(door_weight) : [],
+      weight ? this.convertCalculatorChar(weight) : [],
       metal_thickness ? this.convertNumber(metal_thickness) : 0,
       frame_material_construction
         ? this.convertCalculatorChar(frame_material_construction)
