@@ -264,8 +264,9 @@ export class WindowComponent implements OnInit{
     this.windowService
       .createWindow(this.windowForm.value, this.imagesFileList)
       .subscribe({
-        next: ({name}) => {
+        next: ({name, typeOfProductName}) => {
           this.windowForm.reset();
+          this.windowForm.get('typeOfProductName')?.patchValue(typeOfProductName);
           this.snackbarConfigService.openSnackBar(`Вікно з ім'ям: ${name}, було успішно створено`)
         },
         error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)

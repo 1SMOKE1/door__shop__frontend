@@ -128,6 +128,8 @@ export class InteriorDoorComponent implements OnInit {
       this.interiorDoorForm.patchValue(this.data);
       this.initSlashStylingOfFormFields();
     }
+
+    
       
       
     
@@ -207,8 +209,9 @@ export class InteriorDoorComponent implements OnInit {
     this.interiorDoorService
       .createInteriorDoor(this.interiorDoorForm.value, this.imagesFileList)
       .subscribe({
-        next: ({ name }) => {
+        next: ({ name, typeOfProductName }) => {
           this.interiorDoorForm.reset();
+          this.interiorDoorForm.get('typeOfProductName')?.patchValue(typeOfProductName);
           this.snackbarConfigService.openSnackBar(`Двері міжкімнатні з ім'ям: ${name}, було успішно створено`);
         },
         error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)

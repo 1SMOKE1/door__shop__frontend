@@ -30,8 +30,6 @@ export class EntranceDoorService {
 
     const formData = this.createFormData(body, images);
 
-    console.log([...formData])
-
     return this.http.post<IEntranceDoorResponse>(url, formData)
     .pipe(
       map((data: IEntranceDoorResponse): IEntranceDoor => this.convertingEntranceDoor(data))

@@ -25,6 +25,9 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
   productSubscription: Subscription;
   TypeOfProductEnum: TypeOfProductEnum;
 
+  choosenItemImage: string = '';
+  choosenItemImageClass: string = 'photos-arr-img-choosen';
+
   startPrice: number = 0;
 
 
@@ -68,9 +71,11 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     if ( params && query) {
       this.initProduct(+params, query);
     } 
+    
 
     this.productSubscription = this.product$.subscribe();
-      
+    if(this.product)
+    this.choosenItemImage = this.product?.images[0];
   }
 
   toBasket(): void {
@@ -89,8 +94,10 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
       .getProduct(id, typeOfProductName)
       .subscribe({
         next: (product: IProduct) => {
+          console.log(product)
           this.product = product;
           this.startPrice = this.product.price;
+          this.choosenItemImage = this.product.images[0];
           this.productSubject.next(product);
           this.product.fabricMaterialWidth = [this.chooseConst, ...this.product.fabricMaterialWidth];
           this.product.doorFrameMaterial = [this.chooseConst, ...this.product.doorFrameMaterial];
@@ -207,10 +214,22 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
         sectionsCount,
         description,
         homePage,
-        images
+        images,
+        this.choosenItemImage
       )
       this.cartLineService.addCartLine(productCalculator)
     }  
+  }
+
+  public choosenImage(e: Event, image: string) {
+    const cur = (e.target as HTMLImageElement).parentElement;
+    const wrapperOfElems = cur?.parentElement as HTMLDivElement;
+    for(let item of wrapperOfElems.children){
+      if(item.classList.contains('photos-arr-img-choosen'))
+        item.classList.remove('photos-arr-img-choosen')
+    }
+    cur?.classList.add('photos-arr-img-choosen')
+    this.choosenItemImage = image;
   }
 
   public addProp(): void{

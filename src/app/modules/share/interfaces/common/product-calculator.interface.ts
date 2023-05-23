@@ -59,4 +59,5 @@ export interface IProductCaltulator{
   description: string, // Опис
   homePage: boolean,
   images: string[],
+  choosenImage: string;
 }

@@ -31,13 +31,13 @@ export interface IProductResponse{
   // Міжкімнатні
   frame_material_thickness?: number, // Товщина короба
   door_insulation?: ICalculatorChar[] // Утеплення
-  door_covering?: ICalculatorChar[], // Оздоблення
+  covering?: ICalculatorChar[], // Оздоблення
   door_peephole?: boolean, // Глазок
   opening_type?: ICalculatorChar[], // Тип відкривання
-  door_size?: ICalculatorChar[], // Розмір
+  size?: ICalculatorChar[], // Розмір
   lower_lock?: IFurniture[], // Нижній замок
   upper_lock?: IFurniture[], // Верхній замок
-  door_weight?: ICalculatorChar[], // Вага
+  weight?: ICalculatorChar[], // Вага
   metal_thickness?: number, // Товщина металу
   frame_material_construction?: ICalculatorChar[]; // Конструкція короба
   sealer_circuit?: ICalculatorChar[]; // Контур Ущільнення

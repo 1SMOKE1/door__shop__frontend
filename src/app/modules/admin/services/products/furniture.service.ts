@@ -49,6 +49,12 @@ export class FurnitureService {
     )
   }
 
+  public deleteFurniture(id: number): Observable<string>{
+    const url: string = `${this.baseUrl}/${id}`;
+
+    return this.http.delete<string>(url);
+  }
+
   private createFormData(
     product: IUpdateFurniture,
     images: FileList | null

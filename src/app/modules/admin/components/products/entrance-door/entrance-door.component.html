@@ -7,23 +7,33 @@
   </h2>
 
   <form [formGroup]="entranceDoorForm" class="content">
-    <mat-form-field appearance="outline" color="accent">
-      <mat-label>Виробник</mat-label>
-      <mat-select formControlName="productProducerName">
-        <mat-option
-          [value]="producer.name"
-          *ngFor="let producer of entranceDoorProducers"
-          >{{ producer.name }}</mat-option
+    <div class="product-constant__wrap">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Виробник</mat-label>
+        <mat-select formControlName="productProducerName">
+          <mat-option
+            [value]="producer.name"
+            *ngFor="let producer of entranceDoorProducers"
+            >{{ producer.name }}</mat-option
+          >
+        </mat-select>
+        <mat-error
+          *ngIf="
+            entranceDoorForm.get('productProducerName')?.hasError('required')
+          "
         >
-      </mat-select>
-      <mat-error
-        *ngIf="
-          entranceDoorForm.get('productProducerName')?.hasError('required')
-        "
+          Виробник є <strong>обов'язковим</strong>
+        </mat-error>
+      </mat-form-field>
+      <button
+        (click)="addProductProducer()"
+        class="btn-circle"
+        mat-icon-button
       >
-        Виробник є <strong>обов'язковим</strong>
-      </mat-error>
-    </mat-form-field>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    
     <mat-form-field appearance="outline" color="accent">
       <mat-label>Назва продукту</mat-label>
       <input matInput formControlName="name" />
@@ -364,7 +374,7 @@
           <mat-label>Конструкція короба</mat-label>
           <mat-select
             class="form-field-input"
-            formControlName="frameMaterialConstuction"
+            formControlName="frameMaterialConstruction"
             multiple
           >
             <mat-option
@@ -382,7 +392,7 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <p>{{ slashStylingOfFormField("frameMaterialConstuction") }}</p>
+      <p>{{ slashStylingOfFormField("frameMaterialConstruction") }}</p>
     </div>
 
     <div>

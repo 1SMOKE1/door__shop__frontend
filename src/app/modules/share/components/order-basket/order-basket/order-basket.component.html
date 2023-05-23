@@ -17,7 +17,7 @@
 
           <div class="cart" *ngFor="let cart of cartLineService.cartLines">
             <div class="cart-img-wrap">
-              <img *ngIf="cart.product" class="cart-img" [src]="cart.product.images[0]" alt="">
+              <img *ngIf="cart.product" class="cart-img" [src]="cart.product.choosenImage" alt="">
             </div>
             <div class="cart-text-wrap">
               <p class="cart-text font-bold">{{cart.product.name}}</p>

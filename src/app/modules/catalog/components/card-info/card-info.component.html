@@ -5,7 +5,7 @@
       <div class="card-flex-wrapper">
         <div class="card-photo-block">
           <div  class="card-img-wrap">
-            <img *ngIf="product !== null" class="card-img-big" [src]="product!.images[0]" alt="">
+            <img *ngIf="product !== null" class="card-img-big" [src]="choosenItemImage" alt="">
           </div>
         </div>
         <div  [ngSwitch]="true" class="card-calculator-block">
@@ -159,8 +159,13 @@
       </div>
     </section>
     <section class="photos-arr-block">
+      <h2>Доступні варіанти кольору</h2>
       <div class="photos-arr-wrap">
-        <div class="photos-arr-img-wrap" *ngFor="let image of product?.images">
+        <div 
+          class="photos-arr-img-wrap" 
+          [ngClass]="i == 0 ? 'photos-arr-img-wrap photos-arr-img-choosen' : 'photos-arr-img-wrap '"
+          *ngFor="let image of product?.images; let i = index;"
+          (click)="choosenImage($event, image)">
           <img  class="photos-arr-img" [src]="image" alt="">
         </div>
       </div>
