@@ -300,6 +300,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
   }
 
   public deleteProduct(id: number, typeOfProductName: string){
+
     switch(typeOfProductName){
       case TypeOfProductEnum.interiorDoor:
         this.interiorDoorService
@@ -307,7 +308,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts(id, typeOfProductName);
+            this.initProducts();
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -318,7 +319,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts(id, typeOfProductName);
+            this.initProducts();
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -329,7 +330,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts(id, typeOfProductName);
+            this.initProducts();
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -340,7 +341,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts(id, typeOfProductName);
+            this.initProducts();
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -348,14 +349,13 @@ export class ProductsComponent implements OnInit, OnDestroy{
     }
   }
 
-  private filterProductsArr(products: IProduct[], id: number, typeOfProductName: string): IProduct[]{
-    return products.filter((el) => el.typeOfProduct.name === typeOfProductName).filter((el) => el.id !== id);
-  }
 
-  private initProducts(id: number, typeOfProductName: string): void{
+
+  private initProducts(): void{
+    this.getFilteredProducts();
     this.sidebarService.filtration
     .subscribe(({products, productsLength}: IGetProducts) => {
-      this.products = this.filterProductsArr(products, id, typeOfProductName);
+      this.products = products
       this.productsLength = productsLength;
     })
   }

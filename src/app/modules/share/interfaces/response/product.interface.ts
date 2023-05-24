@@ -49,8 +49,8 @@ export interface IProductResponse{
   child_lock?: ICalculatorChar[], // Дитячий замок
   housewife_stub?: ICalculatorChar[], // Заглушка домогосподарки
   glass_pocket_add?: ICalculatorChar[], // Додаткові стеклопакети
-  window_lamination?: ICalculatorChar[], // Ламінація
-  window_profile?: ICalculatorChar[], // Профіль
+  lamination?: ICalculatorChar[], // Ламінація
+  profile?: ICalculatorChar[], // Профіль
   window_width?: number, // Ширина вікна
   window_height?: number, // Висота вікна
   cameras_count?: ICalculatorChar[], // Кількість камер
