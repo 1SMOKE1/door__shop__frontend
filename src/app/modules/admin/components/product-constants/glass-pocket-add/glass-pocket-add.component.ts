@@ -33,7 +33,7 @@ export class GlassPocketAddComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-      
+    this.initglassPocketAddItems();
   }
 
   public submit(): void {
