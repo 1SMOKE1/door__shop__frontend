@@ -1,0 +1,101 @@
+@import 'colors';
+@import 'mixins';
+
+.container{
+  @include container(1000px);
+}
+
+.card{
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  &:last-child{
+    margin-bottom: 0;
+  }
+  &-title{
+    text-align: center;
+    margin: 20px 0;
+    &-wrap{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    &-btn{
+      margin-left: 20px;
+      padding: 5px 10px;
+      border: none;
+      outline: none;
+      background-color: $c6;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+  &-subtitle{
+    text-align: center;
+    color: grey;
+  }
+
+  &-product-img{
+    object-fit: contain;
+    width: 300px;
+    height: 300px;
+
+  }
+  &-product{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    &:last-child{
+      margin-bottom: 0;
+    }
+    &-title{
+      margin: 20px 0;
+    }
+  }
+  &-closed{
+    opacity: 0.5;
+  }
+
+}
+
+.btn-order-closed{
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  background-color: $c8;
+  color: $c1;
+  cursor: pointer;
+  &-wrap{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+}
+
+.order{
+  &-closed{
+    background-color: $c2;
+  }
+  &-wrap{
+    margin-bottom: 50px;
+  }
+  &-title{
+    padding: 20px 0;
+    text-align: center;
+  }
+  &-toggle-wrap{
+    margin: 20px 0;
+  }
+}
+
+.delivery{
+  color: rgb(199, 79, 79);
+}
+
+
+

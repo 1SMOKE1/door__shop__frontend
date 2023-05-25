@@ -9,7 +9,7 @@ import { ITypeOfProductResponse } from "./type-of-product.interface";
 export interface IProductResponse{
   id: number;
   type_of_product: ITypeOfProductResponse; // Тип продкута
-  product_producer: IProductProducerResponse; // Производитель
+  product_producer: IProductProducerResponse | null; // Производитель
   name: string, // Назва
   country: CountryEnum, // Країна виробник
   guarantee: GuaranteeEnum, // Гарантійний термін

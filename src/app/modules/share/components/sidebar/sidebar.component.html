@@ -80,7 +80,13 @@
         placeholder="Впишіть Назву товара"
       />
     </mat-form-field>
-
+    <mat-checkbox class="checkbox-no-product-producer"
+      color="accent"
+      [(ngModel)]="noProductProducers"
+      (ngModelChange)="setNoProductProducersValue(noProductProducers)"
+    >
+      Без виробника
+    </mat-checkbox>
 
   <h4 class="filter-title">Ціна</h4>
   <div>

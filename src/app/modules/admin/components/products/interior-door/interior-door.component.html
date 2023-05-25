@@ -99,7 +99,7 @@
             formControlName="fabricMaterialWidth"
             multiple
           >
-            <mat-option *ngFor="let item of fabricMaterialWidthItems" [value]="item.name">{{item.name}}</mat-option>
+            <mat-option *ngFor="let item of fabricMaterialWidthItems" [value]="item.name">{{item.name}} {{item.price}}.00 грн</mat-option>
           </mat-select>
         </mat-form-field>
         <button

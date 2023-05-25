@@ -1,7 +1,7 @@
 import { ITypeOfProductResponse } from "../response/type-of-product.interface";
 
 export interface IProductProducer{
-  id: number | null;
+  id: number;
   name: string;
   typeOfProduct: ITypeOfProductResponse,
 }

@@ -10,7 +10,7 @@ export interface IUpdateInteriorDoor{
 
   name: string;
 
-  productProducerName: string;
+  productProducerName: string | null;
 
   typeOfProductName: TypeOfProductEnum;
 

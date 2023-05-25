@@ -15,7 +15,7 @@ export class UpdateEntranceDoorModel
 
     public name: string,
 
-    public productProducerName: string,
+    public productProducerName: null | string,
 
     public typeOfProductName: TypeOfProductEnum,
 

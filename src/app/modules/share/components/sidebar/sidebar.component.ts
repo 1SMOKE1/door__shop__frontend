@@ -4,6 +4,7 @@ import { Options, LabelType, ChangeContext } from '@angular-slider/ngx-slider';
 import { SidebarService } from '../../services/common/sidebar.service';
 import { HttpProductProducerService } from '../../services/common/http-product-producer.service';
 import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+
 @Component({
   selector: 'dsf-sidebar',
   templateUrl: './sidebar.component.html',
@@ -16,6 +17,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   windowProducers: IProductProducer[] = [];
 
   model: string = '';
+
+  noProductProducers: boolean = false;
 
   modelChangedSubscription: Subscription;
 
@@ -79,6 +82,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.sidebarService.doFiltration();
   }
 
+  public setNoProductProducersValue(value: boolean): void{
+    this.sidebarService.setNoProductProducersValue(value);
+  }
+
   private getProductProducers(): void {
     this.getEntranceDoorProductProducers();
     this.getInteriorDoorProductProducers();
@@ -117,4 +124,5 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.windowProducers = producers
         );
   }
+
 }

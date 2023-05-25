@@ -15,7 +15,7 @@ export class UpdateWindowModel
 
     public name: string,
 
-    public productProducerName: string,
+    public productProducerName: string | null,
 
     public typeOfProductName: TypeOfProductEnum,
 

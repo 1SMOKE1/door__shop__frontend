@@ -4,6 +4,7 @@ import { AdminRouterOutletComponent } from './components/admin-router-outlet/adm
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { MainComponent } from './components/main/main.component';
 import { ProductsComponent } from './components/products/products/products.component';
+import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
       {path: 'sign-in', component: SignInComponent},
       {path: 'main-panel', component: MainComponent, children: [
         {path: '', pathMatch: 'full', redirectTo: 'products'},
-        {path: 'products', component: ProductsComponent}
+        {path: 'products', component: ProductsComponent},
+        {path: 'orders', component: AdminOrdersComponent}
       ]}
     ]
   }

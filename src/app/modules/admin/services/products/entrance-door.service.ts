@@ -7,18 +7,21 @@ import { IEntranceDoor } from 'src/app/modules/share/interfaces/common/entrance-
 import { ProductsService } from '../products.service';
 import { IEntranceDoorResponse } from 'src/app/modules/share/interfaces/response/entrance-door.interface';
 import { UpdateEntranceDoorModel } from '../../models/update-entrance-door.model';
+import { ProductClass } from '../../utils/product.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EntranceDoorService {
+export class EntranceDoorService extends ProductClass{
 
   baseUrl: string = `${environment.baseUrl}/entrance-door`;
 
   constructor(
     private readonly http: HttpClient,
     private readonly productsService: ProductsService
-  ){}
+  ){
+    super();
+  }
 
   public createEntranceDoor(
     body: IUpdateEntranceDoor,
@@ -63,9 +66,14 @@ export class EntranceDoorService {
   ): FormData {
     const formData = new FormData();
 
+    let productProducerName: string = '';
+
+    if(product.productProducerName !== null && product.productProducerName !== this.noProductProducer.name)
+      productProducerName = product.productProducerName;
+
     formData.append('name', product.name);
     formData.append('country', product.country);
-    formData.append('productProducerName', product.productProducerName);
+    formData.append('productProducerName', productProducerName)
     formData.append('typeOfProductName', product.typeOfProductName);
     formData.append('guarantee', product.guarantee);
     formData.append('price', product.price.toString());
@@ -119,6 +127,7 @@ export class EntranceDoorService {
         formData.append('images', element);
       }
 
+
     return formData;
   }
 
@@ -153,7 +162,7 @@ export class EntranceDoorService {
     return new UpdateEntranceDoorModel(
       id,
       name,
-      product_producer!.name,
+      product_producer !== null ? product_producer.name : null,
       type_of_product.name,
       country,
       guarantee,

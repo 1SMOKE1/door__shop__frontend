@@ -1,7 +1,7 @@
 <main class="main">
   <div class="container">
     <section class="card">
-      <h2 *ngIf="product !== null" class="card-title font-h2">{{product.typeOfProduct.name}} “{{product.name}}” бренду “{{product.productProducer?.name}}”</h2>
+      <h2 *ngIf="product !== null" class="card-title font-h2">{{product.typeOfProduct.name}} “{{product.name}}”  {{product.productProducer !== null ? 'бренду ' + product.productProducer.name : ''}}</h2>
       <div class="card-flex-wrapper">
         <div class="card-photo-block">
           <div  class="card-img-wrap">

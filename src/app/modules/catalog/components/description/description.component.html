@@ -6,7 +6,7 @@
             <th>Назва</th>
             <td>{{product?.name}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="product?.productProducer !== null">
             <th>Виробник</th>
             <td>{{product?.productProducer!.name}}</td>
           </tr>
@@ -18,7 +18,11 @@
             <th>На складі</th>
             <td>{{product?.inStock}}</td>
           </tr>
-          <tr *ngSwitchCase="'Двері міжкімнатні' || 'Двері вхідні'" >
+          <tr *ngSwitchCase="'Двері міжкімнатні'" >
+            <th>Товщина полотна</th>
+            <td>{{product?.fabricMaterialThickness}} мм</td>
+          </tr>
+          <tr *ngSwitchCase="'Двері вхідні'" >
             <th>Товщина полотна</th>
             <td>{{product?.fabricMaterialThickness}} мм</td>
           </tr>
@@ -46,7 +50,11 @@
             <th>Лиштва</th>
             <td>{{convertingToString(product!.doorWelt).join(', ')}}</td>
           </tr>
-          <tr *ngSwitchCase="'Двері міжкімнатні' || 'Двері вхідні'">
+          <tr *ngSwitchCase="'Двері міжкімнатні'">
+            <th>Дверна ручка</th>
+            <td>{{convertingToString(product!.doorHand).join(', ')}}</td>
+          </tr>
+          <tr *ngSwitchCase="'Двері вхідні'">
             <th>Дверна ручка</th>
             <td>{{convertingToString(product!.doorHand).join(', ')}}</td>
           </tr>
@@ -59,7 +67,7 @@
             <td>{{convertingToString(product!.doorLoops).join(', ')}}</td>
           </tr>
           <tr *ngSwitchCase="'Двері міжкімнатні'">
-            <th>Дверний стоппор</th>
+            <th>Дверний стопор</th>
             <td>{{convertingToString(product!.doorStopper).join(', ')}}</td>
           </tr>
           <tr *ngSwitchCase="'Двері міжкімнатні'">

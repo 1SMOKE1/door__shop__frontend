@@ -19,6 +19,15 @@ export class OrderBasketService {
     private readonly http: HttpClient,
   ){}
 
+  public getOrders(): Observable<ICreateOrder[]>{
+    const url: string = this.baseUrl;
+
+    return this.http.get<IOrderResponse[]>(url)
+    .pipe(
+      map((el: IOrderResponse[]): ICreateOrder[] => el.map((item: IOrderResponse): ICreateOrder => this.convertOrder(item)))
+    )
+  }
+
   public createOrder(newOrder: ICreateOrder): Observable<ICreateOrder>{
     const url: string = this.baseUrl;
 
@@ -50,6 +59,15 @@ export class OrderBasketService {
       total_cost,
       kind_of_payment,
       id
+    )
+  }
+
+  public compliteOrder(updatedOrder: ICreateOrder): Observable<ICreateOrder>{
+    const url: string = `${this.baseUrl}/${updatedOrder.id}`;
+
+    return this.http.put<IOrderResponse>(url, updatedOrder)
+    .pipe(
+      map((el: IOrderResponse): ICreateOrder => this.convertOrder(el)),
     )
   }
 

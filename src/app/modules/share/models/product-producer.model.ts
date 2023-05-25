@@ -5,7 +5,7 @@ import { ITypeOfProductResponse } from "../interfaces/response/type-of-product.i
 export class ProductProducerModel implements IProductProducer{
 
   constructor(
-    public id: number | null,
+    public id: number,
     public name: string,
     public typeOfProduct: ITypeOfProductResponse,
   ){}

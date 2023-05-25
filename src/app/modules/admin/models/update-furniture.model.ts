@@ -9,25 +9,25 @@ export class UpdateFurnitureModel implements IUpdateFurniture{
   constructor(
     public id: number,
 
-  public name: string,
+    public name: string,
 
-  public productProducerName: string,
+    public productProducerName: string | null,
 
-  public typeOfProductName: TypeOfProductEnum,
+    public typeOfProductName: TypeOfProductEnum,
 
-  public country: CountryEnum,
+    public country: CountryEnum,
 
-  public guarantee: GuaranteeEnum,
+    public guarantee: GuaranteeEnum,
 
-  public price: number,
+    public price: number,
 
-  public inStock: InStockEnum,
+    public inStock: InStockEnum,
 
-  public description: string,
+    public description: string,
 
-  public homePage: boolean,
+    public homePage: boolean,
 
-  public images: string[]
+    public images: string[]
   ){}
 
   
