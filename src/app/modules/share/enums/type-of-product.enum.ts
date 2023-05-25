@@ -3,4 +3,5 @@ export enum TypeOfProductEnum{
   interiorDoor = 'Двері міжкімнатні',
   furniture = 'Фурнітура',
   windows = 'Вікна',
+  noProductProducer = 'Без виробника'
 }

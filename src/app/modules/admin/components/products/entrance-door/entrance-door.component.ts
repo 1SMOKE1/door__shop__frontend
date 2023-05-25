@@ -33,13 +33,15 @@ import { SealerCircuitComponent } from '../../product-constants/sealer-circuit/s
 import { EntranceDoorService } from '../../../services/products/entrance-door.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductProducersComponent } from '../product-producers/product-producers.component';
+import { ProductClass } from '../../../utils/product.class';
 
 @Component({
   selector: 'dsf-entrance-door',
   templateUrl: './entrance-door.component.html',
   styleUrls: ['./entrance-door.component.scss']
 })
-export class EntranceDoorComponent implements OnInit{
+export class EntranceDoorComponent extends ProductClass implements OnInit{
+
 
   entranceDoorProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
@@ -113,7 +115,9 @@ export class EntranceDoorComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: IEntranceDoor | null,
     private readonly snackbarConfigService: SnackbarConfigService,
     private readonly entranceDoorService: EntranceDoorService,
-  ){}
+  ){
+    super();
+  }
 
   ngOnInit(): void {
     this.initProductProducers();
@@ -250,8 +254,11 @@ export class EntranceDoorComponent implements OnInit{
     this.productProducerService
       .getEntranceDoorProductProducers()
       .subscribe(
-        (producers: IProductProducer[]) =>
-          (this.entranceDoorProducers = producers)
+        (producers: IProductProducer[]) => {
+          this.entranceDoorProducers = [this.noProductProducer, ...producers];
+          if(!this.isEditMode() || producers.length === 0 || this.data?.productProducerName === null)
+            this.entranceDoorForm.get('productProducerName')?.setValue(this.entranceDoorProducers[0].name);
+        }
       );
   }
 

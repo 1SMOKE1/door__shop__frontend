@@ -15,13 +15,14 @@ import { InStockEnum } from 'src/app/modules/share/enums/in-stock.enum';
 import { IFurniture } from 'src/app/modules/share/interfaces/common/furniture.interface';
 import { FurnitureService } from '../../../services/products/furniture.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ProductClass } from '../../../utils/product.class';
 
 @Component({
   selector: 'dsf-furniture',
   templateUrl: './furniture.component.html',
   styleUrls: ['./furniture.component.scss']
 })
-export class FurnitureComponent implements OnInit{
+export class FurnitureComponent extends ProductClass implements OnInit{
 
   furnitureProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
@@ -56,7 +57,9 @@ export class FurnitureComponent implements OnInit{
     private readonly dialog: MatDialog,
     private readonly snackbarConfigService: SnackbarConfigService,
     private readonly furnitureService: FurnitureService
-  ){}
+  ){
+    super();
+  }
 
   ngOnInit(): void {
     this.initProductProducers();
@@ -123,8 +126,12 @@ export class FurnitureComponent implements OnInit{
     this.productProducerService
       .getFurnitureProductProducers()
       .subscribe(
-        (producers: IProductProducer[]) =>
-          (this.furnitureProducers = producers)
+        (producers: IProductProducer[]) => {
+          this.furnitureProducers = [this.noProductProducer, ...producers];
+          if(!this.isEditMode() || producers.length === 0 || this.data?.productProducerName === null)
+            this.furnitureForm.get('productProducerName')?.setValue(this.furnitureProducers[0].name);
+        }
+            
       );
   }
 

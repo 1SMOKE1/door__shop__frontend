@@ -40,13 +40,14 @@ import { CamerasCountComponent } from '../../product-constants/cameras-count/cam
 import { FeaturesComponent } from '../../product-constants/features/features.component';
 import { SectionCountComponent } from '../../product-constants/section-count/section-count.component';
 import { WindowService } from '../../../services/products/window.service';
+import { ProductClass } from '../../../utils/product.class';
 
 @Component({
   selector: 'dsf-window',
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })
-export class WindowComponent implements OnInit{
+export class WindowComponent extends ProductClass implements OnInit{
 
   windowProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
@@ -129,7 +130,9 @@ export class WindowComponent implements OnInit{
     private readonly featuresService: FeaturesService,
     private readonly sectionCountService: SectionCountService,
     private readonly windowService: WindowService
-  ){}
+  ){
+    super();
+  }
 
   ngOnInit(): void {
     this.initProductProducers();
@@ -291,8 +294,11 @@ export class WindowComponent implements OnInit{
     this.productProducerService
       .getWindowProductProducers()
       .subscribe(
-        (producers: IProductProducer[]) =>
-          (this.windowProducers = producers)
+        (producers: IProductProducer[]) => {
+          this.windowProducers = [this.noProductProducer, ...producers];
+          if(!this.isEditMode() || producers.length === 0 || this.data?.productProducerName === null)
+            this.windowForm.get('productProducerName')?.setValue(this.windowProducers[0].name);
+        }
       );
   }
 

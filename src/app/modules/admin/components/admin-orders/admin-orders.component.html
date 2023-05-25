@@ -1,0 +1,215 @@
+<div class="order-wrap">
+  <div class="container">
+    <h1 class="font-h1 order-title">Замовлення</h1>
+    <div class="order-toggle-wrap">
+      <mat-button-toggle-group (valueChange)="toggleOrderType($event)" name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="Усі">Усі</mat-button-toggle>
+        <mat-button-toggle value="Відкриті">Відкриті</mat-button-toggle>
+        <mat-button-toggle value="Закриті">Закриті</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    
+    
+    <div class="card" [class.card-closed]="order.shiped" *ngFor="let order of orderItems" >
+      <div class="card-title-wrap">
+          <h2 class="card-title font-h4">Картка Замовлення ID:{{order.id}}</h2>
+          <button (click)="deleteOrder(order.id)" class="card-title-btn">
+            <mat-icon>delete</mat-icon>
+          </button>
+      </div>
+
+      <p class="card-subtitle font-p-sm"><span class="c2 font-bold">Ім'я: </span >{{order.name}}; <span class="c2 font-bold">Телефон: </span>{{order.phone}};</p>
+      <p class="card-subtitle font-p-sm"><span class="c2 font-bold">Адреса: </span>{{order.address}}; <span class="c2 font-bold">Email: </span>{{order.email}};</p>
+      <div class="card-product" *ngFor="let product of order.cartLines">
+        <div class="card-product-img-wrap">
+          <img class="card-product-img" [src]="product.product.choosenImage" alt="">
+        </div>
+        <div [ngSwitch]="product ? product.product.typeOfProduct.name : null" class="card-product-body">
+          <h2 class="card-product-title font-h2">Додаткові елементи</h2>
+            <p *ngSwitchCase="product.product?.productProducer !== null" >
+              Виробник: {{product.product.productProducer!.name}}
+            </p>
+            <p>
+              Країна виробник: {{product.product.country}}
+            </p>
+            <p>
+              На складі: {{product.product.inStock}}
+            </p>
+            <p *ngSwitchCase="'Двері міжкімнатні'" >
+              Товщина полотна: {{product.product.fabricMaterialThickness}} мм
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Товщина полотна: {{product.product.fabricMaterialThickness}} мм
+            </p>
+            <p *ngSwitchCase="'Двері міжкімнатні'" >
+              Висота полотна: {{product.product.fabricMaterialHeight}} мм
+            </p>
+            <div *ngIf="product.product.fabricMaterialWidth !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'" >
+                Ширина полотна: {{product.product.fabricMaterialWidth.name}} {{product.product.fabricMaterialWidth.price}}.00 грн
+              </p>
+            </div>
+            <p *ngSwitchCase="'Двері міжкімнатні'" >
+              Шумоізоляція: {{convertingToString(product.product.doorIsolation).join(', ')}}
+            </p>
+            <div *ngIf="product.product.doorFrameMaterial !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'" >
+                Короб: {{product.product.doorFrameMaterial.name}} {{product.product.doorFrameMaterial.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorSelectionBoard !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'" >
+                Добірна дошка: {{product.product.doorSelectionBoard.name}} {{product.product.doorSelectionBoard.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorWelt !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'" >
+                Лиштва: {{product.product.doorWelt.name}} {{product.product.doorWelt.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorHand !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'">
+                Дверна ручка: {{product.product.doorHand.name}} {{product.product.doorHand.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorHand !== null">
+              <p *ngSwitchCase="'Двері вхідні'">
+                Дверна ручка: {{product.product.doorHand.name}} {{product.product.doorHand.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorMechanism !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'">
+                Дверний механізм: {{product.product.doorMechanism.name}} {{product.product.doorMechanism.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorLoops !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'">
+                Дверні петлі: {{product.product.doorLoops.name}} {{product.product.doorLoops.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorStopper !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'">
+                Дверний стопор: {{product.product.doorStopper.name}} {{product.product.doorStopper.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.doorSlidingSystem !== null">
+              <p *ngSwitchCase="'Двері міжкімнатні'">
+                Роздвижна система: {{product.product.doorSlidingSystem.name}} {{product.product.doorSlidingSystem.price}}.00 грн
+              </p>
+            </div>
+            <p *ngSwitchCase="'Двері вхідні'">
+              Товщина короба: {{product.product.frameMaterialThickness}} мм
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Утеплення: {{convertingToString(product.product.doorInsulation).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Оздоблення: {{convertingToString(product.product.covering).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Глазок: {{product.product.doorPeephole ? 'Є' : 'Відсутній'}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Тип відкривання: {{convertingToString(product.product.openingType).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Розмір: {{convertingToString(product.product.size).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Нижній замок: {{convertingToString(product.product.lowerLock).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Верхній замок: {{convertingToString(product.product.upperLock).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Вага: {{convertingToString(product.product.weight).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Товщина металу: {{product.product.metalThickness}} мм
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Конструкція короба: {{convertingToString(product.product.frameMaterialConstruction).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Двері вхідні'" >
+              Контур ущільнення: {{convertingToString(product.product.sealerCircuit).join(', ')}}
+            </p>
+            <div *ngIf="product.product.mosquitoNet !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Москітна сітка: {{product.product.mosquitoNet.name}} {{product.product.mosquitoNet.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.windowSill !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Підвіконня: {{product.product.windowSill.name}} {{product.product.windowSill.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.windowEbb !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Відлив: {{product.product.windowEbb.name}} {{product.product.windowEbb.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.windowHand !== null"> 
+              <p *ngSwitchCase="'Вікна'" >
+                Ручка віконна: {{product.product.windowHand.name}} {{product.product.windowHand.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.childLock !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Дитячий замок: {{product.product.childLock.name}} {{product.product.childLock.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.housewifeStub !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Заглушка домогосподарки: {{product.product.housewifeStub.name}} {{product.product.housewifeStub.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.glassPocketAdd !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Доповнення до стеклопакету: {{product.product.glassPocketAdd.name}} {{product.product.glassPocketAdd.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.lamination !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Ламінація: {{product.product.lamination.name}} {{product.product.lamination.price}}.00 грн
+              </p>
+            </div>
+            <div *ngIf="product.product.profile !== null">
+              <p *ngSwitchCase="'Вікна'" >
+                Профіль: {{product.product.profile.name}} {{product.product.profile.price}}.00 грн
+              </p>
+            </div>
+            <p *ngSwitchCase="'Вікна'" >
+              Ширина вікна: {{product.product!.windowWidth}} мм
+            </p>
+            <p *ngSwitchCase="'Вікна'" >
+              Висота вікна: {{product.product.windowHeight}} мм
+            </p>
+            <p *ngSwitchCase="'Вікна'" >
+              Кількість камер: {{convertingToString(product.product.camerasCount).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Вікна'" >
+              Особливості: {{convertingToString(product.product.features).join(', ')}}
+            </p>
+            <p *ngSwitchCase="'Вікна'" >
+              Кількість секцій: {{convertingToString(product.product.sectionsCount).join(', ')}}
+            </p>
+        </div>
+        <div class="card-product-body">
+          <h2 class="card-product-title font-h2">Загальна інформація</h2>
+          <p>ID продукту: {{product.product.id}}</p>
+          <p>Назва продукту: {{product.product.name}}</p>
+          <p>Кількість: {{product.quantity}}</p>
+          <p>Ціна за одиницю товару: {{product.product.price}}.00 грн</p>
+          <p>Сума: {{product.quantity * product.product.price}}.00 грн</p>
+        </div>
+      </div>
+      <h2 class="card-title font-h2">Загальна сумма: {{order.totalCost}}.00 грн</h2>
+      <p class="card-title font-h2 delivery" *ngIf="order.totalCost >= 30000">Доставка у подарунок!!!</p>
+      <h2 class="card-title font-h2">Тип оплати: {{order.kindOfPayment}}</h2>
+      <div class="btn-order-closed-wrap">
+        <button class="btn-order-closed" [class.order-closed]="order.shiped" (click)="confirmOrder(order)">{{order.shiped ? 'Відкрити' : 'Закрити'}}</button>
+      </div>  
+    </div>
+  </div>
+  
+</div>

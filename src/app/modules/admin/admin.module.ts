@@ -53,6 +53,8 @@ import { ProfileComponent } from './components/product-constants/profile/profile
 import { CamerasCountComponent } from './components/product-constants/cameras-count/cameras-count.component';
 import { FeaturesComponent } from './components/product-constants/features/features.component';
 import { SectionCountComponent } from './components/product-constants/section-count/section-count.component';
+import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,7 @@ import { SectionCountComponent } from './components/product-constants/section-co
     CamerasCountComponent,
     FeaturesComponent,
     SectionCountComponent,
+    AdminOrdersComponent,
   ],
   imports: [
     CommonModule,
@@ -110,7 +113,8 @@ import { SectionCountComponent } from './components/product-constants/section-co
     MatDialogModule,
     MatSelectModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonToggleModule
   ],
   providers: [
     {

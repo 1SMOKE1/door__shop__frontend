@@ -2,6 +2,7 @@ import { kindOfPaymentEnum } from "../../enums/kind-of-payment";
 import { ICartLine } from "./cart-line.interface";
 
 export interface ICreateOrder{
+  id?: number
   name: string,
   phone: string,
   email: string,

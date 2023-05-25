@@ -32,13 +32,14 @@ import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.e
 import { IInteriorDoor } from 'src/app/modules/share/interfaces/common/interior-door.interface';
 import { ProductProducersComponent } from '../product-producers/product-producers.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ProductClass } from '../../../utils/product.class';
 
 @Component({
   selector: 'dsf-interior-door',
   templateUrl: './interior-door.component.html',
   styleUrls: ['./interior-door.component.scss'],
 })
-export class InteriorDoorComponent implements OnInit {
+export class InteriorDoorComponent extends ProductClass implements OnInit {
   interiorDoorProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
   guarantees: ITransformedEnum[] = [];
@@ -108,7 +109,9 @@ export class InteriorDoorComponent implements OnInit {
     private readonly doorSlidingSystemService: DoorSlidingSystemService,
     private readonly funritureService: FurnitureService,
     private readonly interiorDoorService: InteriorDoorService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.initProductProducers();
@@ -236,8 +239,11 @@ export class InteriorDoorComponent implements OnInit {
     this.productProducerService
       .getInteriorDoorProductProducers()
       .subscribe(
-        (producers: IProductProducer[]) =>
-          (this.interiorDoorProducers = producers)
+        (producers: IProductProducer[]) => {
+          this.interiorDoorProducers = [this.noProductProducer, ...producers];
+          if(!this.isEditMode() || producers.length === 0 || this.data?.productProducerName === null)
+            this.interiorDoorForm.get('productProducerName')?.setValue(this.interiorDoorProducers[0].name);
+        }
       );
   }
 

@@ -29,12 +29,14 @@ import { HandleFormsErrorService } from 'src/app/modules/share/services/errors/h
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
+
+
   secondNavLinks: ISecondNavLink[] = [
-    { text: 'Наші виробники', path: '/contacts' },
-    { text: 'Двері міжкімнатні', path: '/catalog' },
-    { text: 'Двері вхідні', path: '/catalog' },
-    { text: 'Вікна', path: '/catalog' },
-    { text: 'Фурнітура', path: '/catalog' },
+    { text: 'Наші виробники', path: '/store/contacts' },
+    { text: 'Двері міжкімнатні', path: '/store/catalog' },
+    { text: 'Двері вхідні', path: '/store/catalog' },
+    { text: 'Вікна', path: '/store/catalog' },
+    { text: 'Фурнітура', path: '/store/catalog' },
   ];
 
   products: IProduct[] = [];

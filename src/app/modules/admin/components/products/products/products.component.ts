@@ -186,7 +186,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
           data: new UpdateInteriorDoorModel(
             id,
             name,
-            productProducer!.name,
+            productProducer !== null ? productProducer.name : null,
             typeOfProduct.name, country, guarantee,
             +price, inStock,
             fabricMaterialThickness ? +fabricMaterialThickness : 0,
@@ -215,7 +215,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
           data: new UpdateEntranceDoorModel(
             id,
             name,
-            productProducer!.name,
+            productProducer !== null ? productProducer.name : null,
             typeOfProduct.name, country, guarantee,
             +price, inStock,
             fabricMaterialThickness ? +fabricMaterialThickness : 0,
@@ -246,7 +246,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
           data: new UpdateFurnitureModel(
             id,
             name,
-            productProducer!.name,
+            productProducer !== null ? productProducer.name : null,
             typeOfProduct.name,
             country,
             guarantee,
@@ -266,7 +266,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
           data: new UpdateWindowModel(
             id, 
             name, 
-            productProducer!.name,
+            productProducer !== null ? productProducer.name : null,
             typeOfProduct.name, 
             country, 
             guarantee, 

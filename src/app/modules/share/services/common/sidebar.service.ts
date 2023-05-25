@@ -5,6 +5,7 @@ import { FiltrationService } from './filtration.service';
 import { IHoleFiltration } from '../../interfaces/common/hole-filtration.interface';
 import { IGetProducts } from '../../interfaces/common/get-products.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SnackbarConfigService } from './snackbar-config.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +23,11 @@ export class SidebarService {
   sliderMaxValue: number = 20000;
   searchValue: string = '';
 
+  noProductProducersValue: boolean = false;
+
   constructor(
-    private readonly filtrationService: FiltrationService
+    private readonly filtrationService: FiltrationService,
+    private readonly snackbarConfigService: SnackbarConfigService
   ) {}
 
   fillConditionArr(condition: IProductProducer): void {
@@ -31,10 +35,6 @@ export class SidebarService {
       ? this.checkBoxArr.push(condition)
       : this.checkBoxArr.splice(this.checkBoxArr.indexOf(condition), 1);
   }
-
-  // saveCheckboxArr(arr?: IProductProducer[]): () => IProductProducer[]{
-  //   return () => arr;
-  // }
 
   setSliderMinValue(value: number): void {
     this.sliderMinValue = value;
@@ -49,6 +49,11 @@ export class SidebarService {
     this.doFiltration();
   }
 
+  setNoProductProducersValue(value: boolean): void{
+    this.noProductProducersValue = value;
+    this.doFiltration();
+  }
+
 
   public doFiltration(page?: number, itemsPerPage?: number): void {
     this.holeFiltrationWithPagination(
@@ -57,7 +62,7 @@ export class SidebarService {
     ).subscribe({next: (data) => {
       this.filtration.next(data);
     },
-    error: (err: HttpErrorResponse) => console.log(err.message)
+    error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
   });
   }
 
@@ -72,6 +77,7 @@ export class SidebarService {
         sliderMaxValue: this.sliderMaxValue,
       },
       searchValue: this.searchValue,
+      noProductProducers: this.noProductProducersValue
     };
 
     return this.filtrationService.holeFiltrationWithPagination(

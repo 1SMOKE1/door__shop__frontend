@@ -7,19 +7,22 @@ import { IUpdateInteriorDoor } from '../../interfaces/update-interior-door.inter
 import { IInteriorDoor } from 'src/app/modules/share/interfaces/common/interior-door.interface';
 import { UpdateInteriorDoorModel } from '../../models/update-interiori-door.model';
 import { ProductsService } from '../products.service';
+import { ProductClass } from '../../utils/product.class';
 
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class InteriorDoorService {
+export class InteriorDoorService extends ProductClass{
   baseUrl: string = `${environment.baseUrl}/interior-door`;
 
   constructor(
     private readonly http: HttpClient,
     private readonly productsService: ProductsService
-    ) {}
+    ) {
+      super();
+    }
 
   public createInteriorDoor(
     body: IUpdateInteriorDoor,
@@ -64,9 +67,15 @@ export class InteriorDoorService {
   ): FormData {
     const formData = new FormData();
 
+    let productProducerName: string = '';
+
+    if(product.productProducerName !== null && product.productProducerName !== this.noProductProducer.name)
+      productProducerName = product.productProducerName;
+
+
     formData.append('name', product.name);
     formData.append('country', product.country);
-    formData.append('productProducerName', product.productProducerName);
+    formData.append('productProducerName', productProducerName);
     formData.append('typeOfProductName', product.typeOfProductName);
     formData.append('guarantee', product.guarantee);
     formData.append('price', product.price.toString());
@@ -140,7 +149,7 @@ export class InteriorDoorService {
     return new UpdateInteriorDoorModel(
       id,
       name,
-      product_producer!.name,
+      product_producer !== null ? product_producer.name : null,
       type_of_product.name,
       country,
       guarantee,

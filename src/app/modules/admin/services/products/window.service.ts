@@ -7,17 +7,20 @@ import { IWindow } from 'src/app/modules/share/interfaces/common/window.interfac
 import { Observable, map } from 'rxjs';
 import { IWindowResponse } from 'src/app/modules/share/interfaces/response/window.interface';
 import { UpdateWindowModel } from '../../models/update-window.model';
+import { ProductClass } from '../../utils/product.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WindowService {
+export class WindowService extends ProductClass{
   baseUrl: string  = `${environment.baseUrl}/window`;
 
   constructor(
     private readonly http: HttpClient,
     private readonly productsService: ProductsService
-  ) { }
+  ) {
+    super();
+   }
 
   public createWindow(
     body: IUpdateWindow,
@@ -59,9 +62,14 @@ export class WindowService {
   ): FormData {
     const formData = new FormData();
 
+    let productProducerName: string = '';
+
+    if(product.productProducerName !== null && product.productProducerName !== this.noProductProducer.name)
+      productProducerName = product.productProducerName;
+
     formData.append('name', product.name);
     formData.append('country', product.country);
-    formData.append('productProducerName', product.productProducerName);
+    formData.append('productProducerName', productProducerName);
     formData.append('typeOfProductName', product.typeOfProductName);
     formData.append('guarantee', product.guarantee);
     formData.append('price', product.price.toString());
@@ -139,7 +147,7 @@ export class WindowService {
     return new UpdateWindowModel(
       id,
       name, 
-      product_producer!.name,
+      product_producer !== null ? product_producer.name : null,
       type_of_product.name,
       country,
       guarantee,

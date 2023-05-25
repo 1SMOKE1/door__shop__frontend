@@ -6,17 +6,20 @@ import { environment } from 'src/environments/environment.development';
 import { IUpdateFurniture } from '../../interfaces/update-furniture.interface';
 import { IFurnitureResponse } from 'src/app/modules/share/interfaces/response/furniture.interface';
 import { UpdateFurnitureModel } from '../../models/update-furniture.model';
+import { ProductClass } from '../../utils/product.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FurnitureService {
+export class FurnitureService extends ProductClass{
 
   baseUrl: string = `${environment.baseUrl}/furniture`;
 
   constructor(
     private readonly http: HttpClient
-  ) { }
+  ) {
+    super();
+   }
 
   public getAllFurniture(): Observable<IFurniture[]>{
     const url: string = this.baseUrl;
@@ -61,9 +64,14 @@ export class FurnitureService {
   ): FormData {
     const formData = new FormData();
 
+    let productProducerName: string = '';
+
+    if(product.productProducerName !== null && product.productProducerName !== this.noProductProducer.name)
+      productProducerName = product.productProducerName;
+
     formData.append('name', product.name);
     formData.append('country', product.country);
-    formData.append('productProducerName', product.productProducerName);
+    formData.append('productProducerName', productProducerName);
     formData.append('typeOfProductName', product.typeOfProductName);
     formData.append('guarantee', product.guarantee);
     formData.append('price', product.price.toString());
@@ -102,7 +110,7 @@ export class FurnitureService {
     return new UpdateFurnitureModel(
       id,
       name,
-      product_producer!.name,
+      product_producer !== null ? product_producer.name : null,
       type_of_product.name,
       country,
       guarantee,
