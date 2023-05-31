@@ -9,7 +9,7 @@
           </div>
         </div>
         <div  [ngSwitch]="true" class="card-calculator-block">
-          <div  *ngSwitchCase="(product$ | async)?.typeOfProduct!.name === 'Двері міжкімнатні'" class="card-calculator-content">
+          <div  *ngSwitchCase="(productService.product$ | async)?.typeOfProduct!.name === 'Двері міжкімнатні'" class="card-calculator-content">
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Ширина полотна</mat-label>
               <mat-select [(value)]="selectedFabricMaterialWidth" (valueChange)="addProp()">
@@ -65,7 +65,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div  *ngSwitchCase="(product$ | async)?.typeOfProduct!.name === 'Вікна'" class="card-calculator-content">
+          <div  *ngSwitchCase="(productService.product$ | async)?.typeOfProduct!.name === 'Вікна'" class="card-calculator-content">
             <mat-form-field class="card-calculator-field" color="primary" >
               <mat-label>Москітна сітка</mat-label>
               <mat-select [(value)]="selectedMosquitoNet" (valueChange)="addProp()">
@@ -170,7 +170,7 @@
         </div>
       </div>
     </section>
-    <dsf-description [product]="product"></dsf-description>
+    <dsf-description></dsf-description>
   </div>
 </main>
 

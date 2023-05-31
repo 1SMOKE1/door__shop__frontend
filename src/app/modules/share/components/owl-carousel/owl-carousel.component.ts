@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICarouselImage } from '../../interfaces/common/carousel-image.interface';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ICarouselImage } from 'src/app/modules/admin/interfaces/carousel-image.interface';
 
 @Component({
   selector: 'dsf-owl-carousel',
@@ -9,10 +9,10 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./owl-carousel.component.scss'],
 })
 export class OwlCarouselComponent {
-  @Input('images') public images$!: Observable<any>;
-  constructor() {}
+  @Input('images') public images$: Observable<ICarouselImage[]>;
+
   images: ICarouselImage[] = [];
-  ngOnInit(): void {}
+
 
   customOptions: OwlOptions = {
     loop: true,
@@ -40,7 +40,7 @@ export class OwlCarouselComponent {
   };
 
   private getImages(): void {
-    this.images$?.subscribe((res: ICarouselImage[]) => (this.images = res));
+    this.images$?.subscribe((images: ICarouselImage[]) => this.images = images);
   }
 
   ngAfterViewInit(): void {

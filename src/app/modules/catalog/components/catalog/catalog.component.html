@@ -9,7 +9,8 @@
           <dsf-sidebar></dsf-sidebar>
         </div>
         <div *ngSwitchCase="products.length !== 0 && !emptyProducts" class="catalog-cards-wrap">
-          <div *ngFor="let product of products | paginate: {itemsPerPage: 8, currentPage: page, totalItems: productsLength} " class="card">  
+          <div *ngFor="let product of products | paginate: {itemsPerPage: 8, currentPage: page, totalItems: productsLength} " class="card"
+            (click)="cardBigRedirect(product.id, product.typeOfProduct.name)">  
             <img *ngIf="product.images" class="card-img" [src]="product.images[0]" alt="">
             <div class="card-body">
               <h3 class="card-title">{{product.name}}</h3>

@@ -55,6 +55,9 @@ import { FeaturesComponent } from './components/product-constants/features/featu
 import { SectionCountComponent } from './components/product-constants/section-count/section-count.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { AdminOurWorksComponent } from './components/admin-our-works/admin-our-works.component';
+import { OurWorksDialogComponent } from './components/admin-our-works/our-works-dialog/our-works-dialog.component';
+import { OurCommentsDialogComponent } from './components/admin-our-works/our-comments-dialog/our-comments-dialog.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +98,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     FeaturesComponent,
     SectionCountComponent,
     AdminOrdersComponent,
+    AdminOurWorksComponent,
+    OurWorksDialogComponent,
+    OurCommentsDialogComponent,
   ],
   imports: [
     CommonModule,

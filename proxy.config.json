@@ -3,5 +3,15 @@
     "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/uploads/our-works": {
+    "target": "http://localhost:5000",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/uploads/our-comments": {
+    "target": "http://localhost:5000",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

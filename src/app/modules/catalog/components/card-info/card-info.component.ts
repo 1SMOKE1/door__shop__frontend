@@ -7,10 +7,11 @@ import { HttpProductService } from 'src/app/modules/share/services/common/http-p
 import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICalculatorChar } from 'src/app/modules/admin/interfaces/calculator-char.interface';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IProductCaltulator } from 'src/app/modules/share/interfaces/common/product-calculator.interface';
 import { ProductCalculatorModel } from 'src/app/modules/share/models/product-calculator.model';
 import { ConvertingProductClass } from 'src/app/modules/admin/utils/converting-product.class';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'dsf-card-info',
@@ -20,8 +21,7 @@ import { ConvertingProductClass } from 'src/app/modules/admin/utils/converting-p
 export class CardInfoComponent extends ConvertingProductClass implements OnInit{
 
   product: IProduct | null = null;
-  productSubject: Subject<IProduct> = new Subject();
-  product$: Observable<IProduct> = this.productSubject.asObservable();
+  
   productSubscription: Subscription;
   TypeOfProductEnum: TypeOfProductEnum;
 
@@ -54,11 +54,12 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
 
 
   constructor(
+    public readonly productService: ProductService,
     private readonly dialog: MatDialog,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly httpProductService: HttpProductService,
-    private readonly cartLineService: CartLineService
+    private readonly cartLineService: CartLineService,
   ) {
     super();
   }
@@ -73,7 +74,7 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     } 
     
 
-    this.productSubscription = this.product$.subscribe();
+    this.productSubscription = this.productService.product$.subscribe();
     if(this.product)
     this.choosenItemImage = this.product?.images[0];
   }
@@ -94,11 +95,10 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
       .getProduct(id, typeOfProductName)
       .subscribe({
         next: (product: IProduct) => {
-          console.log(product)
           this.product = product;
           this.startPrice = this.product.price;
           this.choosenItemImage = this.product.images[0];
-          this.productSubject.next(product);
+          this.productService.productSubject.next(product);
           this.product.fabricMaterialWidth = [this.chooseConst, ...this.product.fabricMaterialWidth];
           this.product.doorFrameMaterial = [this.chooseConst, ...this.product.doorFrameMaterial];
           this.product.doorSelectionBoard = [this.chooseConst, ...this.product.doorSelectionBoard];

@@ -1,0 +1,14 @@
+<div mat-dialog-content class="dialog-wrap">
+
+  <div class="file-container">
+    <input #inputFileRef hidden type="file" (change)="onFileUpload($event)">
+    <button (click)="triggerInput()" mat-raised-button color="primary">{{isEditMode() ? 'Змінити' : 'Додати'}} зображення</button>
+    <img [ngStyle]="{'display': imagePreview === '' ? 'none' : 'block'}" class="img-preview" [src]="imagePreview" alt="">
+  </div>
+  <div >
+    <button class="dialog-btn btn" (click)="submit()" >{{isEditMode() ? 'Змінити' : 'Створити'}}</button>
+    <button class="dialog-btn" mat-dialog-close>Закрити</button>
+  </div>
+
+</div>
+

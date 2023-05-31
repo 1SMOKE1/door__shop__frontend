@@ -35,13 +35,13 @@
             <p>
               На складі: {{product.product.inStock}}
             </p>
-            <p *ngSwitchCase="'Двері міжкімнатні'" >
+            <p *ngIf="product.product?.fabricMaterialThickness !== 0 && 'Двері міжкімнатні'" >
               Товщина полотна: {{product.product.fabricMaterialThickness}} мм
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="product.product?.fabricMaterialThickness !== 0 && 'Двері міжкімнатні'">
               Товщина полотна: {{product.product.fabricMaterialThickness}} мм
             </p>
-            <p *ngSwitchCase="'Двері міжкімнатні'" >
+            <p *ngIf="product.product?.fabricMaterialHeight !== 0 && 'Двері міжкімнатні'" >
               Висота полотна: {{product.product.fabricMaterialHeight}} мм
             </p>
             <div *ngIf="product.product.fabricMaterialWidth !== null">
@@ -49,7 +49,7 @@
                 Ширина полотна: {{product.product.fabricMaterialWidth.name}} {{product.product.fabricMaterialWidth.price}}.00 грн
               </p>
             </div>
-            <p *ngSwitchCase="'Двері міжкімнатні'" >
+            <p *ngIf="converting(product.product?.doorIsolation)?.length !== 0 && product.product?.typeOfProduct?.name === 'Двері міжкімнатні'" >
               Шумоізоляція: {{convertingToString(product.product.doorIsolation).join(', ')}}
             </p>
             <div *ngIf="product.product.doorFrameMaterial !== null">
@@ -97,40 +97,40 @@
                 Роздвижна система: {{product.product.doorSlidingSystem.name}} {{product.product.doorSlidingSystem.price}}.00 грн
               </p>
             </div>
-            <p *ngSwitchCase="'Двері вхідні'">
+            <p *ngIf="product.product?.frameMaterialThickness !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'">
               Товщина короба: {{product.product.frameMaterialThickness}} мм
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.doorInsulation).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Утеплення: {{convertingToString(product.product.doorInsulation).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.covering).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Оздоблення: {{convertingToString(product.product.covering).join(', ')}}
             </p>
             <p *ngSwitchCase="'Двері вхідні'" >
               Глазок: {{product.product.doorPeephole ? 'Є' : 'Відсутній'}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.openingType).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Тип відкривання: {{convertingToString(product.product.openingType).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.size).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Розмір: {{convertingToString(product.product.size).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.lowerLock).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Нижній замок: {{convertingToString(product.product.lowerLock).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.upperLock).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Верхній замок: {{convertingToString(product.product.upperLock).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.weight).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Вага: {{convertingToString(product.product.weight).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="product.product?.metalThickness !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Товщина металу: {{product.product.metalThickness}} мм
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.frameMaterialConstruction).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Конструкція короба: {{convertingToString(product.product.frameMaterialConstruction).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Двері вхідні'" >
+            <p *ngIf="converting(product.product?.sealerCircuit).length !== 0 && product.product?.typeOfProduct?.name === 'Двері вхідні'" >
               Контур ущільнення: {{convertingToString(product.product.sealerCircuit).join(', ')}}
             </p>
             <div *ngIf="product.product.mosquitoNet !== null">
@@ -184,13 +184,13 @@
             <p *ngSwitchCase="'Вікна'" >
               Висота вікна: {{product.product.windowHeight}} мм
             </p>
-            <p *ngSwitchCase="'Вікна'" >
+            <p *ngIf="converting(product.product?.camerasCount).length !== 0 && product.product?.typeOfProduct?.name === 'Вікна'" >
               Кількість камер: {{convertingToString(product.product.camerasCount).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Вікна'" >
+            <p *ngIf="converting(product.product?.features).length !== 0 && product.product?.typeOfProduct?.name === 'Вікна'" >
               Особливості: {{convertingToString(product.product.features).join(', ')}}
             </p>
-            <p *ngSwitchCase="'Вікна'" >
+            <p *ngIf="converting(product.product?.sectionsCount).length !== 0 && product.product?.typeOfProduct?.name === 'Вікна'" >
               Кількість секцій: {{convertingToString(product.product.sectionsCount).join(', ')}}
             </p>
         </div>

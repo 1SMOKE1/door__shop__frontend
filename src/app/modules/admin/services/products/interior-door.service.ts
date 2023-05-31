@@ -53,9 +53,15 @@ export class InteriorDoorService extends ProductClass{
     )
   }
 
-  public deleteIneriorDoor(id: number): Observable<string> {
+  public deleteInteriorDoor(id: number): Observable<string> {
 
-    const url: string = `${this.baseUrl}/${id}`
+    const url: string = `${this.baseUrl}/${id}`;
+
+    return this.http.delete<string>(url);
+  }
+
+  public deleteAllInteriorDoors(): Observable<string> {
+    const url: string = this.baseUrl;
 
     return this.http.delete<string>(url);
   }

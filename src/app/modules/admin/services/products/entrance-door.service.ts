@@ -60,6 +60,12 @@ export class EntranceDoorService extends ProductClass{
     return this.http.delete<string>(url);
   }
 
+  public deleteAllEntranceDoors(): Observable<string>{
+    const url: string = this.baseUrl;
+
+    return this.http.delete<string>(url);
+  }
+
   private createFormData(
     product: IUpdateEntranceDoor,
     images: FileList | null

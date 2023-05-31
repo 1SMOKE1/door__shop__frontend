@@ -3,32 +3,18 @@
 
 //---------- MEDIA QUETIONS ------------
 
-@media (max-width: 1440px) {
-
-}
-@media (max-width: 1024px) {
-
-}
-
-@media (max-width: 768px) {
-
-}
-
-@media (max-width: 425px) {
-
-}
-
-@media (max-width: 375px) {
-
-}
 
 .img-wrapper {
   padding: 5px;
 }
 
 .img-wrapper img {
- height: 400px;
+  object-fit: contain;
+  width: 300px;
+  height: 300px;
 }
+
+
 
 .owl-theme .owl-nav [class*=owl-] .owl-prev {
   background-color: #E34F25 !important;
