@@ -58,6 +58,12 @@ export class FurnitureService extends ProductClass{
     return this.http.delete<string>(url);
   }
 
+  public deleteAllFurnitures(): Observable<string>{
+    const url: string = this.baseUrl;
+
+    return this.http.delete<string>(url);
+  }
+
   private createFormData(
     product: IUpdateFurniture,
     images: FileList | null

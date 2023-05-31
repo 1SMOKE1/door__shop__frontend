@@ -21,6 +21,7 @@ import { UpdateFurnitureModel } from '../../../models/update-furniture.model';
 import { EntranceDoorService } from '../../../services/products/entrance-door.service';
 import { FurnitureService } from '../../../services/products/furniture.service';
 import { WindowService } from '../../../services/products/window.service';
+import { ProductService } from 'src/app/modules/catalog/services/product.service';
 
 @Component({
   selector: 'dsf-products',
@@ -31,6 +32,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
 
   filtrationSubsctiption!: Subscription;
   spinnerSubscription!: Subscription;
+  initProductsAfterDeletingSubscription!: Subscription;
 
   page: number = 1; // currentPage
   itemsPerPage: number = 8;
@@ -48,7 +50,8 @@ export class ProductsComponent implements OnInit, OnDestroy{
     private readonly interiorDoorService: InteriorDoorService,
     private readonly entranceDoorService: EntranceDoorService,
     private readonly furnitureService: FurnitureService,
-    private readonly windowService: WindowService
+    private readonly windowService: WindowService,
+    private readonly productsService: ProductService
   ){}
 
   ngOnInit(): void {
@@ -77,10 +80,17 @@ export class ProductsComponent implements OnInit, OnDestroy{
         this.spinnerSubscription.unsubscribe();
         this.spinnerValue = 0;
       })
+    this.initProductsAfterDeletingSubscription = this.productsService
+    .initReloadProducts$
+    .subscribe({
+      next: () => this.initProducts(),
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+    })
   }
 
   ngOnDestroy(): void {
     this.filtrationSubsctiption.unsubscribe();
+    this.initProductsAfterDeletingSubscription.unsubscribe();
     this.sidebarService.checkBoxArr = [];
   }
 
@@ -304,7 +314,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     switch(typeOfProductName){
       case TypeOfProductEnum.interiorDoor:
         this.interiorDoorService
-        .deleteIneriorDoor(id)
+        .deleteInteriorDoor(id)
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
@@ -348,6 +358,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         break;
     }
   }
+
 
 
 

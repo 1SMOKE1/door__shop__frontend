@@ -1,0 +1,37 @@
+<div class="our-works-wrap">
+  <div class="container" >
+    <div class="our-works-btn-wrap">
+      <button (click)="openOurWorksDialog()" class="our-works-btn font-p">Додати фото до каруселі наших робіт</button>
+      <button (click)="openOurCommentsDialog()" class="our-works-btn font-p">Додати фото до каруселі наших коментарів</button>
+    </div>
+    <div class="our-works-block-wrap">
+      <div class="our-works-block">
+        <h1 class="font-h1 our-works-title">Карусель робіт</h1>
+        <div class="our-works-card" *ngFor="let image of ourWorkItems">
+          <img class="our-works-img" [src]="image.imgSrc" alt="">
+          <button (click)="updateWorks(image)" class="card-btn">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="deleteWorks(image.id)" class="card-btn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="our-works-block">
+        <h1 class="font-h1 our-works-title">Карусель коментарів</h1>
+        <div class="our-works-card" *ngFor="let image of ourCommentItems">
+          <img class="our-works-img" [src]="image.imgSrc" alt="">
+          <button (click)="updateComments(image)" class="card-btn">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="deleteComments(image.id)" class="card-btn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

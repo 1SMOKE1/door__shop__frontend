@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { InteriorDoorService } from '../../services/products/interior-door.service';
+import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { EntranceDoorService } from '../../services/products/entrance-door.service';
+import { ProductService } from 'src/app/modules/catalog/services/product.service';
+import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
+import { FurnitureService } from '../../services/products/furniture.service';
+import { WindowService } from '../../services/products/window.service';
 
 @Component({
   selector: 'dsf-admin-header',
@@ -9,8 +17,63 @@ import { AuthService } from '../../services/auth.service';
 export class AdminHeaderComponent {
 
   constructor(
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly snackbarConfigService: SnackbarConfigService,
+    private readonly interiorDoorService: InteriorDoorService,
+    private readonly entranceDoorService: EntranceDoorService,
+    private readonly furnitureService: FurnitureService,
+    private readonly windowService: WindowService,
+    private readonly productsService: ProductService
+
   ){}
+
+  public deleteAllInteriorDoors(): void{
+    this.interiorDoorService
+    .deleteAllInteriorDoors()
+    .subscribe({
+      next: (answer: string) => {
+        this.snackbarConfigService.openSnackBar(answer);
+        this.productsService.initReloadProducts.next(`${TypeOfProductEnum.interiorDoor}`);
+      },
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+    })
+  }
+
+  public deleteAllEntranceDoors(): void{
+    this.entranceDoorService
+    .deleteAllEntranceDoors()
+    .subscribe({
+      next: (answer: string) => {
+        this.snackbarConfigService.openSnackBar(answer);
+        this.productsService.initReloadProducts.next(`${TypeOfProductEnum.entranceDoor}`)
+      },
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+    })
+  }
+
+  public deleteAllFurnitures(): void{
+    this.furnitureService
+    .deleteAllFurnitures()
+    .subscribe({
+      next: (answer: string) => {
+        this.snackbarConfigService.openSnackBar(answer);
+        this.productsService.initReloadProducts.next(`${TypeOfProductEnum.furniture}`)
+      },
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+    })
+  }
+
+  public deleteAllWindows(): void{
+    this.windowService
+    .deleteAllWindows()
+    .subscribe({
+      next: (answer: string) => {
+        this.snackbarConfigService.openSnackBar(answer);
+        this.productsService.initReloadProducts.next(`${TypeOfProductEnum.windows}`)
+      },
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+    })
+  }
 
   logout(){
     this.authService.logout();

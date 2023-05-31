@@ -56,6 +56,12 @@ export class WindowService extends ProductClass{
     return this.http.delete<string>(url);
   }
 
+  public deleteAllWindows(): Observable<string>{
+    const url: string = this.baseUrl;
+
+    return this.http.delete<string>(url);
+  }
+
   private createFormData(
     product: IUpdateWindow,
     images: FileList | null

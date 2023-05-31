@@ -51,7 +51,7 @@
   transition: all .3s ease;
   border-radius: 10px;
   box-shadow: 0 5px 25px rgb(30 31 33 / 12%);
-
+  cursor: pointer;
   &:hover{
     transform: translateY(-10px);
   }
