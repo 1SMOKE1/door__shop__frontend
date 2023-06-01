@@ -242,6 +242,8 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
         next: (data: IEntranceDoor) => {
           this.data = data;
           this.entranceDoorForm.patchValue(data);
+          if(data.productProducerName === null)
+            this.entranceDoorForm.get('productProducerName')?.patchValue(this.noProductProducer.name);
           this.initSlashStylingOfFormFields();
           this.snackbarConfigService.openSnackBar(`Двері вхідні з ім'ям: ${data.name}, було успішно змінено`)
         },

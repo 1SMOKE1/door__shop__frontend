@@ -59,6 +59,7 @@ import { AdminOurWorksComponent } from './components/admin-our-works/admin-our-w
 import { OurWorksDialogComponent } from './components/admin-our-works/our-works-dialog/our-works-dialog.component';
 import { OurCommentsDialogComponent } from './components/admin-our-works/our-comments-dialog/our-comments-dialog.component';
 
+
 @NgModule({
   declarations: [
     AdminRouterOutletComponent,
@@ -120,14 +121,14 @@ import { OurCommentsDialogComponent } from './components/admin-our-works/our-com
     MatSelectModule,
     MatListModule,
     MatSnackBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },
+    }
   ]
 })
 export class AdminModule { }
