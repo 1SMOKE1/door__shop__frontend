@@ -116,6 +116,8 @@ export class FurnitureComponent extends ProductClass implements OnInit{
         next: (data: IFurniture) => {
           this.data = data;
           this.furnitureForm.patchValue(data);
+          if(data.productProducerName === null)
+            this.furnitureForm.get('productProducerName')?.patchValue(this.noProductProducer.name);
           this.snackbarConfigService.openSnackBar(`Фурнітура з ім'ям: ${data.name}, було успішно змінено`);
         },
         error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)

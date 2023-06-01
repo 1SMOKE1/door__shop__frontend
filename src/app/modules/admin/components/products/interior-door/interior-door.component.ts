@@ -228,6 +228,9 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
         next: (data: IInteriorDoor) => {
           this.data = data;
           this.interiorDoorForm.patchValue(data);
+          console.log(data);
+          if(data.productProducerName === null)
+            this.interiorDoorForm.get('productProducerName')?.patchValue(this.noProductProducer.name);
           this.initSlashStylingOfFormFields();
           this.snackbarConfigService.openSnackBar(`Двері міжкімнатні з ім'ям: ${data.name}, було успішно змінено`);
         },

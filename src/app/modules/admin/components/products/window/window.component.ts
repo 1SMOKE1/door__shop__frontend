@@ -283,6 +283,8 @@ export class WindowComponent extends ProductClass implements OnInit{
         next: (data: IWindow) => {
           this.data = data;
           this.windowForm.patchValue(data);
+          if(data.productProducerName === null)
+            this.windowForm.get('productProducerName')?.patchValue(this.noProductProducer.name);
           this.initSlashStylingOfFormFields();
           this.snackbarConfigService.openSnackBar(`Вікно з ім'ям: ${data.name}, було успішно змінено`)
         },

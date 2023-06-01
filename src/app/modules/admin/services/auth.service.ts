@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { HandleFormsErrorService } from '../../share/services/errors/handle-forms-error.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,10 @@ export class AuthService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly handleFormsErrorService: HandleFormsErrorService
   ){}
 
-  signIn(form: Partial<{email: string | null; password: string | null}>): Promise<Response>{
+
+  public signIn(form: Partial<{email: string | null; password: string | null}>): Promise<Response>{
     const url: string = `${this.baseUrl}/auth/sign-in`;
 
     return fetch(url, {
@@ -32,9 +32,18 @@ export class AuthService {
 
   }
 
-  logout(): Observable<string>{
+  public logout(): Observable<string>{
     const url: string = `${this.baseUrl}/auth/logout`;
 
     return this.http.get<string>(url);
   }
+
+  public updateAccessToken(): Promise<{access_token: string} | undefined>{
+    const url: string = `${this.baseUrl}/auth/update-access`;
+
+    return this.http.put<{access_token: string}>(url, {refreshToken: localStorage.getItem('refresh_token')}).toPromise()
+  }
+
+
+ 
 }
