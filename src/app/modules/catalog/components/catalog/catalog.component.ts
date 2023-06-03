@@ -5,6 +5,7 @@ import { IProduct } from 'src/app/modules/share/interfaces/common/product.interf
 import { CardService } from '../../services/card.service';
 import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
 import { SidebarService } from 'src/app/modules/share/services/common/sidebar.service';
+import { SpinnerService } from 'src/app/modules/share/services/common/spinner.service';
 
 
 @Component({
@@ -14,19 +15,19 @@ import { SidebarService } from 'src/app/modules/share/services/common/sidebar.se
 })
 export class CatalogComponent implements OnInit, OnDestroy{
   filtrationSubsctiption!: Subscription;
-  spinnerSubscription!: Subscription;
 
   page: number = 1; // currentPage
   itemsPerPage: number = 8;
   productsLength: number = 0;
   products: IProduct[] = [];
-  spinnerValue: number = 0;
 
   emptyProducts: boolean = false;
 
   constructor(
+    public readonly spinnerService: SpinnerService,
     private readonly cardService: CardService,
-    private readonly sidebarService: SidebarService
+    private readonly sidebarService: SidebarService,
+    
   ){}
 
   ngOnInit(): void {
@@ -38,9 +39,9 @@ export class CatalogComponent implements OnInit, OnDestroy{
         map((el: IGetProducts) => {
           this.emptyProducts = false;
           this.products = [];
-          this.spinnerSubscription = interval(10)
+          this.spinnerService.spinnerSubscription = interval(10)
           .subscribe((value: number) => {
-            this.spinnerValue += value;
+            this.spinnerService.spinnerValue += value;
           })
           return el
         }),
@@ -54,8 +55,8 @@ export class CatalogComponent implements OnInit, OnDestroy{
           this.emptyProducts = true;
         else
           this.emptyProducts = false;
-        this.spinnerSubscription.unsubscribe();
-        this.spinnerValue = 0;
+        this.spinnerService.spinnerSubscription.unsubscribe();
+        this.spinnerService.spinnerValue = 0;
       })
   }
 

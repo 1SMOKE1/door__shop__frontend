@@ -1,0 +1,12 @@
+.page-not-found{
+  &__title{
+    text-align: center;
+  }
+}
+
+.page-not-found{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+}

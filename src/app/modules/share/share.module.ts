@@ -27,6 +27,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { MatRadioModule } from '@angular/material/radio';
 import { CountUpDirective } from './directives/count-up.directive';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     HttpClientModule,
     MatDialogModule,
     MatRadioModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     HeaderComponent,

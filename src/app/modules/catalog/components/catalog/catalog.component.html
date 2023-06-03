@@ -20,7 +20,7 @@
           </div>
         </div>
         <div *ngSwitchCase="products.length === 0 && !emptyProducts" class="spinner-wrap">
-          <mat-progress-spinner color="accent" mode="determinate" [value]="spinnerValue"></mat-progress-spinner>
+          <mat-progress-spinner color="accent" mode="determinate" [value]="spinnerService.spinnerValue"></mat-progress-spinner>
         </div>
         <div *ngSwitchCase="products.length === 0 && emptyProducts" class="spinner-wrap">
           <h1>НЕМАЄ ТОВАРІВ ЗА ВАШИМ ЗАПИТОМ</h1>

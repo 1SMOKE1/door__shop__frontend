@@ -3,6 +3,8 @@ import {
   Component,
   ElementRef,
   Inject,
+  OnDestroy,
+  OnInit,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -13,13 +15,15 @@ import { ICartLine } from '../../../interfaces/common/cart-line.interface';
 import { OrderBasketService } from '../../../services/common/order-basket.service';
 import { DOCUMENT } from '@angular/common';
 import { IProductCaltulator } from '../../../interfaces/common/product-calculator.interface';
+import { SpinnerService } from '../../../services/common/spinner.service';
+import { OrderBasketSubmitEnum } from '../../../enums/order-basket-submit.enum';
 
 @Component({
   selector: 'dsf-order-basket',
   templateUrl: './order-basket.component.html',
   styleUrls: ['./order-basket.component.scss'],
 })
-export class OrderBasketComponent implements AfterViewInit {
+export class OrderBasketComponent implements AfterViewInit, OnInit {
   window: Window | null;
   @ViewChild('orderForm', { static: false }) public elemOrderForm!: ElementRef;
   @ViewChild('carouselLine', { static: false })
@@ -31,19 +35,22 @@ export class OrderBasketComponent implements AfterViewInit {
   public emptyBasket!: TemplateRef<any>;
   @ViewChild('btnToForm', { static: true }) public btnToForm!: ElementRef;
   cartLines: ICartLine[] = [];
-  sendForm: boolean = false;
+
+  orderBasketSubmitEnum: typeof OrderBasketSubmitEnum = OrderBasketSubmitEnum;
 
   constructor(
     public readonly cartLineService: CartLineService,
+    public readonly spinnerService: SpinnerService,
+    public readonly orderBasketService: OrderBasketService,
     private readonly dialog: MatDialog,
     private readonly router: Router,
-    private readonly orderBasketService: OrderBasketService,
     @Inject(DOCUMENT) docRef: Document
   ) {
     this.window = docRef.defaultView;
   }
 
   ngOnInit(): void {
+    this.orderBasketService.submitingOrderSubject.next(this.orderBasketSubmitEnum.noSubmit);
     this.getCartLines();
   }
 
@@ -96,16 +103,12 @@ export class OrderBasketComponent implements AfterViewInit {
     carouselLine.style.transform = `translate(${0}px)`;
   }
 
-  sendEmitFromForm(e: Event): void {
-    this.sendForm = !this.sendForm;
-  }
-
   toCatalogAfterSubmit(): void {
-    this.sendForm = false;
     this.goBackFromForm();
     this.cartLineService.clearCartLines();
     this.dialog.closeAll();
     this.router.navigate(['store', 'catalog']);
+    this.orderBasketService.submitingOrderSubject.next(this.orderBasketSubmitEnum.noSubmit);
   }
 
   ngAfterViewInit(): void {

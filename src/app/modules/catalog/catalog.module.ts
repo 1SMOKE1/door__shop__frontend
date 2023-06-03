@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DescriptionComponent } from './components/description/description.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../admin/interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     CatalogComponent,

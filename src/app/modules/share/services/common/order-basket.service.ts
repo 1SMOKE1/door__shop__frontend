@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { ICreateOrder } from '../../interfaces/common/order.interface';
 import { environment } from 'src/environments/environment.development';
 import { IOrderResponse } from '../../interfaces/response/order.interface';
 import CreateOrderModel from '../../models/create-order.model';
+import { OrderBasketSubmitEnum } from '../../enums/order-basket-submit.enum';
 
 
 
@@ -14,6 +15,11 @@ import CreateOrderModel from '../../models/create-order.model';
 export class OrderBasketService {
 
   private baseUrl: string = `${environment.baseUrl}/orders`;
+
+  
+
+  submitingOrderSubject: BehaviorSubject<any> = new BehaviorSubject(OrderBasketSubmitEnum.noSubmit);
+  submitingOrder$: Observable<OrderBasketSubmitEnum> = this.submitingOrderSubject.asObservable();
 
   constructor(
     private readonly http: HttpClient,

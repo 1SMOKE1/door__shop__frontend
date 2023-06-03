@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable} from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
@@ -13,6 +14,7 @@ export class AuthService {
 
   constructor(
     private readonly http: HttpClient,
+    private readonly router: Router
   ){}
 
 
@@ -42,6 +44,17 @@ export class AuthService {
     const url: string = `${this.baseUrl}/auth/update-access`;
 
     return this.http.put<{access_token: string}>(url, {refreshToken: localStorage.getItem('refresh_token')}).toPromise()
+  }
+
+  public isAuthenticated(): boolean{
+    switch(true){
+      case localStorage.getItem('access_token')!.length > 0:
+        return true;
+      case localStorage.getItem('access_token') === undefined || localStorage.getItem('access_token') === null:
+        return false;
+      default: 
+        return false;
+    }
   }
 
 
