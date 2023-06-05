@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map, interval, delay, Subscription } from 'rxjs';
-import { CardService } from 'src/app/modules/catalog/services/card.service';
-import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
-import { IGetProducts } from 'src/app/modules/share/interfaces/common/get-products.interface';
-import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
-import { SidebarService } from 'src/app/modules/share/services/common/sidebar.service';
+import { CardService } from 'app/modules/catalog/services/card.service';
+import { TypeOfProductEnum } from 'app/modules/share/enums/type-of-product.enum';
+import { IGetProducts } from 'app/modules/share/interfaces/common/get-products.interface';
+import { IProduct } from 'app/modules/share/interfaces/common/product.interface';
+import { SidebarService } from 'app/modules/share/services/common/sidebar.service';
 import { InteriorDoorComponent } from '../interior-door/interior-door.component';
 import { EntranceDoorComponent } from '../entrance-door/entrance-door.component';
 import { FurnitureComponent } from '../furniture/furniture.component';
@@ -13,7 +13,7 @@ import { WindowComponent } from '../window/window.component';
 import { ExcelComponent } from '../excel/excel.component';
 import { UpdateInteriorDoorModel } from '../../../models/update-interiori-door.model';
 import { InteriorDoorService } from '../../../services/products/interior-door.service';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from 'app/modules/share/services/common/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UpdateEntranceDoorModel } from '../../../models/update-entrance-door.model';
 import { UpdateWindowModel } from '../../../models/update-window.model';
@@ -21,7 +21,7 @@ import { UpdateFurnitureModel } from '../../../models/update-furniture.model';
 import { EntranceDoorService } from '../../../services/products/entrance-door.service';
 import { FurnitureService } from '../../../services/products/furniture.service';
 import { WindowService } from '../../../services/products/window.service';
-import { ProductService } from 'src/app/modules/catalog/services/product.service';
+import { ProductService } from 'app/modules/catalog/services/product.service';
 
 @Component({
   selector: 'dsf-products',

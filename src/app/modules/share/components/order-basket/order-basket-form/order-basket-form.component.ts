@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICartLine } from '../../../interfaces/common/cart-line.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidationService } from '../../../services/common/validation.service';
@@ -8,13 +8,16 @@ import { CartLineService } from '../../../services/common/cart-line.service';
 import { OrderBasketService } from '../../../services/common/order-basket.service';
 import { SnackbarConfigService } from '../../../services/common/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OrderBasketSubmitEnum } from '../../../enums/order-basket-submit.enum';
+import { SpinnerService } from '../../../services/common/spinner.service';
+import { delay, interval, map } from 'rxjs';
 
 @Component({
   selector: 'dsf-order-basket-form',
   templateUrl: './order-basket-form.component.html',
   styleUrls: ['./order-basket-form.component.scss'],
 })
-export class OrderBasketFormComponent {
+export class OrderBasketFormComponent implements OnInit{
   @Output() sendFormEmit: EventEmitter<Event> = new EventEmitter<Event>();
   @Output() goBackEmit: EventEmitter<Event> = new EventEmitter<Event>();
   @Input() cartLines: ICartLine[] = [];
@@ -23,7 +26,8 @@ export class OrderBasketFormComponent {
     private readonly validationService: ValidationService,
     private readonly cartLinesService: CartLineService,
     private readonly orderBasketService: OrderBasketService,
-    private readonly snackbarConfigService: SnackbarConfigService
+    private readonly snackbarConfigService: SnackbarConfigService,
+    private readonly spinnerService: SpinnerService
   ) {}
 
   orderForm: FormGroup = new FormGroup({
@@ -43,7 +47,16 @@ export class OrderBasketFormComponent {
     kindOfPayment: new FormControl(''),
   });
 
-  public submit(e: Event) {
+  ngOnInit(): void {
+    this.orderBasketService.submitingOrderSubject.next(OrderBasketSubmitEnum.noSubmit);
+  }
+
+  public submit() {
+    this.spinnerService.spinnerSubscription = interval(10)
+    .subscribe((value: number) => {
+      this.spinnerService.spinnerValue += value;
+    })
+    this.orderBasketService.submitingOrderSubject.next(OrderBasketSubmitEnum.loading);
     const totalCost: number = this.cartLinesService.getTotal();
     const { name, phone, email, address, kindOfPayment }: ICreateOrder =
       this.orderForm.value;
@@ -60,8 +73,17 @@ export class OrderBasketFormComponent {
 
     this.orderBasketService.createOrder(newOrder)
     .subscribe({
-      next: () => this.sendFormEmit.emit(e),
-      error: (err: HttpErrorResponse): void => this.snackbarConfigService.showError(err)  
+      next: () => {
+        this.orderBasketService.submitingOrderSubject.next(OrderBasketSubmitEnum.success);
+        this.spinnerService.spinnerValue = 0;
+        this.spinnerService.spinnerSubscription.unsubscribe();
+      },
+      error: (err: HttpErrorResponse): void => {
+        this.snackbarConfigService.showError(err);
+        this.spinnerService.spinnerValue = 0;
+        this.orderBasketService.submitingOrderSubject.next(OrderBasketSubmitEnum.noSubmit);
+        this.spinnerService.spinnerSubscription.unsubscribe();
+      }  
     });
   }
 

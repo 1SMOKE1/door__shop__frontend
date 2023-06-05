@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { DoorFrameMaterialService } from '../../../services/product-constants/door-frame-material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { ValidationService } from '@modules/share/services/common/validation.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

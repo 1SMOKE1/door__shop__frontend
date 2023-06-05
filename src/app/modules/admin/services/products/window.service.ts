@@ -1,26 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from '@environments/environment';
 import { ProductsService } from '../products.service';
 import { IUpdateWindow } from '../../interfaces/update-window.interface';
-import { IWindow } from 'src/app/modules/share/interfaces/common/window.interface';
+import { IWindow } from '@modules/share/interfaces/common/window.interface';
 import { Observable, map } from 'rxjs';
-import { IWindowResponse } from 'src/app/modules/share/interfaces/response/window.interface';
+import { IWindowResponse } from '@modules/share/interfaces/response/window.interface';
 import { UpdateWindowModel } from '../../models/update-window.model';
 import { ProductClass } from '../../utils/product.class';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class WindowService extends ProductClass{
-  baseUrl: string  = `${environment.baseUrl}/window`;
+export class WindowService extends ProductClass {
+  baseUrl: string = `${environment.baseUrl}/window`;
 
   constructor(
     private readonly http: HttpClient,
     private readonly productsService: ProductsService
   ) {
     super();
-   }
+  }
 
   public createWindow(
     body: IUpdateWindow,
@@ -30,33 +30,35 @@ export class WindowService extends ProductClass{
 
     const formData = this.createFormData(body, images);
 
-    return this.http.post<IWindowResponse>(url, formData)
-    .pipe(
-      map((data: IWindowResponse): IWindow => this.convertingWindow(data))
-    )
+    return this.http
+      .post<IWindowResponse>(url, formData)
+      .pipe(
+        map((data: IWindowResponse): IWindow => this.convertingWindow(data))
+      );
   }
 
   public updateWindow(
     body: IUpdateWindow,
     images: FileList | null
-  ): Observable<IWindow>{
+  ): Observable<IWindow> {
     const url: string = `${this.baseUrl}/${body.id}`;
 
     const formData = this.createFormData(body, images);
 
-    return this.http.patch<IWindowResponse>(url, formData)
-    .pipe(
-      map((data: IWindowResponse): IWindow => this.convertingWindow(data))
-    )
+    return this.http
+      .patch<IWindowResponse>(url, formData)
+      .pipe(
+        map((data: IWindowResponse): IWindow => this.convertingWindow(data))
+      );
   }
 
-  public deleteWindow(id: number): Observable<string>{
+  public deleteWindow(id: number): Observable<string> {
     const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);
   }
 
-  public deleteAllWindows(): Observable<string>{
+  public deleteAllWindows(): Observable<string> {
     const url: string = this.baseUrl;
 
     return this.http.delete<string>(url);
@@ -70,7 +72,10 @@ export class WindowService extends ProductClass{
 
     let productProducerName: string = '';
 
-    if(product.productProducerName !== null && product.productProducerName !== this.noProductProducer.name)
+    if (
+      product.productProducerName !== null &&
+      product.productProducerName !== this.noProductProducer.name
+    )
       productProducerName = product.productProducerName;
 
     formData.append('name', product.name);
@@ -95,20 +100,15 @@ export class WindowService extends ProductClass{
     this.productsService.convertArr(formData, product, 'profile');
     formData.append(
       'windowWidth',
-      product.windowWidth
-        ? product.windowWidth.toString()
-        : ''
+      product.windowWidth ? product.windowWidth.toString() : ''
     );
     formData.append(
       'windowHeight',
-      product.windowHeight
-        ? product.windowHeight.toString()
-        : ''
+      product.windowHeight ? product.windowHeight.toString() : ''
     );
     this.productsService.convertArr(formData, product, 'camerasCount');
     this.productsService.convertArr(formData, product, 'features');
     this.productsService.convertArr(formData, product, 'sectionCount');
-    
 
     formData.append(
       'homePage',
@@ -120,7 +120,7 @@ export class WindowService extends ProductClass{
         formData.append('images', element);
       }
 
-    return formData
+    return formData;
   }
 
   private convertingWindow({
@@ -148,11 +148,11 @@ export class WindowService extends ProductClass{
     sections_count,
     description,
     home_page,
-    images
+    images,
   }: IWindowResponse): IWindow {
     return new UpdateWindowModel(
       id,
-      name, 
+      name,
       product_producer !== null ? product_producer.name : null,
       type_of_product.name,
       country,
@@ -178,6 +178,4 @@ export class WindowService extends ProductClass{
       images
     );
   }
-
-
 }

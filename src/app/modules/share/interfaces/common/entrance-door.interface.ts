@@ -1,11 +1,10 @@
-import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
-import { CountryEnum } from "../../enums/country.enum";
-import { GuaranteeEnum } from "../../enums/guarantee.enum";
-import { InStockEnum } from "../../enums/in-stock.enum";
-import { TypeOfProductEnum } from "../../enums/type-of-product.enum";
+import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
+import { CountryEnum } from '../../enums/country.enum';
+import { GuaranteeEnum } from '../../enums/guarantee.enum';
+import { InStockEnum } from '../../enums/in-stock.enum';
+import { TypeOfProductEnum } from '../../enums/type-of-product.enum';
 
-export interface IEntranceDoor{
-  
+export interface IEntranceDoor {
   id: number;
 
   name: string;
@@ -22,32 +21,32 @@ export interface IEntranceDoor{
 
   inStock: InStockEnum;
 
-  fabricMaterialThickness: number
+  fabricMaterialThickness: number;
 
-  frameMaterialThickness: number, // Товщина короба
+  frameMaterialThickness: number; // Товщина короба
 
-  doorInsulation: ICalculatorChar[] // Утеплення
+  doorInsulation: ICalculatorChar[]; // Утеплення
 
-  covering: ICalculatorChar[], // Оздоблення
+  covering: ICalculatorChar[]; // Оздоблення
 
-  doorPeephole: boolean, // Глазок
+  doorPeephole: boolean; // Глазок
 
-  openingType: ICalculatorChar[], // Тип відкривання
+  openingType: ICalculatorChar[]; // Тип відкривання
 
-  size: ICalculatorChar[], // Розмір
+  size: ICalculatorChar[]; // Розмір
 
-  lowerLock: ICalculatorChar[], // Нижній замок
+  lowerLock: ICalculatorChar[]; // Нижній замок
 
-  upperLock: ICalculatorChar[], // Верхній замок
+  upperLock: ICalculatorChar[]; // Верхній замок
 
-  weight: ICalculatorChar[], // Вага
+  weight: ICalculatorChar[]; // Вага
 
-  metalThickness: number, // Товщина металу
+  metalThickness: number; // Товщина металу
 
   frameMaterialConstruction: ICalculatorChar[]; // Конструкція короба
-  
+
   sealerCircuit: ICalculatorChar[]; // Контур Ущільнення
-  
+
   doorHand: ICalculatorChar[];
 
   homePage?: boolean;

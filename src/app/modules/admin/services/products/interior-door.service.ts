@@ -1,28 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { IInteriorDoorResponse } from 'src/app/modules/share/interfaces/response/interior-door.interface';
-import { environment } from 'src/environments/environment.development';
+import { IInteriorDoorResponse } from '@modules/share/interfaces/response/interior-door.interface';
+import { environment } from '@environments/environment';
 import { IUpdateInteriorDoor } from '../../interfaces/update-interior-door.interface';
-import { IInteriorDoor } from 'src/app/modules/share/interfaces/common/interior-door.interface';
+import { IInteriorDoor } from '@modules/share/interfaces/common/interior-door.interface';
 import { UpdateInteriorDoorModel } from '../../models/update-interiori-door.model';
 import { ProductsService } from '../products.service';
 import { ProductClass } from '../../utils/product.class';
 
-
-
 @Injectable({
   providedIn: 'root',
 })
-export class InteriorDoorService extends ProductClass{
+export class InteriorDoorService extends ProductClass {
   baseUrl: string = `${environment.baseUrl}/interior-door`;
 
   constructor(
     private readonly http: HttpClient,
     private readonly productsService: ProductsService
-    ) {
-      super();
-    }
+  ) {
+    super();
+  }
 
   public createInteriorDoor(
     body: IUpdateInteriorDoor,
@@ -32,29 +30,35 @@ export class InteriorDoorService extends ProductClass{
 
     const formData = this.createFormData(body, images);
 
-    return this.http.post<IInteriorDoorResponse>(url, formData)
-    .pipe(
-      map((data: IInteriorDoorResponse): IInteriorDoor => this.convertingInteriorDoor(data))
-    )
+    return this.http
+      .post<IInteriorDoorResponse>(url, formData)
+      .pipe(
+        map(
+          (data: IInteriorDoorResponse): IInteriorDoor =>
+            this.convertingInteriorDoor(data)
+        )
+      );
   }
 
   public updateInteriorDoor(
     body: IUpdateInteriorDoor,
     images: FileList | null
   ): Observable<IInteriorDoor> {
-
     const url: string = `${this.baseUrl}/${body.id}`;
 
     const formData = this.createFormData(body, images);
 
-    return this.http.patch<IInteriorDoorResponse>(url, formData)
-    .pipe(
-      map((data: IInteriorDoorResponse): IInteriorDoor => this.convertingInteriorDoor(data))
-    )
+    return this.http
+      .patch<IInteriorDoorResponse>(url, formData)
+      .pipe(
+        map(
+          (data: IInteriorDoorResponse): IInteriorDoor =>
+            this.convertingInteriorDoor(data)
+        )
+      );
   }
 
   public deleteInteriorDoor(id: number): Observable<string> {
-
     const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);
@@ -66,7 +70,6 @@ export class InteriorDoorService extends ProductClass{
     return this.http.delete<string>(url);
   }
 
-
   private createFormData(
     product: IUpdateInteriorDoor,
     images: FileList | null
@@ -75,9 +78,11 @@ export class InteriorDoorService extends ProductClass{
 
     let productProducerName: string = '';
 
-    if(product.productProducerName !== null && product.productProducerName !== this.noProductProducer.name)
+    if (
+      product.productProducerName !== null &&
+      product.productProducerName !== this.noProductProducer.name
+    )
       productProducerName = product.productProducerName;
-
 
     formData.append('name', product.name);
     formData.append('country', product.country);
@@ -125,7 +130,6 @@ export class InteriorDoorService extends ProductClass{
     return formData;
   }
 
-
   private convertingInteriorDoor({
     id,
     product_producer,
@@ -151,7 +155,7 @@ export class InteriorDoorService extends ProductClass{
     description,
     home_page,
     images,
-  }: IInteriorDoorResponse): IInteriorDoor{
+  }: IInteriorDoorResponse): IInteriorDoor {
     return new UpdateInteriorDoorModel(
       id,
       name,
@@ -171,7 +175,7 @@ export class InteriorDoorService extends ProductClass{
       door_hand,
       door_mechanism,
       door_loops,
-      door_stopper,      
+      door_stopper,
       door_sliding_system,
       description,
       home_page,

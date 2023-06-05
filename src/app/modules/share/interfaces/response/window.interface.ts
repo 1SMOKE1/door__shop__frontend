@@ -1,11 +1,11 @@
-import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
-import { CountryEnum } from "../../enums/country.enum";
-import { GuaranteeEnum } from "../../enums/guarantee.enum";
-import { InStockEnum } from "../../enums/in-stock.enum";
-import { IProductProducer } from "../common/product-producer.interface";
-import { ITypeOfProductResponse } from "./type-of-product.interface";
+import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
+import { CountryEnum } from '../../enums/country.enum';
+import { GuaranteeEnum } from '../../enums/guarantee.enum';
+import { InStockEnum } from '../../enums/in-stock.enum';
+import { IProductProducer } from '../common/product-producer.interface';
+import { ITypeOfProductResponse } from './type-of-product.interface';
 
-export interface IWindowResponse{
+export interface IWindowResponse {
   id: number;
 
   name: string;
@@ -21,34 +21,34 @@ export interface IWindowResponse{
   price: number;
 
   in_stock: InStockEnum;
-  
-  mosquito_net: ICalculatorChar[], // Москітна сітка
 
-  window_sill: ICalculatorChar[], // Підвіконня
+  mosquito_net: ICalculatorChar[]; // Москітна сітка
 
-  window_ebb: ICalculatorChar[], // Віконний відлив
+  window_sill: ICalculatorChar[]; // Підвіконня
 
-  window_hand: ICalculatorChar[], // Віконна ручка
+  window_ebb: ICalculatorChar[]; // Віконний відлив
 
-  child_lock: ICalculatorChar[], // Дитячий замок
+  window_hand: ICalculatorChar[]; // Віконна ручка
 
-  housewife_stub: ICalculatorChar[], // Заглушка домогосподарки
+  child_lock: ICalculatorChar[]; // Дитячий замок
 
-  glass_pocket_add: ICalculatorChar[], // Додаткові стеклопакети
+  housewife_stub: ICalculatorChar[]; // Заглушка домогосподарки
 
-  lamination: ICalculatorChar[], // Ламінація
+  glass_pocket_add: ICalculatorChar[]; // Додаткові стеклопакети
 
-  profile: ICalculatorChar[], // Профіль
+  lamination: ICalculatorChar[]; // Ламінація
 
-  window_width: number, // Ширина вікна
+  profile: ICalculatorChar[]; // Профіль
 
-  window_height: number, // Висота вікна
+  window_width: number; // Ширина вікна
 
-  cameras_count: ICalculatorChar[], // Кількість камер
+  window_height: number; // Висота вікна
 
-  features: ICalculatorChar[], // Особливості
+  cameras_count: ICalculatorChar[]; // Кількість камер
 
-  sections_count: ICalculatorChar[], // Кількість секцій
+  features: ICalculatorChar[]; // Особливості
+
+  sections_count: ICalculatorChar[]; // Кількість секцій
 
   description: string;
 

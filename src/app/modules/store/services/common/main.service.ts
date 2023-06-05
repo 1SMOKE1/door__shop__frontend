@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from '@environments/environment';
 import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interface';
 import { catchError } from 'rxjs';
 import { HandleFormsErrorService } from '../../../share/services/errors/handle-forms-error.service';
@@ -30,7 +30,7 @@ export class MainService {
       .post<IZamirFormResponse>(url, formData)
       .pipe(catchError(this.handleFormsErrorService.handleErrorFormsMain));
   }
-  
+
   public sendConsultationForm(
     formData: Partial<{
       name: string | null;

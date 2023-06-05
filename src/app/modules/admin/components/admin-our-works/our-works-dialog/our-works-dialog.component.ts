@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ICarouselImage } from '../../../interfaces/carousel-image.interface';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 import { OurWorksService } from '../../../services/our-works.service';
 import { HttpErrorResponse } from '@angular/common/http';
 

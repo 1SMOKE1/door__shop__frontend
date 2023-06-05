@@ -1,11 +1,10 @@
-import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
-import { CountryEnum } from "../../enums/country.enum";
-import { GuaranteeEnum } from "../../enums/guarantee.enum";
-import { InStockEnum } from "../../enums/in-stock.enum";
-import { TypeOfProductEnum } from "../../enums/type-of-product.enum";
+import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
+import { CountryEnum } from '../../enums/country.enum';
+import { GuaranteeEnum } from '../../enums/guarantee.enum';
+import { InStockEnum } from '../../enums/in-stock.enum';
+import { TypeOfProductEnum } from '../../enums/type-of-product.enum';
 
-export interface IWindow{
-
+export interface IWindow {
   id: number;
 
   name: string;
@@ -22,33 +21,33 @@ export interface IWindow{
 
   inStock: InStockEnum;
 
-  mosquitoNet: ICalculatorChar[], // Москітна сітка
+  mosquitoNet: ICalculatorChar[]; // Москітна сітка
 
-  windowSill: ICalculatorChar[], // Підвіконня
+  windowSill: ICalculatorChar[]; // Підвіконня
 
-  windowEbb: ICalculatorChar[], // Віконний відлив
+  windowEbb: ICalculatorChar[]; // Віконний відлив
 
-  windowHand: ICalculatorChar[], // Віконна ручка
-  
-  childLock: ICalculatorChar[], // Дитячий замок
+  windowHand: ICalculatorChar[]; // Віконна ручка
 
-  housewifeStub: ICalculatorChar[], // Заглушка домогосподарки
+  childLock: ICalculatorChar[]; // Дитячий замок
 
-  glassPocketAdd: ICalculatorChar[], // Додаткові стеклопакети
+  housewifeStub: ICalculatorChar[]; // Заглушка домогосподарки
 
-  lamination: ICalculatorChar[], // Ламінація
+  glassPocketAdd: ICalculatorChar[]; // Додаткові стеклопакети
 
-  profile: ICalculatorChar[], // Профіль
+  lamination: ICalculatorChar[]; // Ламінація
 
-  windowWidth: number, // Ширина вікна
+  profile: ICalculatorChar[]; // Профіль
 
-  windowHeight: number, // Висота вікна
+  windowWidth: number; // Ширина вікна
 
-  camerasCount: ICalculatorChar[], // Кількість камер
+  windowHeight: number; // Висота вікна
 
-  features: ICalculatorChar[], // Особливості
-  
-  sectionsCount: ICalculatorChar[], // Кількість секцій
+  camerasCount: ICalculatorChar[]; // Кількість камер
+
+  features: ICalculatorChar[]; // Особливості
+
+  sectionsCount: ICalculatorChar[]; // Кількість секцій
 
   description: string;
 

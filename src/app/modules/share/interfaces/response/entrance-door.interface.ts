@@ -1,12 +1,12 @@
-import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
-import { CountryEnum } from "../../enums/country.enum";
-import { GuaranteeEnum } from "../../enums/guarantee.enum";
-import { InStockEnum } from "../../enums/in-stock.enum";
-import { IProductProducer } from "../common/product-producer.interface";
-import { ITypeOfProductResponse } from "./type-of-product.interface";
-import { IFurniture } from "../common/furniture.interface";
+import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
+import { CountryEnum } from '../../enums/country.enum';
+import { GuaranteeEnum } from '../../enums/guarantee.enum';
+import { InStockEnum } from '../../enums/in-stock.enum';
+import { IProductProducer } from '../common/product-producer.interface';
+import { ITypeOfProductResponse } from './type-of-product.interface';
+import { IFurniture } from '../common/furniture.interface';
 
-export interface IEntranceDoorResponse{
+export interface IEntranceDoorResponse {
   id: number;
 
   name: string;
@@ -38,7 +38,7 @@ export interface IEntranceDoorResponse{
   size: ICalculatorChar[]; // Розмір
 
   lower_lock: IFurniture[]; // Нижній замок
-  
+
   upper_lock: IFurniture[]; // Верхній замок
 
   door_hand: IFurniture[]; // Дверна ручка

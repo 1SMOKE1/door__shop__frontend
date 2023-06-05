@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { InteriorDoorService } from '../../services/products/interior-door.service';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EntranceDoorService } from '../../services/products/entrance-door.service';
-import { ProductService } from 'src/app/modules/catalog/services/product.service';
-import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
+import { ProductService } from '@modules/catalog/services/product.service';
+import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { FurnitureService } from '../../services/products/furniture.service';
 import { WindowService } from '../../services/products/window.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dsf-admin-header',
@@ -23,7 +24,8 @@ export class AdminHeaderComponent {
     private readonly entranceDoorService: EntranceDoorService,
     private readonly furnitureService: FurnitureService,
     private readonly windowService: WindowService,
-    private readonly productsService: ProductService
+    private readonly productsService: ProductService,
+    private readonly router: Router
 
   ){}
 
@@ -76,6 +78,14 @@ export class AdminHeaderComponent {
   }
 
   logout(){
-    this.authService.logout();
+    this.authService
+    .logout()
+    .subscribe({
+      next: () => {
+        this.router.navigate(['admin', 'sign-in']);
+        this.snackbarConfigService.openSnackBar('Ви вийшли з адмінки');
+      },
+      error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+    })
   }
 }
