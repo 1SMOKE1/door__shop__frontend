@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -24,7 +24,15 @@
       "ES2022",
       "dom",
       "dom.iterable"
-    ]
+    ],
+    "paths": {
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@modules/*": [
+        "app/modules/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

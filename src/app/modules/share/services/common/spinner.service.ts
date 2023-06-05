@@ -10,7 +10,6 @@ export class SpinnerService {
 
   spinnerValue: number = 0;
 
-  constructor() { }
 
   
 }

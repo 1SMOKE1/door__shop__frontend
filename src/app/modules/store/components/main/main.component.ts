@@ -7,12 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ISecondNavLink } from '../../interfaces/common/second-nav-link.interface';
-import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
-import { NavService } from 'src/app/modules/share/services/common/nav.service';
+import { IProduct } from '@modules/share/interfaces/common/product.interface';
+import { NavService } from '@modules/share/services/common/nav.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
-import { ScrollConditionEnum } from 'src/app/modules/share/enums/scroll-condition.enum';
-import { HttpProductService } from 'src/app/modules/share/services/common/http-product.service';
+import { ValidationService } from '@modules/share/services/common/validation.service';
+import { ScrollConditionEnum } from '@modules/share/enums/scroll-condition.enum';
+import { HttpProductService } from '@modules/share/services/common/http-product.service';
 import { map } from 'rxjs';
 import { MainService } from '../../services/common/main.service';
 import { IZamirForm } from '../../interfaces/common/zamir-form.interface';
@@ -20,8 +20,8 @@ import { IConsultationForm } from '../../interfaces/common/consultation-form.int
 import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
-import { CardService } from 'src/app/modules/catalog/services/card.service';
-import { HandleFormsErrorService } from 'src/app/modules/share/services/errors/handle-forms-error.service';
+import { CardService } from '@modules/catalog/services/card.service';
+import { HandleFormsErrorService } from '@modules/share/services/errors/handle-forms-error.service';
 
 @Component({
   selector: 'dsf-main',
@@ -29,8 +29,6 @@ import { HandleFormsErrorService } from 'src/app/modules/share/services/errors/h
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
-
-
   secondNavLinks: ISecondNavLink[] = [
     { text: 'Наші виробники', path: '/store/contacts' },
     { text: 'Двері міжкімнатні', path: '/store/catalog' },
@@ -114,38 +112,33 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
           duration: 10000,
         });
       },
-      error: (err: Error) => 
-        this.handleFormsErrorService.snackbarShowError(err)
+      error: (err: Error) =>
+        this.handleFormsErrorService.snackbarShowError(err),
     });
   }
 
   public sendConsultationForm(): void {
-    this.mainService.
-    sendConsultationForm(this.consultationForm.value)
-    .subscribe({
-      next: ({name}: IConsultationFormResponse) => {
-        this.consultationForm.reset();
-        this.snackbar.open(
-          this.mainService.successForm(name),
-          'X',
-          {
+    this.mainService
+      .sendConsultationForm(this.consultationForm.value)
+      .subscribe({
+        next: ({ name }: IConsultationFormResponse) => {
+          this.consultationForm.reset();
+          this.snackbar.open(this.mainService.successForm(name), 'X', {
             horizontalPosition: 'center',
             verticalPosition: 'top',
             duration: 10000,
-          }
-        )
-      },
-      error: (err: Error) => {
-        this.handleFormsErrorService.snackbarShowError(err)
-      }
-    });
+          });
+        },
+        error: (err: Error) => {
+          this.handleFormsErrorService.snackbarShowError(err);
+        },
+      });
   }
 
   public redirectToCard(id: number): void {
-    
     const product = this.products.find((el: IProduct) => el.id === id);
 
-    this.cardService.cardInfoRedirect(id, product!.typeOfProduct.name)
+    this.cardService.cardInfoRedirect(id, product!.typeOfProduct.name);
   }
 
   private blimingForm(classAdd: string, elementRef: ElementRef) {

@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { IProductProducer } from 'src/app/modules/share/interfaces/common/product-producer.interface';
-import { ITypeOfProductResponse } from 'src/app/modules/share/interfaces/response/type-of-product.interface';
-import { HttpProductProducerService } from 'src/app/modules/share/services/common/http-product-producer.service';
-import { HttpTypeOfProductService } from 'src/app/modules/share/services/common/http-type-of-product.service';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { IProductProducer } from '@modules/share/interfaces/common/product-producer.interface';
+import { ITypeOfProductResponse } from '@modules/share/interfaces/response/type-of-product.interface';
+import { HttpProductProducerService } from '@modules/share/services/common/http-product-producer.service';
+import { HttpTypeOfProductService } from '@modules/share/services/common/http-type-of-product.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 
 @Component({
   selector: 'dsf-product-producers',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
+import { ValidationService } from '@modules/share/services/common/validation.service';
 import { IAdminLoginForm } from '../../interfaces/admin-login-form.interface';
 import { AuthService } from '../../services/auth.service';
 import { ITokens } from '../../interfaces/ITokens';
-import { HandleFormsErrorService } from 'src/app/modules/share/services/errors/handle-forms-error.service';
+import { HandleFormsErrorService } from '@modules/share/services/errors/handle-forms-error.service';
 import { Router } from '@angular/router';
 
 @Component({

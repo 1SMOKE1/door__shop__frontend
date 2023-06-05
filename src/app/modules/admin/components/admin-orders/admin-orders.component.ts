@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ICreateOrder } from 'src/app/modules/share/interfaces/common/order.interface';
-import CreateOrderModel from 'src/app/modules/share/models/create-order.model';
-import { OrderBasketService } from 'src/app/modules/share/services/common/order-basket.service';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { ICreateOrder } from '@modules/share/interfaces/common/order.interface';
+import CreateOrderModel from '@modules/share/models/create-order.model';
+import { OrderBasketService } from '@modules/share/services/common/order-basket.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 import { OrderEnum } from '../../enums/order.enum';
 import { map } from 'rxjs';
 import { ConvertingOrderFieldsClass } from '../../utils/converting-order-fields.class';
@@ -77,9 +77,14 @@ export class AdminOrdersComponent extends ConvertingOrderFieldsClass implements 
   }
 
   public deleteOrder(id: number | undefined){
-    if(id){
-      
-    }
+    if(id)
+      this.ordersService
+      .deleteOrder(id)
+      .subscribe({
+        next: (answer: string) => this.snackbarConfigService.openSnackBar(answer),
+        error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+      })
+    
 
   }
 

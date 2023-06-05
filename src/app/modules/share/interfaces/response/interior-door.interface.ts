@@ -1,4 +1,4 @@
-import { ICalculatorChar } from 'src/app/modules/admin/interfaces/calculator-char.interface';
+import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
 import { CountryEnum } from '../../enums/country.enum';
 import { GuaranteeEnum } from '../../enums/guarantee.enum';
 import { InStockEnum } from '../../enums/in-stock.enum';

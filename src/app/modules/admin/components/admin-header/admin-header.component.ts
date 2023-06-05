@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { InteriorDoorService } from '../../services/products/interior-door.service';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EntranceDoorService } from '../../services/products/entrance-door.service';
-import { ProductService } from 'src/app/modules/catalog/services/product.service';
-import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
+import { ProductService } from '@modules/catalog/services/product.service';
+import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { FurnitureService } from '../../services/products/furniture.service';
 import { WindowService } from '../../services/products/window.service';
 import { Router } from '@angular/router';

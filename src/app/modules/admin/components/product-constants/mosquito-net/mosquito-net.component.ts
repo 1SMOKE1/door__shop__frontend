@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 import { MosquitoNetService } from '../../../services/product-constants/mosquito-net.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
+import { ValidationService } from '@modules/share/services/common/validation.service';
 
 @Component({
   selector: 'dsf-mosquito-net',

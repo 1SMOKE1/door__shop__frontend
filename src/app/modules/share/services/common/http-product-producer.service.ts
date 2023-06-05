@@ -1,18 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from '@environments/environment';
 import { IProductProducer } from '../../interfaces/common/product-producer.interface';
 import { Observable, map } from 'rxjs';
 import { TypeOfProductEnum } from '../../enums/type-of-product.enum';
 import { IProductProducerResponse } from '../../interfaces/response/product-producer.interface';
 import { ProductProducerModel } from '../../models/product-producer.model';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class HttpProductProducerService {
-  
   private baseUrl: string = `${environment.baseUrl}/product-producers`;
 
   constructor(private readonly http: HttpClient) {}
@@ -20,38 +18,59 @@ export class HttpProductProducerService {
   public getProductProducers(): Observable<IProductProducer[]> {
     const url: string = this.baseUrl;
 
-    return this.http.get<IProductProducerResponse[]>(url)
-    .pipe(
-      map((data: IProductProducerResponse[]): IProductProducer[] => 
-        data.map((el: IProductProducerResponse): IProductProducer => this.convertProductProducer(el)))
-    )
+    return this.http
+      .get<IProductProducerResponse[]>(url)
+      .pipe(
+        map((data: IProductProducerResponse[]): IProductProducer[] =>
+          data.map(
+            (el: IProductProducerResponse): IProductProducer =>
+              this.convertProductProducer(el)
+          )
+        )
+      );
   }
 
   public getProductProducer(id: string): Observable<IProductProducer> {
     const url: string = `${this.baseUrl}/${id}`;
 
-    return this.http.get<IProductProducerResponse>(url)
-    .pipe(
-      map((data: IProductProducerResponse): IProductProducer => this.convertProductProducer(data))
-    )
+    return this.http
+      .get<IProductProducerResponse>(url)
+      .pipe(
+        map(
+          (data: IProductProducerResponse): IProductProducer =>
+            this.convertProductProducer(data)
+        )
+      );
   }
 
-  public createProductProducer(productProducer: IProductProducer): Observable<IProductProducer> {
+  public createProductProducer(
+    productProducer: IProductProducer
+  ): Observable<IProductProducer> {
     const url: string = this.baseUrl;
 
-    return this.http.post<IProductProducerResponse>(url, productProducer)
-    .pipe(
-      map((data: IProductProducerResponse): IProductProducer => this.convertProductProducer(data))
-    )
+    return this.http
+      .post<IProductProducerResponse>(url, productProducer)
+      .pipe(
+        map(
+          (data: IProductProducerResponse): IProductProducer =>
+            this.convertProductProducer(data)
+        )
+      );
   }
 
-  public updateProductProducer(productProducer: IProductProducer): Observable<IProductProducer> {
+  public updateProductProducer(
+    productProducer: IProductProducer
+  ): Observable<IProductProducer> {
     const url: string = `${this.baseUrl}/${productProducer.id}`;
 
-    return this.http.patch<IProductProducerResponse>(url, productProducer)
-    .pipe(
-      map((data: IProductProducerResponse): IProductProducer => this.convertProductProducer(data))
-    )
+    return this.http
+      .patch<IProductProducerResponse>(url, productProducer)
+      .pipe(
+        map(
+          (data: IProductProducerResponse): IProductProducer =>
+            this.convertProductProducer(data)
+        )
+      );
   }
 
   public deleteProductProducer(id: number): Observable<string> {
@@ -68,26 +87,32 @@ export class HttpProductProducerService {
     return this.getCustomProductProducers(TypeOfProductEnum.interiorDoor);
   }
 
-  public getFurnitureProductProducers(): Observable<IProductProducer[]>{
+  public getFurnitureProductProducers(): Observable<IProductProducer[]> {
     return this.getCustomProductProducers(TypeOfProductEnum.furniture);
   }
 
-  public getWindowProductProducers(): Observable<IProductProducer[]>{
+  public getWindowProductProducers(): Observable<IProductProducer[]> {
     return this.getCustomProductProducers(TypeOfProductEnum.windows);
   }
 
-  private getCustomProductProducers(condition: string): Observable<IProductProducer[]> {
+  private getCustomProductProducers(
+    condition: string
+  ): Observable<IProductProducer[]> {
     return this.getProductProducers().pipe(
-      map((el: IProductProducer[]) => 
-       el.filter((el: IProductProducer) => 
-        el.typeOfProduct.name === condition
-      ))
+      map((el: IProductProducer[]) =>
+        el.filter((el: IProductProducer) => el.typeOfProduct.name === condition)
+      )
     );
   }
 
-  private convertProductProducer({id, name, type_of_product}: IProductProducerResponse): IProductProducer{
-    return new ProductProducerModel(id, name, {id: type_of_product.id, name: type_of_product.name});
+  private convertProductProducer({
+    id,
+    name,
+    type_of_product,
+  }: IProductProducerResponse): IProductProducer {
+    return new ProductProducerModel(id, name, {
+      id: type_of_product.id,
+      name: type_of_product.name,
+    });
   }
-
-
 }

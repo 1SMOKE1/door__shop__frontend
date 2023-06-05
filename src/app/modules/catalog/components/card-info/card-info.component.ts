@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { OrderBasketComponent } from 'src/app/modules/share/components/order-basket/order-basket/order-basket.component';
-import { IProduct } from 'src/app/modules/share/interfaces/common/product.interface';
-import { CartLineService } from 'src/app/modules/share/services/common/cart-line.service';
-import { HttpProductService } from 'src/app/modules/share/services/common/http-product.service';
-import { TypeOfProductEnum } from 'src/app/modules/share/enums/type-of-product.enum';
+import { OrderBasketComponent } from '@modules/share/components/order-basket/order-basket/order-basket.component';
+import { IProduct } from '@modules/share/interfaces/common/product.interface';
+import { CartLineService } from '@modules/share/services/common/cart-line.service';
+import { HttpProductService } from '@modules/share/services/common/http-product.service';
+import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ICalculatorChar } from 'src/app/modules/admin/interfaces/calculator-char.interface';
+import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
 import { Subscription } from 'rxjs';
-import { IProductCaltulator } from 'src/app/modules/share/interfaces/common/product-calculator.interface';
-import { ProductCalculatorModel } from 'src/app/modules/share/models/product-calculator.model';
-import { ConvertingProductClass } from 'src/app/modules/admin/utils/converting-product.class';
+import { IProductCaltulator } from '@modules/share/interfaces/common/product-calculator.interface';
+import { ProductCalculatorModel } from '@modules/share/models/product-calculator.model';
+import { ConvertingProductClass } from '@modules/admin/utils/converting-product.class';
 import { ProductService } from '../../services/product.service';
 
 @Component({

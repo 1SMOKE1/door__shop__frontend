@@ -1,11 +1,10 @@
-import { ICalculatorChar } from "src/app/modules/admin/interfaces/calculator-char.interface";
-import { CountryEnum } from "../../enums/country.enum";
-import { GuaranteeEnum } from "../../enums/guarantee.enum";
-import { InStockEnum } from "../../enums/in-stock.enum";
-import { TypeOfProductEnum } from "../../enums/type-of-product.enum";
+import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
+import { CountryEnum } from '../../enums/country.enum';
+import { GuaranteeEnum } from '../../enums/guarantee.enum';
+import { InStockEnum } from '../../enums/in-stock.enum';
+import { TypeOfProductEnum } from '../../enums/type-of-product.enum';
 
-
-export interface IInteriorDoor{
+export interface IInteriorDoor {
   id: number;
 
   name: string;

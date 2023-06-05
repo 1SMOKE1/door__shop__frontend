@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from 'src/app/modules/share/services/common/validation.service';
+import { ValidationService } from '@modules/share/services/common/validation.service';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FabricMaterialWidthService } from '../../../services/product-constants/fabric-material-width.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarConfigService } from 'src/app/modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

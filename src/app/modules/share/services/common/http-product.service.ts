@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, OperatorFunction, map } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from '@environments/environment';
 import { IProduct } from '../../interfaces/common/product.interface';
 import { IGetProducts } from '../../interfaces/common/get-products.interface';
 import { IProductResponse } from '../../interfaces/response/product.interface';
 import { ProductModel } from '../../models/product.model';
 import { ProductProducerModel } from '../../models/product-producer.model';
-import { ConvertingProductClass } from 'src/app/modules/admin/utils/converting-product.class';
+import { ConvertingProductClass } from 'app/modules/admin/utils/converting-product.class';
 
 @Injectable({
   providedIn: 'root',

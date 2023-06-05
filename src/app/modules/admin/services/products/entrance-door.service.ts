@@ -1,25 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from '@environments/environment';
 import { IUpdateEntranceDoor } from '../../interfaces/update-entrance-door.interface';
 import { Observable, map } from 'rxjs';
-import { IEntranceDoor } from 'src/app/modules/share/interfaces/common/entrance-door.interface';
+import { IEntranceDoor } from '@modules/share/interfaces/common/entrance-door.interface';
 import { ProductsService } from '../products.service';
-import { IEntranceDoorResponse } from 'src/app/modules/share/interfaces/response/entrance-door.interface';
+import { IEntranceDoorResponse } from '@modules/share/interfaces/response/entrance-door.interface';
 import { UpdateEntranceDoorModel } from '../../models/update-entrance-door.model';
 import { ProductClass } from '../../utils/product.class';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class EntranceDoorService extends ProductClass{
-
+export class EntranceDoorService extends ProductClass {
   baseUrl: string = `${environment.baseUrl}/entrance-door`;
 
   constructor(
     private readonly http: HttpClient,
     private readonly productsService: ProductsService
-  ){
+  ) {
     super();
   }
 
@@ -29,14 +28,16 @@ export class EntranceDoorService extends ProductClass{
   ): Observable<IEntranceDoor> {
     const url: string = this.baseUrl;
 
-    
-
     const formData = this.createFormData(body, images);
 
-    return this.http.post<IEntranceDoorResponse>(url, formData)
-    .pipe(
-      map((data: IEntranceDoorResponse): IEntranceDoor => this.convertingEntranceDoor(data))
-    )
+    return this.http
+      .post<IEntranceDoorResponse>(url, formData)
+      .pipe(
+        map(
+          (data: IEntranceDoorResponse): IEntranceDoor =>
+            this.convertingEntranceDoor(data)
+        )
+      );
   }
 
   public updateEntranceDoor(
@@ -47,20 +48,23 @@ export class EntranceDoorService extends ProductClass{
 
     const formData = this.createFormData(body, images);
 
-    return this.http.patch<IEntranceDoorResponse>(url, formData)
-    .pipe(
-      map((data: IEntranceDoorResponse): IEntranceDoor => this.convertingEntranceDoor(data))
-    )
+    return this.http
+      .patch<IEntranceDoorResponse>(url, formData)
+      .pipe(
+        map(
+          (data: IEntranceDoorResponse): IEntranceDoor =>
+            this.convertingEntranceDoor(data)
+        )
+      );
   }
 
-  public deleteEntranceDoor(id: number): Observable<string>{
-
-    const url: string = `${this.baseUrl}/${id}`
+  public deleteEntranceDoor(id: number): Observable<string> {
+    const url: string = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url);
   }
 
-  public deleteAllEntranceDoors(): Observable<string>{
+  public deleteAllEntranceDoors(): Observable<string> {
     const url: string = this.baseUrl;
 
     return this.http.delete<string>(url);
@@ -74,12 +78,15 @@ export class EntranceDoorService extends ProductClass{
 
     let productProducerName: string = '';
 
-    if(product.productProducerName !== null && product.productProducerName !== this.noProductProducer.name)
+    if (
+      product.productProducerName !== null &&
+      product.productProducerName !== this.noProductProducer.name
+    )
       productProducerName = product.productProducerName;
 
     formData.append('name', product.name);
     formData.append('country', product.country);
-    formData.append('productProducerName', productProducerName)
+    formData.append('productProducerName', productProducerName);
     formData.append('typeOfProductName', product.typeOfProductName);
     formData.append('guarantee', product.guarantee);
     formData.append('price', product.price.toString());
@@ -115,13 +122,14 @@ export class EntranceDoorService extends ProductClass{
     this.productsService.convertArr(formData, product, 'doorHand');
     formData.append(
       'metalThickness',
-      product.metalThickness
-        ? product.metalThickness.toString()
-        : ''
+      product.metalThickness ? product.metalThickness.toString() : ''
     );
-    this.productsService.convertArr(formData, product, 'frameMaterialConstruction');
+    this.productsService.convertArr(
+      formData,
+      product,
+      'frameMaterialConstruction'
+    );
     this.productsService.convertArr(formData, product, 'sealerCircuit');
-
 
     formData.append(
       'homePage',
@@ -132,7 +140,6 @@ export class EntranceDoorService extends ProductClass{
       for (const element of images) {
         formData.append('images', element);
       }
-
 
     return formData;
   }
@@ -163,8 +170,8 @@ export class EntranceDoorService extends ProductClass{
     sealer_circuit,
     description,
     home_page,
-    images
-  }: IEntranceDoorResponse): IEntranceDoor{
+    images,
+  }: IEntranceDoorResponse): IEntranceDoor {
     return new UpdateEntranceDoorModel(
       id,
       name,
@@ -193,5 +200,4 @@ export class EntranceDoorService extends ProductClass{
       images
     );
   }
-
 }
