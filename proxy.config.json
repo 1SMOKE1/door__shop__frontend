@@ -1,16 +1,16 @@
 {
   "/uploads/images": {
-    "target": "http://localhost:5000",
+    "target": "https://api.yakdveri.com.ua",
     "secure": false,
     "logLevel": "debug"
   },
   "/uploads/our-works": {
-    "target": "http://localhost:5000",
+    "target": "https://api.yakdveri.com.ua",
     "secure": false,
     "logLevel": "debug"
   },
   "/uploads/our-comments": {
-    "target": "http://localhost:5000",
+    "target": "https://api.yakdveri.com.ua",
     "secure": false,
     "logLevel": "debug"
   }
