@@ -92,7 +92,7 @@ export class AdminOrdersComponent extends ConvertingOrderFieldsClass implements 
     this.ordersService
     .getOrders()
     .subscribe({
-      next: (orders: ICreateOrder[]) => { this.orderItems = orders; console.log(this.orderItems); },
+      next: (orders: ICreateOrder[]) => this.orderItems = orders,
       error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }

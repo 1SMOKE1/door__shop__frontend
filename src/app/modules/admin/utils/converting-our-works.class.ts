@@ -19,7 +19,6 @@ export class ConvertingOurWorksClass{
     img_alt,
     id
   }: ICarouselImageResponse): ICarouselImage {
-    console.log(img_src, img_alt, id)
     return new CarouselImageModel(
       img_src,
       img_alt,

@@ -29,8 +29,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    localStorage.setItem('access_token', '');
-    localStorage.setItem('refresh_token', '');
     this.getFilteredProducts();
     this.filtrationSubsctiption = this.sidebarService.filtration$
       .pipe(
