@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
+import {Router,} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class AuthService {
 
   public signIn(
     form: Partial<{ email: string | null; password: string | null }>
-  ): Promise<Response> {
+  ): Promise<Response | void> {
     const url: string = `${this.baseUrl}/auth/sign-in`;
 
     return fetch(url, {
@@ -29,7 +29,7 @@ export class AuthService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(form),
-    });
+    })
   }
 
   public logout(): Observable<string> {
@@ -50,13 +50,15 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     switch (true) {
-      case localStorage.getItem('access_token')!.length > 0:
+      case localStorage.getItem('access_token') !== 'undefined'&& localStorage.getItem('access_token')!.length > 0:
         return true;
-      case localStorage.getItem('access_token') === undefined ||
-        localStorage.getItem('access_token') === null:
+      case localStorage.getItem('access_token') === 'undefined' ||
+        localStorage.getItem('access_token') === 'null':
         return false;
       default:
         return false;
     }
   }
+
+
 }

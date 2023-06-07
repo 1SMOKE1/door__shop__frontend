@@ -19,6 +19,9 @@ export class AuthInterceptor implements HttpInterceptor {
     private readonly authService: AuthService,
     private readonly dialog: MatDialog,
   ){}
+  
+  
+
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
@@ -26,8 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
       headers: req.headers.set('Authorization', `Bearer ${localStorage.getItem('access_token') as string}`)
     })
 
-   
-
+    
 
     return next.handle(authReq)
     .pipe(
@@ -39,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
         return throwError(error);
       }),
       retry(1)
-    )
+    ) 
   }
 
   private refreshTokenAndRetry(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
