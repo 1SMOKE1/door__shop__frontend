@@ -38,6 +38,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
   itemsPerPage: number = 8;
   productsLength: number = 0;
   products: IProduct[] = [];
+  productsOnMainPage: IProduct[] = [];
   spinnerValue: number = 0;
 
   emptyProducts: boolean = false;
@@ -72,6 +73,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
       )
       .subscribe(({products, productsLength}: IGetProducts) => {
         this.products = products;
+        this.productsOnMainPage = products.filter((el: IProduct) => el.homePage === true);
         this.productsLength = productsLength;
         if(products.length == 0)
           this.emptyProducts = true;
@@ -366,7 +368,8 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.getFilteredProducts();
     this.sidebarService.filtration
     .subscribe(({products, productsLength}: IGetProducts) => {
-      this.products = products
+      this.products = products;
+      this.productsOnMainPage = products.filter((el: IProduct) => el.homePage === true);
       this.productsLength = productsLength;
     })
   }

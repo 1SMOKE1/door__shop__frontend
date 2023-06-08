@@ -111,7 +111,7 @@
            class="choose-door-group">
         <div *ngFor="let card of products| slice:0:3" class="choose-door-card">
           <div class="choose-door-img-wrap">
-            <img class="choose-door-img" [src]="card.images" alt="">
+            <img class="choose-door-img" [src]="card.images[0]" alt="">
           </div>
           <h5 class="choose-door-text">{{card.name}}</h5>
           <button (click)="redirectToCard(card.id)" class="choose-door-button">Докладніше</button>

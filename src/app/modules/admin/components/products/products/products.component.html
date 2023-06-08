@@ -59,7 +59,7 @@
 <section class="on_main_page">
   <h1 class="font-h1 products-title" align="center">На головній сторінці</h1>
   <div class="catalog-cards-wrap">
-    <div *ngFor="let product of products" class="card">  
+    <div *ngFor="let product of productsOnMainPage" class="card">  
       <img *ngIf="product.images" class="card-img" [src]="product.images[0]" alt="">
       <div class="card-body">
         <h3 class="card-title">{{product.name}}</h3>
