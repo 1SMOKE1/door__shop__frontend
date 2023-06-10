@@ -31,7 +31,7 @@ export class InteriorDoorService extends ProductClass {
     const formData = this.createFormData(body, images);
 
     return this.http
-      .post<IInteriorDoorResponse>(url, formData)
+      .post<IInteriorDoorResponse>(url, formData, this.headersForFormData)
       .pipe(
         map(
           (data: IInteriorDoorResponse): IInteriorDoor =>
@@ -49,7 +49,7 @@ export class InteriorDoorService extends ProductClass {
     const formData = this.createFormData(body, images);
 
     return this.http
-      .patch<IInteriorDoorResponse>(url, formData)
+      .patch<IInteriorDoorResponse>(url, formData, this.headersForFormData)
       .pipe(
         map(
           (data: IInteriorDoorResponse): IInteriorDoor =>
