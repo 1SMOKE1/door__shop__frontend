@@ -31,8 +31,7 @@ const routes: Routes = [
       {path: 'choose-door', component: ChooseDoorComponent},
       {path: 'certificates', component: CertificatesComponent},
       {path: 'catalog', loadChildren: () => import('../catalog/catalog.module').then((m) => m.CatalogModule)},
-      {path: 'page-not-found', component: PageNotFoundComponent},
-      {path: '**', pathMatch: 'full', redirectTo: 'page-not-found'}
+      {path: '**', component: PageNotFoundComponent}
     ]
   },
 

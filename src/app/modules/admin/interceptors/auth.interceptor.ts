@@ -32,16 +32,25 @@ export class AuthInterceptor implements HttpInterceptor {
     
 
     return next.handle(authReq)
+    // .pipe(
+    //   catchError((error: HttpErrorResponse) => {
+    //     if (error.status === 401) {
+    //       // Call your token refresh method
+    //       return this.refreshTokenAndRetry(req, next);
+    //     }
+    //     return throwError(error);
+    //   }),
+    //   retry(1)
+    // ) 
     .pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          // Call your token refresh method
-          return this.refreshTokenAndRetry(req, next);
+        if(error.status === 401) {
+          this.router.navigate(['admin', 'sign-in']);
+          this.dialog.closeAll();
         }
         return throwError(error);
-      }),
-      retry(1)
-    ) 
+      })
+    )
   }
 
   private refreshTokenAndRetry(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
