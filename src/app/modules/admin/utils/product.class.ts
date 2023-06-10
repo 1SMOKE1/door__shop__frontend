@@ -3,12 +3,6 @@ import { IProductProducer } from "../../share/interfaces/common/product-producer
 
 export class ProductClass{
 
-  headersForFormData = {
-    headers: {
-      'Content-Type': 'multipart/form-data;'
-    }
-  }
-
   protected noProductProducer: IProductProducer = {
     id: 0,
     name: 'Без виробника',

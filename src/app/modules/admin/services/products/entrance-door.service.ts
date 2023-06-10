@@ -31,7 +31,7 @@ export class EntranceDoorService extends ProductClass {
     const formData = this.createFormData(body, images);
 
     return this.http
-      .post<IEntranceDoorResponse>(url, formData, this.headersForFormData)
+      .post<IEntranceDoorResponse>(url, formData)
       .pipe(
         map(
           (data: IEntranceDoorResponse): IEntranceDoor =>
@@ -49,7 +49,7 @@ export class EntranceDoorService extends ProductClass {
     const formData = this.createFormData(body, images);
 
     return this.http
-      .patch<IEntranceDoorResponse>(url, formData, this.headersForFormData)
+      .patch<IEntranceDoorResponse>(url, formData)
       .pipe(
         map(
           (data: IEntranceDoorResponse): IEntranceDoor =>

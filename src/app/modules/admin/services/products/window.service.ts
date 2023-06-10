@@ -31,7 +31,7 @@ export class WindowService extends ProductClass {
     const formData = this.createFormData(body, images);
 
     return this.http
-      .post<IWindowResponse>(url, formData, this.headersForFormData)
+      .post<IWindowResponse>(url, formData)
       .pipe(
         map((data: IWindowResponse): IWindow => this.convertingWindow(data))
       );
@@ -46,7 +46,7 @@ export class WindowService extends ProductClass {
     const formData = this.createFormData(body, images);
 
     return this.http
-      .patch<IWindowResponse>(url, formData, this.headersForFormData)
+      .patch<IWindowResponse>(url, formData)
       .pipe(
         map((data: IWindowResponse): IWindow => this.convertingWindow(data))
       );
