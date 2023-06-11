@@ -123,12 +123,12 @@ import { OurCommentsDialogComponent } from './components/admin-our-works/our-com
     MatSnackBarModule,
     MatButtonToggleModule,
   ],
-  // providers: [
-  //   {
-  //     provide: HTTP_INTERCEPTORS,
-  //     useClass: AuthInterceptor,
-  //     multi: true,
-  //   }
-  // ]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ]
 })
 export class AdminModule { }

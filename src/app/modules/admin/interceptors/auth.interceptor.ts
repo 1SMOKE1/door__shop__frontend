@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, retry, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,28 +32,20 @@ export class AuthInterceptor implements HttpInterceptor {
     
 
     return next.handle(authReq)
-    // .pipe(
-    //   catchError((error: HttpErrorResponse) => {
-    //     if (error.status === 401) {
-    //       // Call your token refresh method
-    //       return this.refreshTokenAndRetry(req, next);
-    //     }
-    //     return throwError(error);
-    //   }),
-    //   retry(1)
-    // ) 
     .pipe(
       catchError((error: HttpErrorResponse) => {
-        if(error.status === 401) {
-          this.router.navigate(['admin', 'sign-in']);
-          this.dialog.closeAll();
+        if (error.status === 401) {
+          // Call your token refresh method
+          return this.refreshTokenAndRetry(req, next);
         }
         return throwError(error);
-      })
-    )
+      }),
+      retry(1)
+    ) 
+
   }
 
-  private refreshTokenAndRetry(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private refreshTokenAndRetry(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.authService
     .updateAccessToken()
     .then((res) => {
@@ -65,10 +57,8 @@ export class AuthInterceptor implements HttpInterceptor {
     })
 
     // Retry the failed request with the new token
-    const updatedRequest = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`
-      }
+    const updatedRequest = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${localStorage.getItem('access_token') as string}`)
     });
 
     return next.handle(updatedRequest);
