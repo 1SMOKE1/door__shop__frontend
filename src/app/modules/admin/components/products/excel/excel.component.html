@@ -1,1 +1,16 @@
-<p>excel works!</p>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+<mat-dialog-content class="mat-typography">
+  <h2 mat-dialog-title>
+    Массове внесення товару з Excel
+  </h2>
+  <div class="add-images__wrap">
+    <h3 class="font-h2 add-images__title">Завантажити Excel</h3>
+    <input class="add-images__btn" type="file" (change)="readFile($event)" webkitdirectory/>
+  </div>
+  <div class="add-images__wrap">
+    <h3 class="font-h2 add-images__title">Завантажити папку з фотографіями</h3>
+    <input class="add-images__btn" type="file" (change)="onImagesFolderSelected($event)" webkitdirectory multiple/>
+  </div>
+</mat-dialog-content>

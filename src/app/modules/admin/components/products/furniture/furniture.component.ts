@@ -82,7 +82,7 @@ export class FurnitureComponent extends ProductClass implements OnInit{
   }
 
   public onImagesFolderSelected(e: Event): void {
-    let cur = e.target as HTMLInputElement;
+    const cur = e.target as HTMLInputElement;
     if (cur.files) this.imagesFileList = cur.files;
   }
 
