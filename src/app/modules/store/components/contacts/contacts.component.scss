@@ -2,7 +2,7 @@
 @import 'colors';
 
 .container{
-  @include container(1400px);
+  @include container(1200px);
 }
 
 .main{
@@ -21,12 +21,16 @@
       @include fontMain(700, 2rem, 30px);
     }
   }
-  &-text{
+  &-text-wrap{
     @include fontMain(400, 1.5rem, 27.6px);
     @media (max-width: 500px) {
       margin: 60px 0 35px 0;
       @include fontMain(400, 0.9rem, 20px);
     }
+  }
+  &-text{
+    @include fontMain(400, 1.5rem, 27.6px);
+    margin: 20px 0;
   }
 }
 
