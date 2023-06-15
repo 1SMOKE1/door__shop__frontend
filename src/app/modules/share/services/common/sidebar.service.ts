@@ -34,7 +34,6 @@ export class SidebarService {
     !this.checkBoxArr.includes(condition)
       ? this.checkBoxArr.push(condition)
       : this.checkBoxArr.splice(this.checkBoxArr.indexOf(condition), 1);
-    console.log(this.checkBoxArr);
   }
 
   setSliderMinValue(value: number): void {
