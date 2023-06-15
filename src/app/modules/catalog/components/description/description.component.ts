@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConvertingOrderFieldsClass } from '@modules/admin/utils/converting-order-fields.class';
 import { ProductService } from '../../services/product.service';
 import { IProduct } from '@modules/share/interfaces/common/product.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dsf-description',
@@ -10,17 +11,22 @@ import { IProduct } from '@modules/share/interfaces/common/product.interface';
 })
 export class DescriptionComponent
   extends ConvertingOrderFieldsClass
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   product: IProduct | undefined;
+  productSubscription: Subscription;
 
   constructor(public readonly productService: ProductService) {
     super();
   }
 
   ngOnInit(): void {
-    this.productService.product$.subscribe((product: IProduct) => {
+    this.productSubscription = this.productService.product$.subscribe((product: IProduct) => {
       this.product = product;
     });
+  }
+
+  ngOnDestroy(): void{
+    this.productSubscription.unsubscribe();
   }
 }

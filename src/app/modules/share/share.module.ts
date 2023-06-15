@@ -52,7 +52,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     LayoutModule,
     CarouselModule,
-    NgxSliderModule,
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
@@ -63,7 +62,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatRadioModule,
     MatSidenavModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxSliderModule,
   ],
   exports: [
     HeaderComponent,

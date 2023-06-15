@@ -59,11 +59,16 @@ export class SidebarService {
     this.holeFiltrationWithPagination(
       page ? page : 1,
       itemsPerPage ? itemsPerPage : 8
-    ).subscribe({next: (data) => {
+    )
+    .subscribe({next: (data) => {
       this.filtration.next(data);
     },
-    error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
+    error: (err: HttpErrorResponse) => {
+      console.log(err)
+      this.snackbarConfigService.showError(err)
+    }
   });
+
   }
 
   public holeFiltrationWithPagination(

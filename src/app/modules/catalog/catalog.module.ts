@@ -12,8 +12,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DescriptionComponent } from './components/description/description.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../admin/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,14 +28,8 @@ import { AuthInterceptor } from '../admin/interceptors/auth.interceptor';
     ShareModule,
     MatExpansionModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ]
+  providers: []
 })
 export class CatalogModule { }

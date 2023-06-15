@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interface';
 import { catchError } from 'rxjs';
-import { HandleFormsErrorService } from '../../../share/services/errors/handle-forms-error.service';
 import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
 
 @Injectable({
@@ -13,8 +12,7 @@ export class MainService {
   baseUrl: string = environment.baseUrl;
 
   constructor(
-    private readonly http: HttpClient,
-    private readonly handleFormsErrorService: HandleFormsErrorService
+    private readonly http: HttpClient
   ) {}
 
   public sendZamirForm(
@@ -27,8 +25,7 @@ export class MainService {
     const url: string = `${this.baseUrl}/forms/free-zamir`;
 
     return this.http
-      .post<IZamirFormResponse>(url, formData)
-      .pipe(catchError(this.handleFormsErrorService.handleErrorFormsMain));
+      .post<IZamirFormResponse>(url, formData);
   }
 
   public sendConsultationForm(
@@ -41,7 +38,6 @@ export class MainService {
 
     return this.http
       .post<IConsultationFormResponse>(url, formData)
-      .pipe(catchError(this.handleFormsErrorService.handleErrorFormsMain));
   }
 
   public successForm(name: string): string {
