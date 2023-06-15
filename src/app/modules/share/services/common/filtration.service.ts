@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IHoleFiltration } from '../../interfaces/common/hole-filtration.interface';
 import { Observable, map } from 'rxjs';
@@ -27,7 +27,13 @@ export class FiltrationService {
   ): Observable<IGetProducts> {
     const url = `${this.baseUrl}/products/filtration?page=${page}&itemsPerPage=${itemsPerPage}`;
 
-    return this.http.post<IGetProductsResponse>(url, data).pipe(
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      'data': encodeURIComponent(JSON.stringify(data))
+    });
+
+    return this.http.get<IGetProductsResponse>(url, {headers})
+    .pipe(
       map(
         ({ products, productsLength }: IGetProductsResponse): IGetProducts => ({
           products: products.map(
@@ -39,4 +45,5 @@ export class FiltrationService {
       )
     );
   }
+
 }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -21,7 +22,7 @@ import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interfa
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
 import { CardService } from '@modules/catalog/services/card.service';
-import { HandleFormsErrorService } from '@modules/share/services/errors/handle-forms-error.service';
+import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
 
 @Component({
   selector: 'dsf-main',
@@ -48,7 +49,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly mainService: MainService,
     private readonly snackbar: MatSnackBar,
     private readonly cardService: CardService,
-    private readonly handleFormsErrorService: HandleFormsErrorService
+    private readonly snackbarConfigService: SnackbarConfigService
   ) {}
 
   consultationForm: FormGroup<IConsultationForm> = new FormGroup({
@@ -110,8 +111,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
           duration: 10000,
         });
       },
-      error: (err: Error) =>
-        this.handleFormsErrorService.snackbarShowError(err),
+      error: (err: HttpErrorResponse) =>
+        this.snackbarConfigService.showError(err),
     });
   }
 
@@ -127,8 +128,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
             duration: 10000,
           });
         },
-        error: (err: Error) => {
-          this.handleFormsErrorService.snackbarShowError(err);
+        error: (err: HttpErrorResponse) => {
+          this.snackbarConfigService.showError(err);
         },
       });
   }
