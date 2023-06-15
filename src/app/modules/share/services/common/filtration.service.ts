@@ -27,11 +27,7 @@ export class FiltrationService {
   ): Observable<IGetProducts> {
     const url = `${this.baseUrl}/products/filtration?page=${page}&itemsPerPage=${itemsPerPage}`;
 
-    return this.http.get<IGetProductsResponse>(url, {
-      headers: {
-        'data': JSON.stringify(data),
-      }
-    }).pipe(
+    return this.http.post<IGetProductsResponse>(url, data).pipe(
       map(
         ({ products, productsLength }: IGetProductsResponse): IGetProducts => ({
           products: products.map(
