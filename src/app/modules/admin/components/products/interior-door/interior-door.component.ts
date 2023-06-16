@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IProductProducer } from '@modules/share/interfaces/common/product-producer.interface';
-import { HttpProductProducerService } from '@modules/share/services/common/http-product-producer.service';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { HttpProductProducerService } from '@share-services/http-product-producer.service';
+import { ValidationService } from '@share-services/validation.service';
 import { TransformEnumService } from '../../../services/transform-enum.service';
 import { CountryEnum } from '@modules/share/enums/country.enum';
 import { ITransformedEnum } from '../../../interfaces/transformed.enum.interface';
@@ -13,7 +13,7 @@ import { FabricMaterialWidthComponent } from '../../product-constants/fabric-mat
 
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FabricMaterialWidthService } from '../../../services/product-constants/fabric-material-width.service';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { DoorIsolationService } from '../../../services/product-constants/door-isolation.service';
 import { DoorIsolationComponent } from '../../product-constants/door-isolation/door-isolation.component';
 import { DoorFrameMaterialService } from '../../../services/product-constants/door-frame-material.service';

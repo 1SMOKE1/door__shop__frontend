@@ -2,14 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'dsf-show-certificate',
-  templateUrl: './show-certificate.component.html',
-  styleUrls: ['./show-certificate.component.scss']
+  selector: 'dsf-show-big-img',
+  templateUrl: './show-big-img.component.html',
+  styleUrls: ['./show-big-img.component.scss']
 })
-export class ShowCertificateComponent {
+export class ShowBigImgComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: string,
-    private dialogRef: MatDialogRef<ShowCertificateComponent>
+    private dialogRef: MatDialogRef<ShowBigImgComponent>
   ) {}
 
   public close(): void {

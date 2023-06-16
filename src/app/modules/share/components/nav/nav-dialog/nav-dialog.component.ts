@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { NavService } from '../../../services/common/nav.service';
+import { NavService } from '@share-services/nav.service';
 import { ScrollConditionEnum } from '../../../enums/scroll-condition.enum';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { SectionCountService } from '../../../services/product-constants/section-count.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';

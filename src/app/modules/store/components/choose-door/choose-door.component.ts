@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
+import { ValidationService } from '@share-services/validation.service';
 import { IConsultationFormResponse } from '@modules/store/interfaces/response/consultation-form.interface';
 import { MainService } from '@modules/store/services/common/main.service';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ICartLine } from '../../interfaces/common/cart-line.interface';
-import { CartLine } from '../../models/cart-line.model';
-import { IProductCaltulator } from '../../interfaces/common/product-calculator.interface';
+import { ICartLine } from '../interfaces/common/cart-line.interface';
+import { CartLine } from '../models/cart-line.model';
+import { IProductCaltulator } from '../interfaces/common/product-calculator.interface';
 
 @Injectable({
   providedIn: 'root',

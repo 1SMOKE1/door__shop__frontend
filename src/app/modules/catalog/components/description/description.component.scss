@@ -267,6 +267,11 @@
       display: flex;
       flex-direction: column;
       min-width: 50%;
+      &-alone{
+        display: flex;
+        flex-direction: column;
+        min-width: 100%;
+      }
     }
 
     &-block{

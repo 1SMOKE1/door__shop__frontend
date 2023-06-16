@@ -10,12 +10,12 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CartLineService } from '../../../services/common/cart-line.service';
+import { CartLineService } from '../../../services/cart-line.service';
 import { ICartLine } from '../../../interfaces/common/cart-line.interface';
-import { OrderBasketService } from '../../../services/common/order-basket.service';
+import { OrderBasketService } from '../../../services/order-basket.service';
 import { DOCUMENT } from '@angular/common';
 import { IProductCaltulator } from '../../../interfaces/common/product-calculator.interface';
-import { SpinnerService } from '../../../services/common/spinner.service';
+import { SpinnerService } from '../../../services/spinner.service';
 import { OrderBasketSubmitEnum } from '../../../enums/order-basket-submit.enum';
 
 @Component({

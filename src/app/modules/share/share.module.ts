@@ -28,6 +28,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CountUpDirective } from './directives/count-up.directive';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ShowBigImgComponent } from './components/show-big-img/show-big-img.component';
 
 @NgModule({
   declarations: [
@@ -44,11 +45,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     OrderBasketFormComponent,
     PageNotFoundComponent,
     CountUpDirective,
+    ShowBigImgComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    MatDialogModule,
     MatIconModule,
     LayoutModule,
     CarouselModule,
@@ -76,6 +77,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FooterComponent,
     OwlCarouselComponent,
     SidebarComponent,
+    ShowBigImgComponent
   ]
 })
 export class ShareModule { }

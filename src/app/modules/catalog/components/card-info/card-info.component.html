@@ -5,7 +5,7 @@
       <div class="card-flex-wrapper">
         <div class="card-photo-block">
           <div  class="card-img-wrap">
-            <img *ngIf="product !== null" class="card-img-big" [src]="choosenItemImage" alt="">
+            <img *ngIf="product !== null" class="card-img-big" [src]="choosenItemImage" (click)="showBigImg($event)">
           </div>
         </div>
         <div  [ngSwitch]="true" class="card-calculator-block">

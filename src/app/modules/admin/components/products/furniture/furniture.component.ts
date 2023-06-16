@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { HttpProductProducerService } from '@modules/share/services/common/http-product-producer.service';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { HttpProductProducerService } from '@share-services/http-product-producer.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
+import { ValidationService } from '@share-services/validation.service';
 import { TransformEnumService } from '../../../services/transform-enum.service';
 import { IProductProducer } from '@modules/share/interfaces/common/product-producer.interface';
 import { ITransformedEnum } from '../../../interfaces/transformed.enum.interface';

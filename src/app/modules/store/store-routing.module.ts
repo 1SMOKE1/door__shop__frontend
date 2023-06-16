@@ -9,7 +9,7 @@ import { DesignersBuildersComponent } from './components/designers-builders/desi
 import { CommentsComponent } from './components/comments/comments.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { ChooseDoorComponent } from './components/choose-door/choose-door.component';
-import { CertificatesComponent } from './components/certificates/certificates/certificates.component';
+import { CertificatesComponent } from './components/certificates/certificates.component';
 import { StoreRoutingOutletComponent } from './components/store-routing-outlet/store-routing-outlet.component';
 import { PageNotFoundComponent } from '../share/components/page-not-found/page-not-found.component';
 

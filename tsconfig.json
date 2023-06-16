@@ -31,6 +31,18 @@
       ],
       "@modules/*": [
         "app/modules/*"
+      ],
+      "@share-services/*": [
+        "app/modules/share/services/*"
+      ],
+      "@share-interfaces/*": [
+        "app/modules/share/interfaces/*"
+      ],
+      "@share-models/*": [
+        "app/modules/share/models/*"
+      ],
+      "@share-enums/*": [
+        "app/modules/share/enums/*"
       ]
     }
   },

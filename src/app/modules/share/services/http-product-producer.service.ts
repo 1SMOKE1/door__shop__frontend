@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { IProductProducer } from '../../interfaces/common/product-producer.interface';
+import { IProductProducer } from '@share-interfaces/common/product-producer.interface';
 import { Observable, map } from 'rxjs';
-import { TypeOfProductEnum } from '../../enums/type-of-product.enum';
-import { IProductProducerResponse } from '../../interfaces/response/product-producer.interface';
-import { ProductProducerModel } from '../../models/product-producer.model';
+import { TypeOfProductEnum } from '@share-enums/type-of-product.enum';
+import { IProductProducerResponse } from '@share-interfaces/response/product-producer.interface';
+import { ProductProducerModel } from '@share-models/product-producer.model';
 
 @Injectable({
   providedIn: 'root',

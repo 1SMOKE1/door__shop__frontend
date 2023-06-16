@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { ScrollConditionEnum } from '../../enums/scroll-condition.enum';
+import { ScrollConditionEnum } from '@share-enums/scroll-condition.enum';
 
 @Injectable({
   providedIn: 'root'

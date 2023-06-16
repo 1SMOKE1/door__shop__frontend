@@ -5,9 +5,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { IProductProducer } from '@modules/share/interfaces/common/product-producer.interface';
 import { ITypeOfProductResponse } from '@modules/share/interfaces/response/type-of-product.interface';
-import { HttpProductProducerService } from '@modules/share/services/common/http-product-producer.service';
-import { HttpTypeOfProductService } from '@modules/share/services/common/http-type-of-product.service';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { HttpProductProducerService } from '@share-services/http-product-producer.service';
+import { HttpTypeOfProductService } from '@share-services/http-type-of-product.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 
 @Component({
   selector: 'dsf-product-producers',

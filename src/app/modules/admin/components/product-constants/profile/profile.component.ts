@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
+import { ValidationService } from '@share-services/validation.service';
 import { ProfileService } from '../../../services/product-constants/profile.service';
 import { HttpErrorResponse } from '@angular/common/http';
 

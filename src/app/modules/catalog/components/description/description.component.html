@@ -1,192 +1,191 @@
-<section [ngSwitch]="product?.typeOfProduct?.name" class="info">
-      <div class="info-table-wrap">
-        <h2 class="info-title">{{'Характеристика'|uppercase}}</h2>
-        <table class="info-table">
-          <tr>
-            <th>Назва</th>
-            <td>{{product?.name}}</td>
-          </tr>
-          <tr *ngIf="product?.productProducer !== null">
-            <th>Виробник</th>
-            <td>{{product?.productProducer!.name}}</td>
-          </tr>
-          <tr>
-            <th>Країна виробник</th>
-            <td>{{product?.country}}</td>
-          </tr>
-          <tr>
-            <th>На складі</th>
-            <td>{{product?.inStock}}</td>
-          </tr>
-          <tr *ngIf="product?.fabricMaterialThickness !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'" >
-              <th>Товщина полотна</th>
-              <td>{{product?.fabricMaterialThickness}} мм</td>
-          </tr>
-          <tr *ngIf="product?.fabricMaterialThickness !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'"  >
-              <th>Товщина полотна</th>
-              <td>{{product?.fabricMaterialThickness}} мм</td>
-          </tr>
-          <tr *ngIf="product?.fabricMaterialHeight !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-              <th>Висота полотна</th>
-              <td>{{product?.fabricMaterialHeight}} мм</td>
-          </tr>
-          <tr *ngIf="converting(product?.fabricMaterialWidth)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'" >
-              <th>Ширина полотна</th>
-              <td>{{convertingToString(product!.fabricMaterialWidth).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorIsolation)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-            <th>Шумоізоляція</th>
-            <td>{{convertingToString(product!.doorIsolation).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorFrameMaterial)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-            <th>Короб</th>
-            <td>{{convertingToString(product!.doorFrameMaterial).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorSelectionBoard)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-              <th>Добірна дошка</th>
-              <td>{{convertingToString(product!.doorSelectionBoard).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorWelt)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">  
-              <th>Лиштва</th>
-              <td>{{convertingToString(product!.doorWelt).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorHand)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'" >
-              <th >Дверна ручка</th>
-              <td>{{convertingToString(product!.doorHand).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorHand)?.length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'">
-              <th>Дверна ручка</th>
-              <td>{{convertingToString(product!.doorHand).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorMechanism)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-              <th>Дверний механізм</th>
-              <td>{{convertingToString(product!.doorMechanism).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorLoops)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-              <th>Дверні петлі</th>
-              <td>{{convertingToString(product!.doorLoops).join(', ')}}</td>
-          </tr>  
-          <tr *ngIf="converting(product?.doorStopper)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-              <th>Дверний стопор</th>
-              <td>{{convertingToString(product!.doorStopper).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.doorSlidingSystem)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
-              <th>Роздвижна система</th>
-              <td>{{convertingToString(product!.doorSlidingSystem).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="product?.frameMaterialThickness !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'">
-              <th>Товщина короба</th>
-              <td>{{product?.frameMaterialThickness}} мм</td>
-          </tr>
-          
-          <tr *ngIf="converting(product?.doorInsulation).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Утеплення</th>
-            <td>{{convertingToString(product!.doorInsulation).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.covering).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Оздоблення</th>
-            <td>{{convertingToString(product!.covering).join(', ')}}</td>
-          </tr>
-          <tr *ngSwitchCase="'Двері вхідні'" >
-            <th>Глазок</th>
-            <td>{{product?.doorPeephole ? 'Є' : 'Відсутній'}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.openingType).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Тип відкривання</th>
-            <td>{{convertingToString(product!.openingType).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.size).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Розмір</th>
-            <td>{{convertingToString(product!.size).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.lowerLock).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Нижній замок</th>
-            <td>{{convertingToString(product!.lowerLock).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.upperLock).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Верхній замок</th>
-            <td>{{convertingToString(product!.upperLock).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.weight).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Вага</th>
-            <td>{{convertingToString(product!.weight).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="product?.metalThickness !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Товщина металу</th>
-            <td>{{product?.metalThickness}} мм</td>
-          </tr>
-          <tr *ngIf="converting(product?.frameMaterialConstruction).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Конструкція короба</th>
-            <td>{{convertingToString(product!.frameMaterialConstruction).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.sealerCircuit).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
-            <th>Контур ущільнення</th>
-            <td>{{convertingToString(product!.sealerCircuit).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.mosquitoNet).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Москітна сітка</th>
-            <td>{{convertingToString(product!.mosquitoNet).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.windowSill).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Підвіконня</th>
-            <td>{{convertingToString(product!.windowSill).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.windowEbb).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Відлив</th>
-            <td>{{convertingToString(product!.windowEbb).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.windowHand).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Ручка віконна</th>
-            <td>{{convertingToString(product!.windowHand).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.childLock).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Дитячий замок</th>
-            <td>{{convertingToString(product!.childLock).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.housewifeStub).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Заглушка домогосподарки</th>
-            <td>{{convertingToString(product!.housewifeStub).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.glassPocketAdd).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Доповнення до стеклопакету</th>
-            <td>{{convertingToString(product!.glassPocketAdd).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.lamination).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Ламінація</th>
-            <td>{{convertingToString(product!.lamination).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.profile).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Профіль</th>
-            <td>{{convertingToString(product!.profile).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="product?.windowWidth !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Ширина вікна</th>
-            <td>{{product!.windowWidth}} мм</td>
-          </tr>
-          <tr *ngIf="product?.windowHeight !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Висота вікна</th>
-            <td>{{product!.windowHeight}} мм</td>
-          </tr>
-          <tr *ngIf="converting(product?.camerasCount).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Кількість камер</th>
-            <td>{{convertingToString(product!.camerasCount).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.features).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Особливості</th>
-            <td>{{convertingToString(product!.features).join(', ')}}</td>
-          </tr>
-          <tr *ngIf="converting(product?.sectionsCount).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
-            <th>Кількість секцій</th>
-            <td>{{convertingToString(product!.sectionsCount).join(', ')}}</td>
-          </tr>
-          
-        </table>
-      </div>
-      <div class="info-table-wrap">
-        <h2 class="info-title">{{'Опис'|uppercase}}</h2>
-        <div class="info-table-block">
-          <p>{{product?.description ? product?.description : 'Опис товару відсутній'}}</p>
-        </div>
-      </div>
+<section class="info">
+  <div class="info-table-wrap" [ngStyle]="{'min-width': product?.description ? '50%' : '100%'}">
+    <h2 class="info-title">{{'Характеристика'|uppercase}}</h2>
+    <table class="info-table">
+      <tr>
+        <th>Назва</th>
+        <td>{{product?.name}}</td>
+      </tr>
+      <tr *ngIf="product?.productProducer !== null">
+        <th>Виробник</th>
+        <td>{{product?.productProducer!.name}}</td>
+      </tr>
+      <tr>
+        <th>Країна виробник</th>
+        <td>{{product?.country}}</td>
+      </tr>
+      <tr>
+        <th>На складі</th>
+        <td>{{product?.inStock}}</td>
+      </tr>
+      <tr *ngIf="product?.fabricMaterialThickness !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'" >
+          <th>Товщина полотна</th>
+          <td>{{product?.fabricMaterialThickness}} мм</td>
+      </tr>
+      <tr *ngIf="product?.fabricMaterialThickness !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'"  >
+          <th>Товщина полотна</th>
+          <td>{{product?.fabricMaterialThickness}} мм</td>
+      </tr>
+      <tr *ngIf="product?.fabricMaterialHeight !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+          <th>Висота полотна</th>
+          <td>{{product?.fabricMaterialHeight}} мм</td>
+      </tr>
+      <tr *ngIf="converting(product?.fabricMaterialWidth)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'" >
+          <th>Ширина полотна</th>
+          <td>{{convertingToString(product!.fabricMaterialWidth).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorIsolation)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+        <th>Шумоізоляція</th>
+        <td>{{convertingToString(product!.doorIsolation).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorFrameMaterial)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+        <th>Короб</th>
+        <td>{{convertingToString(product!.doorFrameMaterial).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorSelectionBoard)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+          <th>Добірна дошка</th>
+          <td>{{convertingToString(product!.doorSelectionBoard).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorWelt)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">  
+          <th>Лиштва</th>
+          <td>{{convertingToString(product!.doorWelt).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorHand)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'" >
+          <th >Дверна ручка</th>
+          <td>{{convertingToString(product!.doorHand).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorHand)?.length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'">
+          <th>Дверна ручка</th>
+          <td>{{convertingToString(product!.doorHand).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorMechanism)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+          <th>Дверний механізм</th>
+          <td>{{convertingToString(product!.doorMechanism).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorLoops)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+          <th>Дверні петлі</th>
+          <td>{{convertingToString(product!.doorLoops).join(', ')}}</td>
+      </tr>  
+      <tr *ngIf="converting(product?.doorStopper)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+          <th>Дверний стопор</th>
+          <td>{{convertingToString(product!.doorStopper).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.doorSlidingSystem)?.length !== 0 && product?.typeOfProduct?.name === 'Двері міжкімнатні'">
+          <th>Роздвижна система</th>
+          <td>{{convertingToString(product!.doorSlidingSystem).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="product?.frameMaterialThickness !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'">
+          <th>Товщина короба</th>
+          <td>{{product?.frameMaterialThickness}} мм</td>
+      </tr>
       
-    </section>
+      <tr *ngIf="converting(product?.doorInsulation).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Утеплення</th>
+        <td>{{convertingToString(product!.doorInsulation).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.covering).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Оздоблення</th>
+        <td>{{convertingToString(product!.covering).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="product?.typeOfProduct?.name" >
+        <th>Глазок</th>
+        <td>{{product?.doorPeephole ? 'Є' : 'Відсутній'}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.openingType).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Тип відкривання</th>
+        <td>{{convertingToString(product!.openingType).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.size).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Розмір</th>
+        <td>{{convertingToString(product!.size).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.lowerLock).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Нижній замок</th>
+        <td>{{convertingToString(product!.lowerLock).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.upperLock).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Верхній замок</th>
+        <td>{{convertingToString(product!.upperLock).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.weight).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Вага</th>
+        <td>{{convertingToString(product!.weight).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="product?.metalThickness !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Товщина металу</th>
+        <td>{{product?.metalThickness}} мм</td>
+      </tr>
+      <tr *ngIf="converting(product?.frameMaterialConstruction).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Конструкція короба</th>
+        <td>{{convertingToString(product!.frameMaterialConstruction).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.sealerCircuit).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
+        <th>Контур ущільнення</th>
+        <td>{{convertingToString(product!.sealerCircuit).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.mosquitoNet).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Москітна сітка</th>
+        <td>{{convertingToString(product!.mosquitoNet).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.windowSill).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Підвіконня</th>
+        <td>{{convertingToString(product!.windowSill).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.windowEbb).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Відлив</th>
+        <td>{{convertingToString(product!.windowEbb).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.windowHand).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Ручка віконна</th>
+        <td>{{convertingToString(product!.windowHand).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.childLock).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Дитячий замок</th>
+        <td>{{convertingToString(product!.childLock).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.housewifeStub).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Заглушка домогосподарки</th>
+        <td>{{convertingToString(product!.housewifeStub).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.glassPocketAdd).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Доповнення до стеклопакету</th>
+        <td>{{convertingToString(product!.glassPocketAdd).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.lamination).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Ламінація</th>
+        <td>{{convertingToString(product!.lamination).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.profile).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Профіль</th>
+        <td>{{convertingToString(product!.profile).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="product?.windowWidth !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Ширина вікна</th>
+        <td>{{product!.windowWidth}} мм</td>
+      </tr>
+      <tr *ngIf="product?.windowHeight !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Висота вікна</th>
+        <td>{{product!.windowHeight}} мм</td>
+      </tr>
+      <tr *ngIf="converting(product?.camerasCount).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Кількість камер</th>
+        <td>{{convertingToString(product!.camerasCount).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.features).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Особливості</th>
+        <td>{{convertingToString(product!.features).join(', ')}}</td>
+      </tr>
+      <tr *ngIf="converting(product?.sectionsCount).length !== 0 && product?.typeOfProduct?.name === 'Вікна'" >
+        <th>Кількість секцій</th>
+        <td>{{convertingToString(product!.sectionsCount).join(', ')}}</td>
+      </tr>
+      
+    </table>
+  </div>
+  <div [ngStyle]="{'display': product?.description ? 'block' : 'none'}" class="info-table-wrap">
+    <h2 class="info-title">{{'Опис'|uppercase}}</h2>
+    <div  class="info-table-block">
+      <p>{{product?.description}}</p>
+    </div>
+  </div>
+</section>

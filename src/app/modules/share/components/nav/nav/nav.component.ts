@@ -3,7 +3,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NavDialogComponent } from '../nav-dialog/nav-dialog.component';
 import { Observable, Subscription, map } from 'rxjs';
-import { NavService } from '../../../services/common/nav.service';
+import { NavService } from '@share-services/nav.service';
 import { ScrollConditionEnum } from '../../../enums/scroll-condition.enum';
 
 

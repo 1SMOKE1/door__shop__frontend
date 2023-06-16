@@ -12,8 +12,7 @@ import { DesignersBuildersComponent } from './components/designers-builders/desi
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ChooseDoorComponent } from './components/choose-door/choose-door.component';
-import { CertificatesComponent } from './components/certificates/certificates/certificates.component';
-import { ShowCertificateComponent } from './components/certificates/show-certificate/show-certificate.component';
+import { CertificatesComponent } from './components/certificates/certificates.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -31,7 +30,6 @@ import { StoreRoutingOutletComponent } from './components/store-routing-outlet/s
     CommentsComponent,
     ChooseDoorComponent,
     CertificatesComponent,
-    ShowCertificateComponent,
     StoreRoutingOutletComponent,
   ],
   imports: [

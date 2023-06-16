@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
+import { ValidationService } from '@share-services/validation.service';
 import { DoorSelectionBoardService } from '../../../services/product-constants/door-selection-board.service';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

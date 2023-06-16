@@ -4,8 +4,8 @@ import { IGetProducts } from '@modules/share/interfaces/common/get-products.inte
 import { IProduct } from '@modules/share/interfaces/common/product.interface';
 import { CardService } from '../../services/card.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
-import { SidebarService } from '@modules/share/services/common/sidebar.service';
-import { SpinnerService } from '@modules/share/services/common/spinner.service';
+import { SidebarService } from '@share-services/sidebar.service';
+import { SpinnerService } from '@share-services/spinner.service';
 
 @Component({
   selector: 'dsf-catalog',

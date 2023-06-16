@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { ICreateOrder } from '../../interfaces/common/order.interface';
+import { ICreateOrder } from '@share-interfaces/common/order.interface';
 import { environment } from '@environments/environment';
-import { IOrderResponse } from '../../interfaces/response/order.interface';
-import CreateOrderModel from '../../models/create-order.model';
-import { OrderBasketSubmitEnum } from '../../enums/order-basket-submit.enum';
+import { IOrderResponse } from '@share-interfaces/response/order.interface';
+import CreateOrderModel from '@share-models/create-order.model';
+import { OrderBasketSubmitEnum } from '@share-enums/order-basket-submit.enum';
 
 @Injectable({
   providedIn: 'root',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 
 @Injectable({
   providedIn: 'root'

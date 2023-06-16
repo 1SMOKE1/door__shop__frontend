@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { IProductProducer } from '../../interfaces/common/product-producer.interface';
+import { IProductProducer } from '@share-interfaces/common/product-producer.interface';
 import { FiltrationService } from './filtration.service';
-import { IHoleFiltration } from '../../interfaces/common/hole-filtration.interface';
-import { IGetProducts } from '../../interfaces/common/get-products.interface';
+import { IHoleFiltration } from '@share-interfaces/common/hole-filtration.interface';
+import { IGetProducts } from '@share-interfaces/common/get-products.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SnackbarConfigService } from './snackbar-config.service';
 

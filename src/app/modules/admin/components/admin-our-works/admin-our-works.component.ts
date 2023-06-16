@@ -3,7 +3,7 @@ import { ICarouselImage } from '../../interfaces/carousel-image.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { OurWorksService } from '../../services/our-works.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { OurWorksDialogComponent } from './our-works-dialog/our-works-dialog.component';
 import { OurCommentsDialogComponent } from './our-comments-dialog/our-comments-dialog.component';
 import { OurCommentsService } from '../../services/our-comments.service';

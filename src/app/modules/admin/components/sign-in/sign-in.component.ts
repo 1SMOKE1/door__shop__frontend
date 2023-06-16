@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { ValidationService } from '@share-services/validation.service';
 import { IAdminLoginForm } from '../../interfaces/admin-login-form.interface';
 import { AuthService } from '../../services/auth.service';
 import { ITokens } from '../../interfaces/ITokens';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 
 @Component({
   selector: 'dsf-sign-in',

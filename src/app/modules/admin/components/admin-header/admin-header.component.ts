@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { InteriorDoorService } from '../../services/products/interior-door.service';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EntranceDoorService } from '../../services/products/entrance-door.service';
 import { ProductService } from '@modules/catalog/services/product.service';

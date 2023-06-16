@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICartLine } from '../../../interfaces/common/cart-line.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ValidationService } from '../../../services/common/validation.service';
+import { ValidationService } from '@share-services/validation.service';
 import { ICreateOrder } from '../../../interfaces/common/order.interface';
 import CreateOrderModel from '../../../models/create-order.model';
-import { CartLineService } from '../../../services/common/cart-line.service';
-import { OrderBasketService } from '../../../services/common/order-basket.service';
-import { SnackbarConfigService } from '../../../services/common/snackbar-config.service';
+import { CartLineService } from '../../../services/cart-line.service';
+import { OrderBasketService } from '@share-services/order-basket.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OrderBasketSubmitEnum } from '../../../enums/order-basket-submit.enum';
-import { SpinnerService } from '../../../services/common/spinner.service';
+import { SpinnerService } from '@share-services/spinner.service';
 import { delay, interval, map } from 'rxjs';
 
 @Component({

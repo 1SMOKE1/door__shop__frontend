@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
-import { ITypeOfProductResponse } from '../../interfaces/response/type-of-product.interface';
+import { ITypeOfProductResponse } from '@share-interfaces/response/type-of-product.interface';
 
 @Injectable({
   providedIn: 'root',

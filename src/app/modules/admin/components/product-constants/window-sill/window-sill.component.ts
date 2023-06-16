@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { WindowSillService } from '../../../services/product-constants/window-sill.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { ValidationService } from '@share-services/validation.service';
 
 @Component({
   selector: 'dsf-window-sill',

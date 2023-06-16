@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import { ISecondNavLink } from '../../interfaces/common/second-nav-link.interface';
 import { IProduct } from '@modules/share/interfaces/common/product.interface';
-import { NavService } from '@modules/share/services/common/nav.service';
+import { NavService } from '@share-services/nav.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from '@modules/share/services/common/validation.service';
+import { ValidationService } from '@share-services/validation.service';
 import { ScrollConditionEnum } from '@modules/share/enums/scroll-condition.enum';
-import { HttpProductService } from '@modules/share/services/common/http-product.service';
+import { HttpProductService } from '@share-services/http-product.service';
 import { map } from 'rxjs';
 import { MainService } from '../../services/common/main.service';
 import { IZamirForm } from '../../interfaces/common/zamir-form.interface';
@@ -22,7 +22,7 @@ import { IZamirFormResponse } from '../../interfaces/response/zamir-form.interfa
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
 import { CardService } from '@modules/catalog/services/card.service';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 
 @Component({
   selector: 'dsf-main',

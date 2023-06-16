@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderBasketComponent } from '@modules/share/components/order-basket/order-basket/order-basket.component';
 import { IProduct } from '@modules/share/interfaces/common/product.interface';
-import { CartLineService } from '@modules/share/services/common/cart-line.service';
-import { HttpProductService } from '@modules/share/services/common/http-product.service';
+import { CartLineService } from '@modules/share/services/cart-line.service';
+import { HttpProductService } from '@share-services/http-product.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
@@ -12,6 +12,7 @@ import { IProductCaltulator } from '@modules/share/interfaces/common/product-cal
 import { ProductCalculatorModel } from '@modules/share/models/product-calculator.model';
 import { ConvertingProductClass } from '@modules/admin/utils/converting-product.class';
 import { ProductService } from '../../services/product.service';
+import { ShowBigImgComponent } from '@modules/share/components/show-big-img/show-big-img.component';
 
 @Component({
   selector: 'dsf-card-info',
@@ -78,8 +79,8 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     if(this.product)
     this.choosenItemImage = this.product?.images[0];
   }
-
-  toBasket(): void {
+  
+  public toBasket(): void {
     this.dialog.open(OrderBasketComponent, {
       data: {
         product: this.product,
@@ -88,6 +89,15 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
 
     this.addCartLine();
     
+  }
+
+  public showBigImg(e: Event): void{
+    let cur = e.target as HTMLImageElement;
+    let img = cur.src;
+    let dialogRef = this.dialog.open(ShowBigImgComponent, {
+      data: img
+    })
+    dialogRef.updateSize('600px', '600px');
   }
 
   private initProduct(id: number, typeOfProductName: TypeOfProductEnum) {

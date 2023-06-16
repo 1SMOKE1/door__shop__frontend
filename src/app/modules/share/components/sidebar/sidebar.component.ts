@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IProductProducer } from '../../interfaces/common/product-producer.interface';
 import { Options, LabelType, ChangeContext } from '@angular-slider/ngx-slider';
-import { SidebarService } from '../../services/common/sidebar.service';
-import { HttpProductProducerService } from '../../services/common/http-product-producer.service';
+import { SidebarService } from '@share-services/sidebar.service';
+import { HttpProductProducerService } from '@share-services/http-product-producer.service';
 import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({

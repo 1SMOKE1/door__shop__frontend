@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { BehaviorSubject, animationFrameScheduler, combineLatest, distinctUntilChanged, endWith, interval, map, switchMap, takeUntil, takeWhile } from 'rxjs';
-import { DestroyCountUpService } from '../services/common/destroy-count-up.service';
+import { DestroyCountUpService } from '@share-services/destroy-count-up.service';
 
 @Directive({
   selector: '[dsfCountUp]'

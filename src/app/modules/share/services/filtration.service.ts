@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IHoleFiltration } from '../../interfaces/common/hole-filtration.interface';
+import { IHoleFiltration } from '@share-interfaces/common/hole-filtration.interface';
 import { Observable, map } from 'rxjs';
-import { IGetProducts } from '../../interfaces/common/get-products.interface';
+import { IGetProducts } from '@share-interfaces/common/get-products.interface';
 import { environment } from '@environments/environment';
-import { IProduct } from '../../interfaces/common/product.interface';
+import { IProduct } from '@share-interfaces/common/product.interface';
 import { HttpProductService } from './http-product.service';
-import { IProductResponse } from '../../interfaces/response/product.interface';
-import { IGetProductsResponse } from '../../interfaces/response/get-products.interface';
+import { IProductResponse } from '@share-interfaces/response/product.interface';
+import { IGetProductsResponse } from '@share-interfaces/response/get-products.interface';
 
 @Injectable({
   providedIn: 'root',

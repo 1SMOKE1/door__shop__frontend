@@ -3,7 +3,7 @@ import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CamerasCountService } from '../../../services/product-constants/cameras-count.service';
-import { SnackbarConfigService } from '@modules/share/services/common/snackbar-config.service';
+import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 
 @Component({
   selector: 'dsf-cameras-count',
