@@ -4,4 +4,5 @@ export interface IProductProducer{
   id: number;
   name: string;
   typeOfProduct: ITypeOfProductResponse,
+  completed?: boolean
 }

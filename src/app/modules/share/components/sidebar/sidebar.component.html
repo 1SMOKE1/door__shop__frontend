@@ -2,7 +2,7 @@
 
 
 <mat-accordion multi>
-  <mat-expansion-panel >
+  <mat-expansion-panel [expanded]="sidebarService.isExpandedInteriorDoor$ | async">
     <mat-expansion-panel-header>
       <mat-panel-title class="sidebar-link">
         {{'Всі міжкімнатні двері'}}
@@ -10,15 +10,26 @@
     </mat-expansion-panel-header>
     <div class="sidebar-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="example-margin"
+          [checked]="(sidebarService.producerBlocks$ | async)?.interiorDoorProducersBlock?.completed"
+          [indeterminate]="someComplete((sidebarService.producerBlocks$ | async)?.interiorDoorProducersBlock)"
+          (change)="setAll($event.checked, sidebarService.producerBlocks.interiorDoorProducersBlock)"
+          *ngIf="sidebarService.producerBlocks.interiorDoorProducersBlock.subProductProducers.length !== 0"
+          >
+        {{sidebarService.producerBlocks.interiorDoorProducersBlock.name}}
+      </mat-checkbox>
+      
       <mat-checkbox class="sidebar-checkbox"
         color="accent"
-       *ngFor="let checkbox of interiorDoorProducers"
-       (change)="fillConditionArr(checkbox)">
+       *ngFor="let checkbox of (sidebarService.producerBlocks$ | async)?.interiorDoorProducersBlock?.subProductProducers"
+       [(ngModel)]="checkbox.completed"
+       (ngModelChange)="updateAllComplete(sidebarService.producerBlocks.interiorDoorProducersBlock);"
+       >
         {{checkbox.name}}
       </mat-checkbox>
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel >
+  <mat-expansion-panel [expanded]="sidebarService.isExpandedEntranceDoor$ | async">
     <mat-expansion-panel-header>
       <mat-panel-title class="sidebar-link">
         {{'Всі вхідні двері'}}
@@ -26,15 +37,25 @@
     </mat-expansion-panel-header>
     <div class="sidebar-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="example-margin"
+          [checked]="(sidebarService.producerBlocks$ | async)?.entranceDoorProducersBlock?.completed"
+          [indeterminate]="someComplete(sidebarService.producerBlocks.entranceDoorProducersBlock)"
+          (change)="setAll($event.checked, sidebarService.producerBlocks.entranceDoorProducersBlock)"
+          *ngIf="sidebarService.producerBlocks.entranceDoorProducersBlock.subProductProducers.length !== 0"
+          >
+        {{sidebarService.producerBlocks.entranceDoorProducersBlock.name}}
+      </mat-checkbox>
       <mat-checkbox class="sidebar-checkbox"
         color="accent"
-       *ngFor="let checkbox of entranceDoorProducers"
-       (change)="fillConditionArr(checkbox)">
+       *ngFor="let checkbox of (sidebarService.producerBlocks$ | async)?.entranceDoorProducersBlock?.subProductProducers"
+       [(ngModel)]="checkbox.completed"
+       (ngModelChange)="updateAllComplete(sidebarService.producerBlocks.entranceDoorProducersBlock)"
+       >
         {{checkbox.name}}
       </mat-checkbox>
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel >
+  <mat-expansion-panel [expanded]="sidebarService.isExpandedFurniture$ | async">
     <mat-expansion-panel-header>
       <mat-panel-title class="sidebar-link">
         {{'Фурнітура'}}
@@ -42,15 +63,25 @@
     </mat-expansion-panel-header>
     <div class="mat-expansion-panel-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="example-margin"
+          [checked]="(sidebarService.producerBlocks$ | async)?.furnitureProducersBlock?.completed"
+          [indeterminate]="someComplete(sidebarService.producerBlocks.furnitureProducersBlock)"
+          (change)="setAll($event.checked, sidebarService.producerBlocks.furnitureProducersBlock)"
+          *ngIf="sidebarService.producerBlocks.furnitureProducersBlock.subProductProducers.length !== 0"
+          >
+        {{sidebarService.producerBlocks.furnitureProducersBlock.name}}
+      </mat-checkbox>
       <mat-checkbox class="sidebar-checkbox"
         color="accent"
-       *ngFor="let checkbox of furnitureProducers"
-       (change)="fillConditionArr(checkbox)">
+       *ngFor="let checkbox of (sidebarService.producerBlocks$ | async)?.furnitureProducersBlock?.subProductProducers"
+       [(ngModel)]="checkbox.completed"
+       (ngModelChange)="updateAllComplete(sidebarService.producerBlocks.furnitureProducersBlock)"
+       >
         {{checkbox.name}}
       </mat-checkbox>
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel >
+  <mat-expansion-panel [expanded]="sidebarService.isExpandedWindow$ | async">
     <mat-expansion-panel-header>
       <mat-panel-title class="sidebar-link">
         {{'Вікна'}}
@@ -58,10 +89,20 @@
     </mat-expansion-panel-header>
     <div class="mat-expansion-panel-body">
       <h3 class="sidebar-title">{{'бренди'|uppercase}}</h3>
+      <mat-checkbox class="example-margin"
+          [checked]="(sidebarService.producerBlocks$ | async)?.windowsProducersBlock?.completed"
+          [indeterminate]="someComplete(sidebarService.producerBlocks.windowsProducersBlock)"
+          (change)="setAll($event.checked, sidebarService.producerBlocks.windowsProducersBlock)"
+          *ngIf="sidebarService.producerBlocks.windowsProducersBlock.subProductProducers.length !== 0"
+          >
+        {{sidebarService.producerBlocks.windowsProducersBlock.name}}
+      </mat-checkbox>
       <mat-checkbox class="sidebar-checkbox"
         color="accent"
-       *ngFor="let checkbox of windowProducers"
-       (change)="fillConditionArr(checkbox)">
+       *ngFor="let checkbox of (sidebarService.producerBlocks$ | async)?.windowsProducersBlock?.subProductProducers"
+       [(ngModel)]="checkbox.completed"
+       (ngModelChange)="updateAllComplete(sidebarService.producerBlocks.windowsProducersBlock)"
+       >
         {{checkbox.name}}
       </mat-checkbox>
     </div>

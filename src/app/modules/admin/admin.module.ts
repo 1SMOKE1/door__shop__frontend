@@ -121,7 +121,7 @@ import { OurCommentsDialogComponent } from './components/admin-our-works/our-com
     MatSelectModule,
     MatListModule,
     MatSnackBarModule,
-    MatButtonToggleModule,
+    MatButtonToggleModule
   ],
   providers: [
     {

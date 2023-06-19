@@ -23,6 +23,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IConsultationFormResponse } from '../../interfaces/response/consultation-form.interface';
 import { CardService } from '@modules/catalog/services/card.service';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
+import { RedirectWithFiltrationService } from '@modules/share/services/redirect-with-filtration.service';
+import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dsf-main',
@@ -30,15 +33,18 @@ import { SnackbarConfigService } from '@share-services/snackbar-config.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  typeOfProductEnum = TypeOfProductEnum;
+
   secondNavLinks: ISecondNavLink[] = [
-    { text: 'Наші виробники', path: '/store/contacts' },
-    { text: 'Двері міжкімнатні', path: '/store/catalog' },
-    { text: 'Двері вхідні', path: '/store/catalog' },
-    { text: 'Вікна', path: '/store/catalog' },
-    { text: 'Фурнітура', path: '/store/catalog' },
+    { text: this.typeOfProductEnum.entranceDoor, path: '/store/catalog', action: this.typeOfProductEnum.entranceDoor,},
+    { text: this.typeOfProductEnum.interiorDoor, path: '/store/catalog', action: this.typeOfProductEnum.interiorDoor},
+    { text: this.typeOfProductEnum.windows, path: '/store/catalog', action: this.typeOfProductEnum.windows},
+    { text: this.typeOfProductEnum.furniture, path: '/store/catalog', action: this.typeOfProductEnum.furniture},
   ];
 
   products: IProduct[] = [];
+  
 
   @ViewChild('freeZamir') freeZamir: ElementRef;
   @ViewChild('freeConsultation') freeConsultation: ElementRef;
@@ -47,9 +53,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly validationService: ValidationService,
     private readonly httpProductService: HttpProductService,
     private readonly mainService: MainService,
-    private readonly snackbar: MatSnackBar,
     private readonly cardService: CardService,
-    private readonly snackbarConfigService: SnackbarConfigService
+    private readonly snackbarConfigService: SnackbarConfigService,
+    private readonly redirectWithFiltrationService: RedirectWithFiltrationService
   ) {}
 
   consultationForm: FormGroup<IConsultationForm> = new FormGroup({
@@ -105,11 +111,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mainService.sendZamirForm(this.zamirForm.value).subscribe({
       next: ({ name }: IZamirFormResponse) => {
         this.zamirForm.reset();
-        this.snackbar.open(this.mainService.successForm(name), 'X', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          duration: 10000,
-        });
+        this.snackbarConfigService.openSnackBar(this.mainService.successForm(name));
       },
       error: (err: HttpErrorResponse) =>
         this.snackbarConfigService.showError(err),
@@ -122,11 +124,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe({
         next: ({ name }: IConsultationFormResponse) => {
           this.consultationForm.reset();
-          this.snackbar.open(this.mainService.successForm(name), 'X', {
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            duration: 10000,
-          });
+          this.snackbarConfigService.openSnackBar(this.mainService.successForm(name));
         },
         error: (err: HttpErrorResponse) => {
           this.snackbarConfigService.showError(err);
@@ -138,6 +136,10 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     const product = this.products.find((el: IProduct) => el.id === id);
 
     this.cardService.cardInfoRedirect(id, product!.typeOfProduct.name);
+  }
+
+  public redirecWithFiltration(condition: TypeOfProductEnum): void{
+    this.redirectWithFiltrationService.redirectWithFiltrationStream(condition);
   }
 
   private blimingForm(classAdd: string, elementRef: ElementRef) {

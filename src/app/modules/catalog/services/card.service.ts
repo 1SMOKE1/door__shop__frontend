@@ -17,6 +17,7 @@ export class CardService {
   ) { }
 
   public cardInfoRedirect(id: number, typeOfProductName: TypeOfProductEnum){
+    
     this.setSelectedId(id);
     this.router.navigate(['store', 'catalog', 'card', id], {
       state: {id},

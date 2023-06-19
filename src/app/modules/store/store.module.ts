@@ -17,6 +17,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreRoutingOutletComponent } from './components/store-routing-outlet/store-routing-outlet.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CatalogComponent } from '@modules/catalog/components/catalog/catalog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CardInfoComponent } from '@modules/catalog/components/card-info/card-info.component';
+import { DescriptionComponent } from '@modules/catalog/components/description/description.component';
+import { MatSelectModule } from '@angular/material/select';
+import { CatalogRouterOutletComponent } from '@modules/catalog/components/catalog-router-outlet/catalog-router-outlet.component';
 
 @NgModule({
   declarations: [

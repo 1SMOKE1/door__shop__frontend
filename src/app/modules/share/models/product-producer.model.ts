@@ -8,5 +8,7 @@ export class ProductProducerModel implements IProductProducer{
     public id: number,
     public name: string,
     public typeOfProduct: ITypeOfProductResponse,
+    public completed: boolean
   ){}
+
 }

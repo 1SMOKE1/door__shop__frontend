@@ -93,7 +93,8 @@ export class ProductsComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.filtrationSubsctiption.unsubscribe();
     this.initProductsAfterDeletingSubscription.unsubscribe();
-    this.sidebarService.checkBoxArr = [];
+    this.sidebarService.checkboxArr = [];
+    this.spinnerValue = 0;
   }
 
   public cardBigRedirect(id: number, typeOfProductName: TypeOfProductEnum): void{

@@ -8,6 +8,8 @@ import { ITypeOfProductResponse } from '@modules/share/interfaces/response/type-
 import { HttpProductProducerService } from '@share-services/http-product-producer.service';
 import { HttpTypeOfProductService } from '@share-services/http-type-of-product.service';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
+import { SidebarService } from '@modules/share/services/sidebar.service';
+import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 
 @Component({
   selector: 'dsf-product-producers',
@@ -24,7 +26,8 @@ export class ProductProducersComponent implements OnInit {
     public dialogRef: MatDialogRef<ProductProducersComponent>,
     private readonly productProducerService: HttpProductProducerService,
     private readonly snackbarConfigService: SnackbarConfigService,
-    private readonly typeOfProductsService: HttpTypeOfProductService
+    private readonly typeOfProductsService: HttpTypeOfProductService,
+    private readonly sidebarService: SidebarService
   ) {}
 
   $editEvent: Function = (
@@ -73,7 +76,8 @@ export class ProductProducersComponent implements OnInit {
         this.productProducerItems = this.productProducerItems.filter(
           (el) => el.id !== id
         );
-        this.productProducerForm.reset();
+        this.productProducerForm.reset(); 
+        this.triggerDelete(id);
       },
       error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err),
     });
@@ -119,9 +123,9 @@ export class ProductProducersComponent implements OnInit {
         next: (productProducer: IProductProducer) => {
           this.productProducerItems.push(productProducer);
           this.productProducerForm.reset();
+          this.triggerChanges(productProducer);
         },
-        error: (err: HttpErrorResponse) =>
-          this.snackbarConfigService.showError(err),
+        error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err),
       });
   }
 
@@ -129,12 +133,108 @@ export class ProductProducersComponent implements OnInit {
     this.productProducerService
       .updateProductProducer(this.productProducerForm.value)
       .subscribe({
-        next: ({ name, typeOfProduct, id }: IProductProducer) =>
-          (this.productProducerItems = this.productProducerItems.map((el) =>
-            el.id === id ? { ...el, name, typeOfProduct, id } : el
-          )),
-        error: (err: HttpErrorResponse) =>
-          this.snackbarConfigService.showError(err),
+        next: (productProducer: IProductProducer) => {
+          this.productProducerItems = this.productProducerItems.map((el) =>
+            el.id === productProducer.id 
+              ? { ...el, name: productProducer.name, typeOfProduct: productProducer.typeOfProduct, id: productProducer.id } 
+              : el
+          )
+          this.triggerChanges(productProducer);
+        },
+        error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err),
       });
   }
+
+  private triggerChanges(productProducer: IProductProducer): void{
+
+    switch(true){
+      case productProducer.typeOfProduct.name === TypeOfProductEnum.interiorDoor:
+
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          interiorDoorProducersBlock: {
+            ...this.sidebarService.producerBlocks.interiorDoorProducersBlock, 
+            subProductProducers: this.filterArrByCond(TypeOfProductEnum.interiorDoor)
+          }
+        }
+        break;
+      case productProducer.typeOfProduct.name === TypeOfProductEnum.entranceDoor:
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          entranceDoorProducersBlock: {
+            ...this.sidebarService.producerBlocks.entranceDoorProducersBlock, 
+            subProductProducers: this.filterArrByCond(TypeOfProductEnum.entranceDoor)
+          }
+        }
+        break;
+      case productProducer.typeOfProduct.name === TypeOfProductEnum.furniture:
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          furnitureProducersBlock: {
+            ...this.sidebarService.producerBlocks.furnitureProducersBlock, 
+            subProductProducers: this.filterArrByCond(TypeOfProductEnum.furniture)
+          }
+        }
+        break;
+      case productProducer.typeOfProduct.name === TypeOfProductEnum.windows:
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          windowsProducersBlock: {
+            ...this.sidebarService.producerBlocks.windowsProducersBlock, 
+            subProductProducers: this.filterArrByCond(TypeOfProductEnum.windows)
+          }
+        }
+        break;
+    }
+    
+    this.sidebarService.producerBlocksSubject.next(this.sidebarService.producerBlocks);
+  }
+
+  private triggerDelete(id: number): void{
+
+        const interiorDoorArr = this.filterArrByCond(TypeOfProductEnum.interiorDoor);
+
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          interiorDoorProducersBlock: {
+            ...this.sidebarService.producerBlocks.interiorDoorProducersBlock, 
+            subProductProducers: this.checkAndDeleteItemFromArr(interiorDoorArr, id)
+          }
+        };
+        
+        const entranceDoorArr = this.filterArrByCond(TypeOfProductEnum.entranceDoor);
+      
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          entranceDoorProducersBlock: {
+            ...this.sidebarService.producerBlocks.entranceDoorProducersBlock, 
+            subProductProducers: this.checkAndDeleteItemFromArr(entranceDoorArr, id)
+          }
+        };
+
+        const furnitureArr = this.filterArrByCond(TypeOfProductEnum.furniture);
+
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          furnitureProducersBlock: {
+            ...this.sidebarService.producerBlocks.furnitureProducersBlock, 
+            subProductProducers: this.checkAndDeleteItemFromArr(furnitureArr, id)
+          }
+        };
+   
+        const windowArr = this.filterArrByCond(TypeOfProductEnum.windows);
+
+        this.sidebarService.producerBlocks = {...this.sidebarService.producerBlocks, 
+          windowsProducersBlock: {
+            ...this.sidebarService.producerBlocks.windowsProducersBlock, 
+            subProductProducers: this.checkAndDeleteItemFromArr(windowArr, id)
+          }
+        };
+    this.sidebarService.producerBlocksSubject.next(this.sidebarService.producerBlocks);
+  }
+
+  private filterArrByCond(cond: TypeOfProductEnum): IProductProducer[]{
+    return this.productProducerItems.filter((el) => el.typeOfProduct.name === cond)
+  }
+
+  private checkAndDeleteItemFromArr(arr: IProductProducer[], id: number){
+    return arr.some(obj => obj.id === id)
+    ? arr.filter((el) => el.id !== id)
+    : arr
+  }
+
+
 }

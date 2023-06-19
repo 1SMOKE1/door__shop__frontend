@@ -9,6 +9,7 @@ export class ProductClass{
     typeOfProduct: {
       id: 0,
       name: TypeOfProductEnum.noProductProducer,
-    }
+    },
+    completed: false
   };
 }

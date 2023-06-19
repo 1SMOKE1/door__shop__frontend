@@ -113,7 +113,8 @@ export class HttpProductService extends ConvertingProductClass {
         ? new ProductProducerModel(
             product_producer.id,
             product_producer.name,
-            type_of_product
+            type_of_product,
+            false
           )
         : null,
       type_of_product,

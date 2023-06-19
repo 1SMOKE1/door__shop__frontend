@@ -1,7 +1,7 @@
 <main class="main">
   <section class="door-photos">
     <div class="img-wrap">
-      <img [routerLink]="'/store/catalog'" class="img" src="assets/section_door_in_or_through/door_through.png" alt="">
+      <img (click)="redirecWithFiltration(typeOfProductEnum.interiorDoor)" class="img" src="assets/section_door_in_or_through/door_through.png" alt="">
       <div class="img-text-block-top">
         <p>Міжкінатні</p>
       </div>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="img-wrap">
-      <img [routerLink]="'/store/catalog'" class="img" src="assets/section_door_in_or_through/door_in.png" alt="">
+      <img (click)="redirecWithFiltration(typeOfProductEnum.entranceDoor)" class="img" src="assets/section_door_in_or_through/door_in.png" alt="">
       <div class="img-text-block-top-2">
         <p>Вхідні</p>
       </div>
@@ -22,7 +22,10 @@
   </section>
   <div class="container">
     <section class="second-nav">
-      <div *ngFor="let link of secondNavLinks" [routerLink]="link.path" class="link-wrap">
+      <div class="link-wrap" [routerLink]="'/store/contacts'">
+        <p class="link">Наші виробники</p>
+      </div>
+      <div *ngFor="let link of secondNavLinks" [routerLink]="link.path" class="link-wrap" (click)="redirecWithFiltration(link.action)">
         <p class="link">{{link.text}}</p>
       </div>
     </section>

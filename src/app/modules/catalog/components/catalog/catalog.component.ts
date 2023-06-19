@@ -1,3 +1,4 @@
+import { RedirectWithFiltrationService } from '@modules/share/services/redirect-with-filtration.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, delay, interval, map } from 'rxjs';
 import { IGetProducts } from '@modules/share/interfaces/common/get-products.interface';
@@ -25,21 +26,25 @@ export class CatalogComponent implements OnInit, OnDestroy {
   constructor(
     public readonly spinnerService: SpinnerService,
     private readonly cardService: CardService,
-    private readonly sidebarService: SidebarService
+    private readonly sidebarService: SidebarService,
+    private readonly redirectWithFiltrationService: RedirectWithFiltrationService
   ) {}
 
   ngOnInit(): void {
-    this.getFilteredProducts();
+    this.redirectWithFiltrationService.confirmRedirectionSubscription = this.redirectWithFiltrationService
+    .confirmRedirection$.subscribe((bool) => {
+      if(bool)
+        return;
+      else 
+        this.getFilteredProducts();
+    })
+    
     this.filtrationSubsctiption = this.sidebarService.filtration$
       .pipe(
         map((el: IGetProducts) => {
           this.emptyProducts = false;
           this.products = [];
-          this.spinnerService.spinnerSubscription = interval(10).subscribe(
-            (value: number) => {
-              this.spinnerService.spinnerValue += value;
-            }
-          );
+          this.spinnerService.fillSpinner();
           return el;
         }),
         delay(1000)
@@ -49,15 +54,16 @@ export class CatalogComponent implements OnInit, OnDestroy {
         this.productsLength = productsLength;
         if (products.length == 0) this.emptyProducts = true;
         else this.emptyProducts = false;
-        this.spinnerService.spinnerSubscription.unsubscribe();
         this.spinnerService.spinnerValue = 0;
+        this.spinnerService.spinnerSubscription.unsubscribe();
       });
   }
 
   ngOnDestroy(): void {
+    this.spinnerService.spinnerValue = 0;
     this.filtrationSubsctiption.unsubscribe();
-    this.sidebarService.checkBoxArr = [];
-    this.spinnerService.spinnerSubscription.unsubscribe();
+    this.sidebarService.checkboxArr = [];
+    this.redirectWithFiltrationService.redirectWithFiltrationSubscription.unsubscribe();
   }
 
   public cardBigRedirect(

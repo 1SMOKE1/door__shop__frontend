@@ -52,10 +52,8 @@ export class OrderBasketFormComponent implements OnInit{
   }
 
   public submit() {
-    this.spinnerService.spinnerSubscription = interval(10)
-    .subscribe((value: number) => {
-      this.spinnerService.spinnerValue += value;
-    })
+
+    this.spinnerService.fillSpinner();
     this.orderBasketService.submitingOrderSubject.next(OrderBasketSubmitEnum.loading);
     const totalCost: number = this.cartLinesService.getTotal();
     const { name, phone, email, address, kindOfPayment }: ICreateOrder =
@@ -81,8 +79,8 @@ export class OrderBasketFormComponent implements OnInit{
       error: (err: HttpErrorResponse): void => {
         this.snackbarConfigService.showError(err);
         this.spinnerService.spinnerValue = 0;
-        this.orderBasketService.submitingOrderSubject.next(OrderBasketSubmitEnum.noSubmit);
         this.spinnerService.spinnerSubscription.unsubscribe();
+        this.orderBasketService.submitingOrderSubject.next(OrderBasketSubmitEnum.noSubmit);
       }  
     });
   }

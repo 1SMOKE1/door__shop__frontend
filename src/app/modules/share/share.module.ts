@@ -29,6 +29,7 @@ import { CountUpDirective } from './directives/count-up.directive';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ShowBigImgComponent } from './components/show-big-img/show-big-img.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ShowBigImgComponent } from './components/show-big-img/show-big-img.comp
     MatSidenavModule,
     MatProgressSpinnerModule,
     NgxSliderModule,
+    NgxPaginationModule
   ],
   exports: [
     HeaderComponent,

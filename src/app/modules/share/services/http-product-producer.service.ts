@@ -111,8 +111,9 @@ export class HttpProductProducerService {
     type_of_product,
   }: IProductProducerResponse): IProductProducer {
     return new ProductProducerModel(id, name, {
-      id: type_of_product.id,
-      name: type_of_product.name,
-    });
+        id: type_of_product.id,
+        name: type_of_product.name
+      }, false
+    );
   }
 }

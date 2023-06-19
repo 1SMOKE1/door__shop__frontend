@@ -2,7 +2,7 @@
   <div class="container">
     <section [ngSwitch]="true" class="catalog">
       <h1 class="catalog-title font-h1-title">
-        {{'каталог'|uppercase}}
+        {{'каталог'.toUpperCase()}}
       </h1>
       <div class="catalog-wrap">
         <div class="catalog-sidebar">
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div *ngSwitchCase="products.length === 0 && !emptyProducts" class="spinner-wrap">
-          <mat-progress-spinner color="accent" mode="determinate" [value]="spinnerService.spinnerValue"></mat-progress-spinner>
+          <mat-progress-spinner class="spinner" color="accent" mode="determinate" [value]="spinnerService.spinnerValue"></mat-progress-spinner>
         </div>
         <div *ngSwitchCase="products.length === 0 && emptyProducts" class="spinner-wrap">
           <h1>НЕМАЄ ТОВАРІВ ЗА ВАШИМ ЗАПИТОМ</h1>
