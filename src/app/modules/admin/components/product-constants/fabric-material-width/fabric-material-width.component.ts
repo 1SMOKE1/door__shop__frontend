@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '@share-services/validation.service';
 import { ICalculatorChar } from '../../../interfaces/calculator-char.interface';
 import { FabricMaterialWidthService } from '../../../services/product-constants/fabric-material-width.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -31,7 +30,6 @@ export class FabricMaterialWidthComponent implements OnInit{
   constructor(
     private readonly validationService: ValidationService,
     private readonly fabricMaterialWidthService: FabricMaterialWidthService,
-    private readonly snackbar: MatSnackBar,
     private readonly snackbarConfigService: SnackbarConfigService
   ){}
 

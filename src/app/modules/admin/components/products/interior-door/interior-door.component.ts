@@ -40,6 +40,19 @@ import { ProductClass } from '../../../utils/product.class';
   styleUrls: ['./interior-door.component.scss'],
 })
 export class InteriorDoorComponent extends ProductClass implements OnInit {
+  slashStylingOfFormFieldObj: any = {
+    fabricMaterialWidth: [],
+    doorIsolation: [],
+    doorFrameMaterial: [],
+    doorSelectionBoard: [],
+    doorWelt: [],
+    doorSlidingSystem: [],
+    doorHand: [],
+    doorMechanism: [],
+    doorLoops: [],
+    doorStopper: [],
+  };
+
   interiorDoorProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
   guarantees: ITransformedEnum[] = [];
@@ -141,7 +154,10 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
   }
 
   public slashStylingOfFormField(fieldName: string): string | [] {
-    return this.isEditMode() ? this.interiorDoorForm.get(fieldName)?.value.join('/') : [];
+    this.interiorDoorForm.get(fieldName)?.valueChanges.subscribe((value: string[]) => {
+      this.slashStylingOfFormFieldObj = {...this.slashStylingOfFormFieldObj, [`${fieldName}`]: value};
+    })
+    return this.isEditMode() ? this.slashStylingOfFormFieldObj[`${fieldName}`].join('/') : [];
   }
 
   public addProductProducer(): void {
@@ -159,37 +175,65 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
 
     dialogRef
       .afterClosed()
-      .subscribe(() => this.initFabricMaterialWidthItems());
+      .subscribe((data: ICalculatorChar[]) => {
+        this.fabricMaterialWidthItems = data;
+        this.interiorDoorForm.get('fabricMaterialWidth')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addDoorIsolation() {
     const dialogRef = this.dialog.open(DoorIsolationComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initDoorIsolationItems());
+    dialogRef
+      .afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.doorIsolationItems = data;
+        this.interiorDoorForm.get('doorIsolation')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addDoorFrameMaterial() {
     const dialogRef = this.dialog.open(DoorFrameMaterialComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initDoorFrameMaterialItems());
+    dialogRef
+      .afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.doorFrameMaterialItems = data;
+        this.interiorDoorForm.get('doorFrameMaterial')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addDoorSelectionBoard() {
     const dialogRef = this.dialog.open(DoorSelectionBoardComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initDoorSelectionBoardItems());
+    dialogRef
+      .afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.doorSelectionBoardItems = data;
+        this.interiorDoorForm.get('doorSelectionBoard')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addDoorWelt() {
     const dialogRef = this.dialog.open(DoorWeltComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initDoorWeltItems());
+    dialogRef
+      .afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.doorWeltItems = data;
+        this.interiorDoorForm.get('doorWelt')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addDoorSlidingSystem() {
     const dialogRef = this.dialog.open(DoorSlidingSystemComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initDoorSlidingSystemItems());
+    dialogRef
+      .afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.doorSlidingSystemItems = data;
+        this.interiorDoorForm.get('doorSlidingSystem')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public isEditMode(): boolean {

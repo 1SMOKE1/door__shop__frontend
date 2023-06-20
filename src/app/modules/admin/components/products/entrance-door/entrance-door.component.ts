@@ -42,6 +42,18 @@ import { ProductClass } from '../../../utils/product.class';
 })
 export class EntranceDoorComponent extends ProductClass implements OnInit{
 
+  slashStylingOfFormFieldObj: any  = {
+    doorInsulation: [],
+    covering: [],
+    openingType: [],
+    size: [],
+    lowerLock: [],
+    upperLock: [],
+    weight: [],
+    frameMaterialConstruction: [],
+    sealerCircuit: [],
+    doorHand: [],
+  }
 
   entranceDoorProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
@@ -144,7 +156,10 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
   }
 
   public slashStylingOfFormField(fieldName: string): string | [] {
-    return this.isEditMode() ? this.entranceDoorForm.get(fieldName)?.value.join('/') : [];
+    this.entranceDoorForm.get(fieldName)?.valueChanges.subscribe((value: string[]) => {
+      this.slashStylingOfFormFieldObj = {...this.slashStylingOfFormFieldObj, [`${fieldName}`]: value};
+    })
+    return this.isEditMode() ? this.slashStylingOfFormFieldObj[`${fieldName}`].join('/') : [];
   }
 
   public isEditMode(): boolean{
@@ -160,49 +175,70 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
     const dialogRef = this.dialog.open(DoorInsulationComponent);
 
     dialogRef.afterClosed()
-    .subscribe(() => this.initDoorInsulationItems());
+    .subscribe((data: ICalculatorChar[]) => {
+      this.doorInsulationItems = data;
+      this.entranceDoorForm.get('doorInsulation')?.setValue(data.map((el) => el.name))
+    });
   }
 
   public addDoorCovering(){
     const dialogRef = this.dialog.open(DoorCoveringComponent);
 
     dialogRef.afterClosed()
-    .subscribe(() => this.initDoorCoveringItems());
+    .subscribe((data: ICalculatorChar[]) => {
+      this.doorCoveringItems = data;
+      this.entranceDoorForm.get('covering')?.setValue(data.map((el) => el.name));
+    });
   }
 
   public addOpeningType(){
     const dialogRef = this.dialog.open(OpeningTypeComponent);
 
     dialogRef.afterClosed()
-    .subscribe(() => this.initDoorOpeningTypeItems());
+    .subscribe((data: ICalculatorChar[]) => {
+      this.doorOpeningTypeItems = data;
+      this.entranceDoorForm.get('openingType')?.setValue(data.map((el) => el.name));
+    });
   }
 
   public addDoorSize(){
     const dialogRef = this.dialog.open(SizeComponent);
 
     dialogRef.afterClosed()
-    .subscribe(() => this.initDoorSizeItems());
+    .subscribe((data: ICalculatorChar[]) => {
+      this.doorSizeItems = data;
+      this.entranceDoorForm.get('size')?.setValue(data.map((el) => el.name));
+    });
   }
 
   public addDoorWeight(){
     const dialogRef = this.dialog.open(WeightComponent);
 
     dialogRef.afterClosed()
-    .subscribe(() => this.initDoorWeightItems());
+    .subscribe((data: ICalculatorChar[]) => {
+      this.doorWeightItems = data;
+      this.entranceDoorForm.get('weight')?.setValue(data.map((el) => el.name));
+    });
   }
 
   public addDoorFrameMaterialConstruction(){
     const dialogRef = this.dialog.open(FrameMaterialConstractionComponent);
 
     dialogRef.afterClosed()
-    .subscribe(() => this.initDoorFrameMaterialConstructionItems());
+    .subscribe((data: ICalculatorChar[]) => {
+      this.doorFrameMaterialConstructionItems = data;
+      this.entranceDoorForm.get('frameMaterialConstruction')?.setValue(data.map((el) => el.name));
+    });
   }
 
   public addDoorSealerCircuit(){
     const dialogRef = this.dialog.open(SealerCircuitComponent);
 
     dialogRef.afterClosed()
-    .subscribe(() => this.initDoorSealerCircuitItems());
+      .subscribe((data: ICalculatorChar[]) => {
+        this.doorSealerCircuitItems = data;
+        this.entranceDoorForm.get('sealerCircuit')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addProductProducer(): void {

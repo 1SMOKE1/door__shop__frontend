@@ -49,6 +49,21 @@ import { ProductClass } from '../../../utils/product.class';
 })
 export class WindowComponent extends ProductClass implements OnInit{
 
+  slashStylingOfFormFieldObj: any = {
+    mosquitoNet: [],
+    windowSill: [],
+    windowEbb: [],
+    windowHand: [],
+    childLock: [],
+    housewifeStub: [],
+    glassPocketAdd: [],
+    lamination: [],
+    profile: [],
+    camerasCount: [],
+    features: [],
+    sectionCount: [],
+  }
+
   windowProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
   guarantees: ITransformedEnum[] = [];
@@ -178,7 +193,10 @@ export class WindowComponent extends ProductClass implements OnInit{
   }
 
   public slashStylingOfFormField(fieldName: string): string | [] {
-    return this.isEditMode() ? this.windowForm.get(fieldName)?.value.join('/') : [];
+    this.windowForm.get(fieldName)?.valueChanges.subscribe((value: string[]) => {
+      this.slashStylingOfFormFieldObj = {...this.slashStylingOfFormFieldObj, [`${fieldName}`]: value};
+    })
+    return this.isEditMode() ? this.slashStylingOfFormFieldObj[`${fieldName}`].join('/') : [];
   }
 
   public addProductProducer(): void {
@@ -194,73 +212,121 @@ export class WindowComponent extends ProductClass implements OnInit{
   public addMosquitoNet(): void{
     const dialogRef = this.dialog.open(MosquitoNetComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initMosquitoNetItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.mosquitoNetItems = data;
+        this.windowForm.get('mosquitoNet')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addWindowSill(): void{
     const dialogRef = this.dialog.open(WindowSillComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initWindowSillItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.windowSillItems = data;
+        this.windowForm.get('windowSill')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addWindowEbb(): void{
     const dialogRef = this.dialog.open(WindowEbbComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initWindowEbbItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.windowEbbItems = data;
+        this.windowForm.get('windowEbb')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addWindowHand(): void{
     const dialogRef = this.dialog.open(WindowHandComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initWindowHandItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.windowHandItems = data;
+        this.windowForm.get('windowHand')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addChildLock(): void{
     const dialogRef = this.dialog.open(ChildLockComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initChildLockItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.childLockItems = data;
+        this.windowForm.get('childLock')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addHousewifeStub(): void{
     const dialogRef = this.dialog.open(HousewifeStubComponent);
     
-    dialogRef.afterClosed().subscribe(() => this.initHouseWifeItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.housewifeStubItems = data;
+        this.windowForm.get('housewifeStub')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addGlassPocketAdd(): void{
     const dialogRef = this.dialog.open(GlassPocketAddComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initGlassPocketAddItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.glassPocketAddItems = data;
+        this.windowForm.get('glassPocketAdd')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addLamination(): void{
     const dialogRef = this.dialog.open(LaminationComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initLaminationItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.laminationItems = data;
+        this.windowForm.get('lamination')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addProfile(): void{
     const dialogRef = this.dialog.open(ProfileComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initProfileItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.profileItems = data;
+        this.windowForm.get('profile')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addCamerasCount(): void{
     const dialogRef = this.dialog.open(CamerasCountComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initCamerasCountItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.camerasCountItems = data;
+        this.windowForm.get('camerasCount')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addFeatures(): void{
     const dialogRef = this.dialog.open(FeaturesComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initFeaturesItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.featuresItems = data;
+        this.windowForm.get('features')?.setValue(data.map((el) => el.name));
+      });
   }
 
   public addSectionCount(): void{
     const dialogRef = this.dialog.open(SectionCountComponent);
 
-    dialogRef.afterClosed().subscribe(() => this.initSectionCountItems());
+    dialogRef.afterClosed()
+      .subscribe((data: ICalculatorChar[]) => {
+        this.sectionCountItems = data;
+        this.windowForm.get('sectionCount')?.setValue(data.map((el) => el.name));
+      });
   }
 
   private createWindow(): void{
