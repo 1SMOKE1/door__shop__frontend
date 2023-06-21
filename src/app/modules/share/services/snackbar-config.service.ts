@@ -44,4 +44,8 @@ export class SnackbarConfigService {
   public showError({error}: HttpErrorResponse): void{
     return this.openSnackBar(this.convertingErrorMessage(error));
   }
+
+  public showErrorPromise(error: Error): void{
+    return this.openSnackBar(this.convertingErrorMessage(error));
+  }
 }

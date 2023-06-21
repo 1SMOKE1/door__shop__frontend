@@ -8,8 +8,8 @@
         <div class="catalog-sidebar">
           <dsf-sidebar></dsf-sidebar>
         </div>
-        <div *ngSwitchCase="products.length !== 0 && !emptyProducts" class="catalog-cards-wrap">
-          <div *ngFor="let product of products | paginate: {itemsPerPage: 8, currentPage: page, totalItems: productsLength} " class="card"
+        <div *ngSwitchCase="sidebarService.products.length !== 0 && !emptyProducts" class="catalog-cards-wrap">
+          <div *ngFor="let product of sidebarService.products | paginate: {itemsPerPage: 8, currentPage: page, totalItems: sidebarService.productsLength} " class="card"
             (click)="cardBigRedirect(product.id, product.typeOfProduct.name)">  
             <img *ngIf="product.images" class="card-img" [src]="product.images[0]" alt="">
             <div class="card-body">
@@ -19,10 +19,10 @@
             </div>
           </div>
         </div>
-        <div *ngSwitchCase="products.length === 0 && !emptyProducts" class="spinner-wrap">
+        <div *ngSwitchCase="sidebarService.products.length === 0 && !emptyProducts" class="spinner-wrap">
           <mat-progress-spinner class="spinner" color="accent" mode="determinate" [value]="spinnerService.spinnerValue"></mat-progress-spinner>
         </div>
-        <div *ngSwitchCase="products.length === 0 && emptyProducts" class="spinner-wrap">
+        <div *ngSwitchCase="sidebarService.products.length === 0 && emptyProducts" class="spinner-wrap">
           <h1>НЕМАЄ ТОВАРІВ ЗА ВАШИМ ЗАПИТОМ</h1>
         </div>
       </div>

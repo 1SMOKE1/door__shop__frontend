@@ -25,7 +25,6 @@ import { CardService } from '@modules/catalog/services/card.service';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 import { RedirectWithFiltrationService } from '@modules/share/services/redirect-with-filtration.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'dsf-main',

@@ -18,15 +18,15 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   page: number = 1; // currentPage
   itemsPerPage: number = 8;
-  productsLength: number = 0;
-  products: IProduct[] = [];
+
+
 
   emptyProducts: boolean = false;
 
   constructor(
     public readonly spinnerService: SpinnerService,
+    public readonly sidebarService: SidebarService,
     private readonly cardService: CardService,
-    private readonly sidebarService: SidebarService,
     private readonly redirectWithFiltrationService: RedirectWithFiltrationService
   ) {}
 
@@ -43,15 +43,15 @@ export class CatalogComponent implements OnInit, OnDestroy {
       .pipe(
         map((el: IGetProducts) => {
           this.emptyProducts = false;
-          this.products = [];
+          this.sidebarService.products = [];
           this.spinnerService.fillSpinner();
           return el;
         }),
         delay(1000)
       )
       .subscribe(({ products, productsLength }: IGetProducts) => {
-        this.products = products;
-        this.productsLength = productsLength;
+        this.sidebarService.products = products;
+        this.sidebarService.productsLength = productsLength;
         if (products.length == 0) this.emptyProducts = true;
         else this.emptyProducts = false;
         this.spinnerService.spinnerValue = 0;

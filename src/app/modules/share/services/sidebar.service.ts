@@ -10,11 +10,17 @@ import { IProducerBlocks } from '../interfaces/common/producer-blocks.interface'
 import { ICheckBoxBlock } from '../interfaces/common/checkbox-block.interface';
 import { SpinnerService } from './spinner.service';
 import { TypeOfProductEnum } from '../enums/type-of-product.enum';
+import { IProduct } from '../interfaces/common/product.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SidebarService {
+
+  products: IProduct[] = [];
+  productsCopy: IProduct[] = [];
+  productsLength: number = 0;
+  productsCopyLength: number = 0;
 
   typeOfProductEnum = TypeOfProductEnum;
 
@@ -105,26 +111,51 @@ export class SidebarService {
 
 
   public doFiltration(page?: number, itemsPerPage?: number): void {
-    
-    
-    
-    this.holeFiltrationWithPagination(
-      page ? page : 1,
-      itemsPerPage ? itemsPerPage : 8
-    )
-    .subscribe({next: (data) => {
-      this.filtration.next(data);
-      this.spinnerService.spinnerValue = 0;
-    },
-    error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
-  });
 
+
+    if((this.searchValue === "" 
+    && this.checkboxArr.length === 0 
+    && (this.sliderMinValue === 0 && this.sliderMaxValue === 20000) 
+    && this.noProductProducersValue === false) && this.products.length !== 0){
+      console.log('here')
+      this.spinnerService.spinnerValue = 0;
+      this.filtration.next({products: this.productsCopy, productsLength: this.productsCopyLength});
+    } else {
+      if ((this.searchValue === "" 
+      && this.checkboxArr.length === 0 
+      && (this.sliderMinValue === 0 && this.sliderMaxValue === 20000) 
+      && this.noProductProducersValue === false) && this.products.length === 0){
+        this.filtrationService.allProductsWithPagination(
+          page ? page : 1,
+          itemsPerPage ? itemsPerPage : 8
+        )
+        .then((data: IGetProducts) => {
+          this.spinnerService.spinnerValue = 0;
+          this.filtration.next(data);
+          this.productsCopy = data.products;
+          this.productsCopyLength = data.productsLength;
+        })
+        .catch( (err: Error) => this.snackbarConfigService.showErrorPromise(err))
+      } else {
+        this.holeFiltrationWithPagination(
+          page ? page : 1,
+          itemsPerPage ? itemsPerPage : 8
+          )
+          .then((data: IGetProducts) => {
+            this.spinnerService.spinnerValue = 0;
+            this.filtration.next(data);
+          })
+          .catch( (err: Error) => this.snackbarConfigService.showErrorPromise(err))
+      }
+      
+    }
+    
   }
 
   public holeFiltrationWithPagination(
     page: number,
     itemsPerPage: number
-  ): Observable<IGetProducts> { 
+  ): Promise<IGetProducts> { 
     const data: IHoleFiltration = {
       checkboxArr: this.checkboxArr,
       sliderValue: {
@@ -151,4 +182,5 @@ export class SidebarService {
       subProductProducers: []
     }
   }
+
 }
