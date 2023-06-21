@@ -64,6 +64,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.filtrationSubsctiption.unsubscribe();
     this.sidebarService.checkboxArr = [];
     this.redirectWithFiltrationService.redirectWithFiltrationSubscription.unsubscribe();
+    this.redirectWithFiltrationService.confirmRedirectionSubscription.unsubscribe();
   }
 
   public cardBigRedirect(
