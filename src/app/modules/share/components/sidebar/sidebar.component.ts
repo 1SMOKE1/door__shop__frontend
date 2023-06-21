@@ -6,7 +6,6 @@ import { HttpProductProducerService } from '@share-services/http-product-produce
 import { Subscription, debounceTime, delay, distinctUntilChanged } from 'rxjs';
 import { RedirectWithFiltrationService } from '@modules/share/services/redirect-with-filtration.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
-import { SpinnerService } from '@modules/share/services/spinner.service';
 import { ICheckBoxBlock } from '@modules/share/interfaces/common/checkbox-block.interface';
 
 
@@ -171,42 +170,26 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   private getProductProducers(): void {
-    this.getEntranceDoorProductProducers();
-    this.getInteriorDoorProductProducers();
-    this.getFurnitureProductProducers();
-    this.getWindowProductProducers();
-  }
-
-  private getEntranceDoorProductProducers(): void {
     this.httpProductProducerService
-      .getEntranceDoorProductProducers()
-      .subscribe((producers: IProductProducer[]) => 
-        this.sidebarService.producerBlocks.entranceDoorProducersBlock.subProductProducers = producers
-      );
-  }
+      .getProductProducers()
+      .subscribe((producers: IProductProducer[]) => {
 
-  private getInteriorDoorProductProducers(): void {
-    this.httpProductProducerService
-      .getInteriorDoorProductProducers()
-      .subscribe((producers: IProductProducer[]) => 
-        this.sidebarService.producerBlocks.interiorDoorProducersBlock.subProductProducers = producers
-      );
-  }
+        this.sidebarService.producerBlocks
+          .interiorDoorProducersBlock
+            .subProductProducers = this.filterProducers(producers, this.typeOfProductEnum.interiorDoor);
+        
+        this.sidebarService.producerBlocks
+          .entranceDoorProducersBlock
+            .subProductProducers = this.filterProducers(producers, this.typeOfProductEnum.entranceDoor);
 
-  private getFurnitureProductProducers(): void {
-    this.httpProductProducerService
-      .getFurnitureProductProducers()
-      .subscribe((producers: IProductProducer[]) => 
-        this.sidebarService.producerBlocks.furnitureProducersBlock.subProductProducers = producers
-      );
-  }
-
-  private getWindowProductProducers(): void {
-    this.httpProductProducerService
-      .getWindowProductProducers()
-      .subscribe((producers: IProductProducer[]) => 
-        this.sidebarService.producerBlocks.windowsProducersBlock.subProductProducers = producers
-      );
+        this.sidebarService.producerBlocks
+          .furnitureProducersBlock
+            .subProductProducers = this.filterProducers(producers, this.typeOfProductEnum.furniture);
+        
+        this.sidebarService.producerBlocks
+          .windowsProducersBlock
+            .subProductProducers = this.filterProducers(producers, this.typeOfProductEnum.windows);
+      })
   }
 
   private someCheckboxCompleted(checkboxBlock: ICheckBoxBlock): boolean{
@@ -284,6 +267,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
         break;
       }
       this.sidebarService.producerBlocksSubject.next(this.sidebarService.producerBlocks);
+  }
+
+  private filterProducers(producers: IProductProducer[], condition: TypeOfProductEnum): IProductProducer[] {
+    return producers.filter((el) => el.typeOfProduct.name === condition)
   }
 
 
