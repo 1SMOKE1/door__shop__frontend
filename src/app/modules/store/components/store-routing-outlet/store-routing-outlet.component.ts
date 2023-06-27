@@ -13,7 +13,4 @@ export class StoreRoutingOutletComponent {
     private readonly sidebarService: SidebarService
   ){}
 
-  ngOnInit(): void{
-    this.sidebarService.doFiltration();
-  }
 }

@@ -63,8 +63,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.spinnerService.spinnerValue = 0;
     this.filtrationSubsctiption.unsubscribe();
     this.sidebarService.checkboxArr = [];
-    this.sidebarService.productsCopy = [];
-    this.sidebarService.productsCopyLength = 0;
     this.redirectWithFiltrationService.redirectWithFiltrationSubscription.unsubscribe();
     this.redirectWithFiltrationService.confirmRedirectionSubscription.unsubscribe();
   }
