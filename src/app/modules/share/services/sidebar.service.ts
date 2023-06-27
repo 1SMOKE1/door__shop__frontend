@@ -4,7 +4,6 @@ import { IProductProducer } from '@share-interfaces/common/product-producer.inte
 import { FiltrationService } from './filtration.service';
 import { IHoleFiltration } from '@share-interfaces/common/hole-filtration.interface';
 import { IGetProducts } from '@share-interfaces/common/get-products.interface';
-import { HttpErrorResponse } from '@angular/common/http';
 import { SnackbarConfigService } from './snackbar-config.service';
 import { IProducerBlocks } from '../interfaces/common/producer-blocks.interface';
 import { ICheckBoxBlock } from '../interfaces/common/checkbox-block.interface';
