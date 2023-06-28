@@ -185,7 +185,7 @@
   <div [ngStyle]="{'display': product?.description ? 'block' : 'none'}" class="info-table-wrap">
     <h2 class="info-title">{{'Опис'|uppercase}}</h2>
     <div  class="info-table-block">
-      <p>{{product?.description}}</p>
+      <p [innerHTML]="product?.description"></p>
     </div>
   </div>
 </section>
