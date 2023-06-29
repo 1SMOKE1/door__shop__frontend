@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SidebarService } from '@modules/share/services/sidebar.service';
 
 @Component({
   selector: 'dsf-store-routing-outlet',
@@ -10,7 +9,6 @@ export class StoreRoutingOutletComponent {
 
   constructor(
     public readonly router: Router,
-    private readonly sidebarService: SidebarService
   ){}
 
 }

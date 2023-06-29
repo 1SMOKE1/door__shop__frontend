@@ -97,7 +97,7 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     let dialogRef = this.dialog.open(ShowBigImgComponent, {
       data: img
     })
-    dialogRef.updateSize('600px', '600px');
+    dialogRef.updateSize('800px', '800px');
   }
 
   private initProduct(id: number, typeOfProductName: TypeOfProductEnum) {
