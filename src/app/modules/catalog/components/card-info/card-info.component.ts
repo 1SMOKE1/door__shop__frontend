@@ -7,12 +7,14 @@ import { HttpProductService } from '@share-services/http-product.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { IProductCaltulator } from '@modules/share/interfaces/common/product-calculator.interface';
 import { ProductCalculatorModel } from '@modules/share/models/product-calculator.model';
 import { ConvertingProductClass } from '@modules/admin/utils/converting-product.class';
 import { ProductService } from '../../services/product.service';
 import { ShowBigImgComponent } from '@modules/share/components/show-big-img/show-big-img.component';
+import { ICarouselImage } from '@modules/admin/interfaces/carousel-image.interface';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'dsf-card-info',
@@ -52,7 +54,42 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
   selectedLamination: ICalculatorChar = this.chooseConst;
   selectedProfile: ICalculatorChar = this.chooseConst;
 
+  imagesSubject: BehaviorSubject<ICarouselImage[]> = new BehaviorSubject(this.convertToCarouselImages([]));
+  images$: Observable<ICarouselImage[]> = this.imagesSubject.asObservable();
 
+  carouselOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    autoplay: true,
+    autoWidth: true,
+    autoHeight: true,
+    autoplaySpeed: 3000,
+    dots: false,
+    nav: true,
+    navSpeed: 700,
+    responsiveRefreshRate: 200,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      400: {
+        items: 1,
+      },
+      740: {
+        items: 1,
+      },
+      940: {
+        items: 1,
+      },
+    },
+  };
+
+  carouselOptionsSubject: BehaviorSubject<OwlOptions> =  new BehaviorSubject(this.carouselOptions);
+  carouselOptions$: Observable<OwlOptions> = this.carouselOptionsSubject.asObservable();
+
+  
 
   constructor(
     public readonly productService: ProductService,
@@ -73,7 +110,6 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     if ( params && query) {
       this.initProduct(+params, query);
     } 
-    
 
     this.productSubscription = this.productService.product$.subscribe();
     if(this.product)
@@ -128,6 +164,7 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
           this.product.glassPocketAdd = [this.chooseConst, ... this.product.glassPocketAdd];
           this.product.lamination = [this.chooseConst, ... this.product.lamination];
           this.product.profile = [this.chooseConst, ... this.product.profile];
+          this.imagesSubject.next(this.convertToCarouselImages(this.product?.images));
         },
         error: () => this.router.navigate(['store', 'page-not-found'])
       });
@@ -287,9 +324,11 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     + addProfile
   }
 
+  private convertToCarouselImages(arr: string[]):ICarouselImage[]{
+    return arr.map((el, i): ICarouselImage => ({imgSrc: el, imgAlt: '', id: ++i}))
+  }
 
-
- 
+  
 
 
 

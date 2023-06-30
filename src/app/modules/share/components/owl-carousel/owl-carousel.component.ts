@@ -10,6 +10,7 @@ import { ICarouselImage } from '@modules/admin/interfaces/carousel-image.interfa
 })
 export class OwlCarouselComponent {
   @Input('images') public images$: Observable<ICarouselImage[]>;
+  @Input('carouselOptions') public carouselOptions$: Observable<OwlOptions>;
 
   images: ICarouselImage[] = [];
 
@@ -39,6 +40,7 @@ export class OwlCarouselComponent {
   };
 
   private getImages(): void {
+    
     this.images$?.subscribe(
       (images: ICarouselImage[]) => (this.images = images)
     );
@@ -46,5 +48,15 @@ export class OwlCarouselComponent {
 
   ngAfterViewInit(): void {
     this.getImages();
+    if(this.carouselOptions$){
+      this.carouselOptions$.subscribe((opt: OwlOptions) => {
+        this.customOptions = opt;
+      })
+    } 
+    
+  }
+
+  imageChange(e: any){;
+    console.log(e)
   }
 }

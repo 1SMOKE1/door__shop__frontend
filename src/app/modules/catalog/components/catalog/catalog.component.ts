@@ -1,8 +1,7 @@
 import { RedirectWithFiltrationService } from '@modules/share/services/redirect-with-filtration.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, delay, interval, map } from 'rxjs';
+import { Subscription, delay, map } from 'rxjs';
 import { IGetProducts } from '@modules/share/interfaces/common/get-products.interface';
-import { IProduct } from '@modules/share/interfaces/common/product.interface';
 import { CardService } from '../../services/card.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { SidebarService } from '@share-services/sidebar.service';
@@ -50,6 +49,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
         delay(1000)
       )
       .subscribe(({ products, productsLength }: IGetProducts) => {
+        console.log(products)
         this.sidebarService.products = products;
         this.sidebarService.productsLength = productsLength;
         if (products.length == 0) this.emptyProducts = true;

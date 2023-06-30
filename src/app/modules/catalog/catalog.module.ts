@@ -12,6 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DescriptionComponent } from './components/description/description.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DescriptionComponent } from './components/description/description.compo
     MatExpansionModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatIconModule
   ],
   providers: []
 })
