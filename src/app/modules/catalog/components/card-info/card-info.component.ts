@@ -63,13 +63,14 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     touchDrag: true,
     pullDrag: true,
     autoplay: true,
-    autoWidth: true,
-    autoHeight: true,
     autoplaySpeed: 3000,
     dots: false,
     nav: true,
+    slideBy: 2,
+    autoplayHoverPause: true,
     navSpeed: 700,
     responsiveRefreshRate: 200,
+    dotsData: true,
     responsive: {
       0: {
         items: 1,
