@@ -3,10 +3,20 @@
     <section class="card">
       <h2 *ngIf="product !== null" class="card-title font-h2">{{product.typeOfProduct.name}} “{{product.name}}”  {{product.productProducer !== null ? 'бренду ' + product.productProducer.name : ''}}</h2>
       <div class="card-flex-wrapper">
-       
         <div class="card-photo-block">
           <div  class="card-img-wrap">
-            <dsf-owl-carousel [images]="images$" [carouselOptions]="carouselOptions$"  style="width: 100%"></dsf-owl-carousel>
+            <div class="carousel" #carousel>
+              <button class="carousel-btn bg6 c1" (click)="choosenImage(carouselIndex - 1)"><</button>
+              <button class="carousel-btn bg6 c1" (click)="choosenImage(carouselIndex + 1)">></button>
+              <div class="carousel-container" style="width: 100%; overflow-x: hidden;">
+                <div class="carousel-content" #carouselContent >
+                  <div class="carousel-item" *ngFor="let image of productImages">
+                    <img [src]="image.imgSrc" alt="">
+                  </div>
+                </div>
+              </div>
+              
+            </div>
           </div>
         </div>
         <div  [ngSwitch]="true" class="card-calculator-block">
@@ -161,12 +171,14 @@
     </section>
     <section class="photos-arr-block">
       <h2>Доступні варіанти кольору</h2>
-      <div class="photos-arr-wrap">
+      <div class="photos-arr-wrap" #photoArr>
         <div 
           class="photos-arr-img-wrap" 
           [ngClass]="i == 0 ? 'photos-arr-img-wrap photos-arr-img-choosen' : 'photos-arr-img-wrap '"
           *ngFor="let image of product?.images; let i = index;"
-          (click)="choosenImage($event, image)">
+          (click)="choosenImage(i, $event, image)"
+          
+          >
           <img  class="photos-arr-img" [src]="image" alt="">
         </div>
       </div>

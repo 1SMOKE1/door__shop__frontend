@@ -14,7 +14,8 @@ export class OwlCarouselComponent {
 
   images: ICarouselImage[] = [];
 
-  customOptions: OwlOptions = {
+  customOptions: OwlOptions = { 
+    nav: true,
     loop: true,
     mouseDrag: true,
     touchDrag: true,

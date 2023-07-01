@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, ElementRef, AfterViewInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderBasketComponent } from '@modules/share/components/order-basket/order-basket/order-basket.component';
 import { IProduct } from '@modules/share/interfaces/common/product.interface';
@@ -7,7 +7,7 @@ import { HttpProductService } from '@share-services/http-product.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICalculatorChar } from '@modules/admin/interfaces/calculator-char.interface';
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IProductCaltulator } from '@modules/share/interfaces/common/product-calculator.interface';
 import { ProductCalculatorModel } from '@modules/share/models/product-calculator.model';
 import { ConvertingProductClass } from '@modules/admin/utils/converting-product.class';
@@ -15,13 +15,22 @@ import { ProductService } from '../../services/product.service';
 import { ShowBigImgComponent } from '@modules/share/components/show-big-img/show-big-img.component';
 import { ICarouselImage } from '@modules/admin/interfaces/carousel-image.interface';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CarouselMoveEnum } from '@modules/catalog/enum/carouselMoveEnum';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'dsf-card-info',
   templateUrl: './card-info.component.html',
   styleUrls: ['./card-info.component.scss'],
 })
-export class CardInfoComponent extends ConvertingProductClass implements OnInit{
+export class CardInfoComponent extends ConvertingProductClass implements OnInit, AfterViewInit{
+  window: Window | null;
+  @ViewChild('carousel', {static: true}) carousel: ElementRef;
+  @ViewChild('carouselContent', {static: false}) carouselContent: ElementRef;
+  @ViewChild('photoArr', {static: false}) photoArr: ElementRef
+
+  carouselMoveEnum = CarouselMoveEnum;
+  carouselIndex: number = 0;
 
   product: IProduct | null = null;
   
@@ -32,6 +41,9 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
   choosenItemImageClass: string = 'photos-arr-img-choosen';
 
   startPrice: number = 0;
+
+  
+
 
 
   selectedFabricMaterialWidth: ICalculatorChar = this.chooseConst;
@@ -54,19 +66,17 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
   selectedLamination: ICalculatorChar = this.chooseConst;
   selectedProfile: ICalculatorChar = this.chooseConst;
 
-  imagesSubject: BehaviorSubject<ICarouselImage[]> = new BehaviorSubject(this.convertToCarouselImages([]));
-  images$: Observable<ICarouselImage[]> = this.imagesSubject.asObservable();
+  productImages: ICarouselImage[] = [];
 
   carouselOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     dots: false,
     nav: true,
-    slideBy: 2,
     autoplayHoverPause: true,
     navSpeed: 700,
     responsiveRefreshRate: 200,
@@ -87,9 +97,7 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     },
   };
 
-  carouselOptionsSubject: BehaviorSubject<OwlOptions> =  new BehaviorSubject(this.carouselOptions);
-  carouselOptions$: Observable<OwlOptions> = this.carouselOptionsSubject.asObservable();
-
+ 
   
 
   constructor(
@@ -99,8 +107,10 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     private readonly router: Router,
     private readonly httpProductService: HttpProductService,
     private readonly cartLineService: CartLineService,
+    @Inject(DOCUMENT) docRef: Document
   ) {
     super();
+    this.window = docRef.defaultView;
   }
 
   ngOnInit(): void {
@@ -115,6 +125,24 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     this.productSubscription = this.productService.product$.subscribe();
     if(this.product)
     this.choosenItemImage = this.product?.images[0];
+  }
+
+  ngAfterViewInit(): void {
+    const carousel = this.carousel.nativeElement as HTMLDivElement;
+    const carouselContent = this.carouselContent.nativeElement as HTMLDivElement;
+    carouselContent.style.width = `${carousel.offsetWidth * this.productImages.length}px`;
+
+    const adaptiveFn = () => {
+      carouselContent.style.width = `${carousel.offsetWidth * this.productImages.length}px`;
+      carouselContent.style.transform = `translate(-${carousel.offsetWidth * this.carouselIndex}px)`;
+      for(let item of carouselContent.children as any){
+        item.style.width = carousel.offsetWidth + 'px';
+      }
+      
+    }
+  
+    this.window?.addEventListener('resize', adaptiveFn)
+    adaptiveFn();
   }
   
   public toBasket(): void {
@@ -165,7 +193,10 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
           this.product.glassPocketAdd = [this.chooseConst, ... this.product.glassPocketAdd];
           this.product.lamination = [this.chooseConst, ... this.product.lamination];
           this.product.profile = [this.chooseConst, ... this.product.profile];
-          this.imagesSubject.next(this.convertToCarouselImages(this.product?.images));
+          this.productImages = this.convertToCarouselImages(this.product.images);
+          const carousel = this.carousel.nativeElement as HTMLDivElement;
+          const carouselContent = this.carouselContent.nativeElement as HTMLDivElement;
+          carouselContent.style.width = `${carousel.offsetWidth * this.productImages.length}px`;
         },
         error: () => this.router.navigate(['store', 'page-not-found'])
       });
@@ -269,16 +300,53 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit{
     }  
   }
 
-  public choosenImage(e: Event, image: string) {
-    const cur = (e.target as HTMLImageElement).parentElement;
-    const wrapperOfElems = cur?.parentElement as HTMLDivElement;
-    for(let item of wrapperOfElems.children){
+  public choosenImage(index: number, e?: Event, image?: string) {
+    const carousel = this.carousel.nativeElement as HTMLDivElement;
+    const carouselContent = this.carouselContent.nativeElement as HTMLDivElement;
+    this.carouselIndex = index;
+
+
+  
+    if(this.carouselIndex === this.productImages.length){
+      this.carouselIndex = 0;
+      carouselContent.style.transform = `translate(-${carousel.offsetWidth * this.carouselIndex}px)`;
+    }
+
+    if(this.carouselIndex < 0){
+      this.carouselIndex = this.productImages.length - 1;
+      carouselContent.style.transform = `translate(-${carousel.offsetWidth * this.carouselIndex}px)`;
+    }
+
+    const cur = this.photoArr.nativeElement as HTMLDivElement;
+    for(let item of cur.children){
       if(item.classList.contains('photos-arr-img-choosen'))
         item.classList.remove('photos-arr-img-choosen')
     }
-    cur?.classList.add('photos-arr-img-choosen')
+    cur.children[this.carouselIndex]?.classList.add('photos-arr-img-choosen')
+
+    const imageEl = cur.children[this.carouselIndex].children[0] as HTMLImageElement;
+    
+    this.choosenItemImage = imageEl.getAttribute('src') as string;
+  
+    if(e){
+      const cur = (e.target as HTMLImageElement).parentElement;
+      const wrapperOfElems = cur?.parentElement as HTMLDivElement;
+      for(let item of wrapperOfElems.children){
+        if(item.classList.contains('photos-arr-img-choosen'))
+          item.classList.remove('photos-arr-img-choosen')
+      }
+      cur?.classList.add('photos-arr-img-choosen')
+    }
+    if(image)
     this.choosenItemImage = image;
+
+    console.log(this.choosenItemImage);
+    carouselContent.style.transform = `translate(-${carousel.offsetWidth * this.carouselIndex}px)`;
+    
+
+    
   }
+
 
   public addProp(): void{
     

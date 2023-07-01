@@ -9,7 +9,6 @@ import { ShareModule } from './modules/share/share.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -21,9 +20,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     AdminModule,
     ShareModule,
     BrowserAnimationsModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

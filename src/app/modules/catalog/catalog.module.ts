@@ -13,13 +13,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DescriptionComponent } from './components/description/description.component';
 import { MatIconModule } from '@angular/material/icon';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
 
 @NgModule({
   declarations: [
     CatalogComponent,
     CatalogRouterOutletComponent,
     CardInfoComponent,
-    DescriptionComponent
+    DescriptionComponent,
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatExpansionModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    CarouselModule
   ],
   providers: []
 })
