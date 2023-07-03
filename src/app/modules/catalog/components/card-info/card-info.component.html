@@ -10,7 +10,7 @@
               <button class="carousel-btn bg6 c1" (click)="choosenImage(carouselIndex + 1)">></button>
               <div class="carousel-container" style="width: 100%; overflow-x: hidden;">
                 <div class="carousel-content" #carouselContent >
-                  <div class="carousel-item" *ngFor="let image of productImages">
+                  <div class="carousel-item" *ngFor="let image of productImages" (click)="showBigImg($event)">
                     <img [src]="image.imgSrc" alt="">
                   </div>
                 </div>

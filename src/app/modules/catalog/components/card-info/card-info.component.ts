@@ -340,7 +340,6 @@ export class CardInfoComponent extends ConvertingProductClass implements OnInit,
     if(image)
     this.choosenItemImage = image;
 
-    console.log(this.choosenItemImage);
     carouselContent.style.transform = `translate(-${carousel.offsetWidth * this.carouselIndex}px)`;
     
 

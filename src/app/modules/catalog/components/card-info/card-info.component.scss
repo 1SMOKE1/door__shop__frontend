@@ -358,8 +358,10 @@
     width: 450px;
     & img {
       object-fit: contain;
-      width: 100%;
+      cursor: pointer;
+      width: 60%;
       height: 550px;
+      margin: 0 20%;
     }
   } 
   &-btn{
