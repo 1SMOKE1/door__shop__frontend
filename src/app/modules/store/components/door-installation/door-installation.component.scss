@@ -24,7 +24,7 @@
   }
   &-text{
     margin-bottom: 20px;
-    text-align: justify;
+    
     word-spacing:-2px;
     white-space: break-spaces;
   }
@@ -33,7 +33,7 @@
     list-style-type: inside ;
     list-style-image: url('../../../../assets/how-order/romb_1.svg');
     list-style-position: inside;
-    text-align: justify;
+    
     word-spacing:-2px;
     white-space: break-spaces;
     @media (max-width: 1000px){
@@ -45,7 +45,7 @@
       @media (max-width: 1000px){
         margin: 0 0 20px 0;
       }
-      text-align: justify;
+      
       word-spacing:-2px;
       white-space: break-spaces;
       &:last-child{
@@ -54,7 +54,7 @@
       & > p{
         display: inline;
         margin-left: 20px;
-        text-align: justify;
+        
         word-spacing:-2px;
         white-space: break-spaces;
         @media (max-width: 1000px){

@@ -31,7 +31,7 @@
   &-text{
     @include fontMain(400, 1.5rem, 27.6px);
     margin: 20px 0;
-    text-align: justify;
+    
     word-spacing:-2px;
     white-space: break-spaces;
   }
