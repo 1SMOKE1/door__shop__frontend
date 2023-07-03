@@ -27,18 +27,30 @@
   }
   &-text{
     margin-bottom: 20px;
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
   }
   &-list{
     margin: 0 20px 0 20px;
     list-style-type: inside ;
     list-style-image: url('../../../../assets/how-order/romb_1.svg');
     list-style-position: inside;
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
     & > li{
       margin-left: 20px;
       margin-bottom: 20px;
+      text-align: justify;
+      word-spacing:-2px;
+      white-space: break-spaces;
       & > p{
         display: inline;
         margin-left: 20px;
+        text-align: justify;
+        word-spacing:-2px;
+        white-space: break-spaces;
       }
     }
   }   

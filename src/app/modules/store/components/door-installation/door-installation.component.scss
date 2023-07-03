@@ -24,12 +24,18 @@
   }
   &-text{
     margin-bottom: 20px;
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
   }
   &-list{
     margin: 0 20px 0 20px;
     list-style-type: inside ;
     list-style-image: url('../../../../assets/how-order/romb_1.svg');
     list-style-position: inside;
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
     @media (max-width: 1000px){
       margin:0 ;
     }
@@ -39,12 +45,18 @@
       @media (max-width: 1000px){
         margin: 0 0 20px 0;
       }
+      text-align: justify;
+      word-spacing:-2px;
+      white-space: break-spaces;
       &:last-child{
         margin: 0 0 20px 0;
       }
       & > p{
         display: inline;
         margin-left: 20px;
+        text-align: justify;
+        word-spacing:-2px;
+        white-space: break-spaces;
         @media (max-width: 1000px){
           margin-left: 0;
         }

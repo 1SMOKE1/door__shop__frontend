@@ -39,10 +39,19 @@
       & > p{
         display: inline;
         margin-left: 60px;
+        text-align: justify;
+        word-spacing:-2px;
+        white-space: break-spaces;
         & > span{
           margin-left: 60px;
+          text-align: justify;
+          word-spacing:-2px;
+          white-space: break-spaces;
           & > span{
             margin-left: 60px;
+            text-align: justify;
+            word-spacing:-2px;
+            white-space: break-spaces;
           }
         }
       }
@@ -80,9 +89,13 @@
       @include fontMain(400, 1.6rem, 36.8px);
       align-self: center;
       margin-right: 16px;
+      text-align: justify;
+      word-spacing:-2px;
+      white-space: break-spaces;
       @media (max-width: 500px) {
         @include fontMain(400, 0.9rem, 30px);
       }
+      
     }
   }
   &-text{
@@ -91,6 +104,9 @@
     @media (max-width: 500px) {
       @include fontMain(400, 0.9rem, 21px);
     }
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
   }
 }
 

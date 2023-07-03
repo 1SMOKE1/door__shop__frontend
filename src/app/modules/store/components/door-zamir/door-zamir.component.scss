@@ -14,6 +14,8 @@
     @include fontMain(700, 2.45rem, 46px);
     text-align: center;
     color: $c6;
+    word-spacing:-2px;
+    white-space: break-spaces;
     margin-bottom: 40px;
   }
   &-baner{
@@ -22,6 +24,9 @@
   &-text-block{
     margin: 40px 0;
     @include fontMain(400, 1.2rem, 23px);
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
     &:last-child{
       margin: 135px 0 0 0;
       @media(max-width: 1000px){
@@ -31,6 +36,9 @@
   }
   &-text{
     margin-bottom: 20px;
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
   }
   &-list{
     margin: 0 40px 0 40px;
@@ -39,9 +47,15 @@
     list-style-position: square;
     & > li{
       margin-bottom: 20px;
+      text-align: justify;
+      word-spacing:-2px;
+      white-space: break-spaces;
       & > p{
         display: inline;
         margin-left: 20px;
+        text-align: justify;
+        word-spacing:-2px;
+        white-space: break-spaces;
       }
     }
   }

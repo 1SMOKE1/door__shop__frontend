@@ -25,16 +25,28 @@
     list-style-type: square ;
     list-style-image: url('../../../../assets/how-order/romb_1.svg');
     list-style-position: square;
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
     & > li{
       margin-bottom: 40px;
+      text-align: justify;
+      word-spacing:-2px;
+      white-space: break-spaces;
       & > p{
         display: inline;
         margin-left: 20px;
+        text-align: justify;
+        word-spacing:-2px;
+        white-space: break-spaces;
       }
     }
   }
   &-text{
     margin-bottom: 40px;
+    text-align: justify;
+    word-spacing:-2px;
+    white-space: break-spaces;
   }
   &-btn{
     display: block;
@@ -106,6 +118,9 @@
       font-size: 20px;
       & > li{
         margin-left: 40px;
+        text-align: justify;
+        word-spacing:-2px;
+        white-space: break-spaces;
         &:last-child{
           margin-bottom: 20px;
         }
@@ -113,6 +128,9 @@
     }
     &-text{
       margin-bottom: 15px;
+      text-align: justify;
+      word-spacing:-2px;
+      white-space: break-spaces;
     }
   }
 }
