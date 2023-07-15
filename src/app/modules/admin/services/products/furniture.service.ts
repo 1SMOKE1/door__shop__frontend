@@ -31,7 +31,7 @@ export class FurnitureService extends ProductClass {
 
   public createFurniture(
     body: IUpdateFurniture,
-    images: FileList | null
+    images: File[]
   ): Observable<IFurniture> {
     const url: string = this.baseUrl;
 
@@ -49,7 +49,7 @@ export class FurnitureService extends ProductClass {
 
   public updateFurniture(
     body: IUpdateFurniture,
-    images: FileList | null
+    images: File[]
   ): Observable<IFurniture> {
     const url: string = this.baseUrl;
 
@@ -79,7 +79,7 @@ export class FurnitureService extends ProductClass {
 
   private createFormData(
     product: IUpdateFurniture,
-    images: FileList | null
+    images: File[]
   ): FormData {
     const formData = new FormData();
 

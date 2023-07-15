@@ -16,6 +16,7 @@ import { IFurniture } from '@modules/share/interfaces/common/furniture.interface
 import { FurnitureService } from '../../../services/products/furniture.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductClass } from '../../../utils/product.class';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'dsf-furniture',
@@ -29,7 +30,8 @@ export class FurnitureComponent extends ProductClass implements OnInit{
   guarantees: ITransformedEnum[] = [];
   inStocks: ITransformedEnum[] = [];
 
-  imagesFileList: FileList | null = null;
+  imagesFiles: File[] = [];
+  imagesFilesPreview: string[] = [];
 
   furnitureForm: FormGroup = new FormGroup({
     id: new FormControl(0),
@@ -69,12 +71,19 @@ export class FurnitureComponent extends ProductClass implements OnInit{
 
     if(this.isEditMode() && this.data != null)
       this.furnitureForm.patchValue(this.data);
-    
+      this.imagesForUpdateProductPreview();
   }
 
   public submit(): void{
-    if(this.isEditMode()) this.updateFurniture();
-    else this.createFurniture();
+    if(this.isEditMode()) 
+      this.updateFurniture();
+    else 
+      this.createFurniture();
+  }
+
+  public drop(event: CdkDragDrop<File[]>){
+    moveItemInArray(this.imagesFiles, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.imagesFilesPreview, event.previousIndex, event.currentIndex);
   }
 
   public isEditMode(): boolean {
@@ -82,8 +91,23 @@ export class FurnitureComponent extends ProductClass implements OnInit{
   }
 
   public onImagesFolderSelected(e: Event): void {
-    const cur = e.target as HTMLInputElement;
-    if (cur.files) this.imagesFileList = cur.files;
+    this.imagesFiles = [];
+    this.imagesFilesPreview = [];
+    let cur = e.target as HTMLInputElement;
+    if (cur.files) this.imagesFiles = [...cur.files];
+
+    if (this.imagesFiles) {
+      const numberOfFiles = this.imagesFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+  
+        reader.onload = (e: any) => {
+          this.imagesFilesPreview.push(e.target.result);
+        };
+  
+        reader.readAsDataURL(this.imagesFiles[i]);
+      }
+    }
   }
 
   public addProductProducer(): void {
@@ -98,7 +122,7 @@ export class FurnitureComponent extends ProductClass implements OnInit{
 
   private createFurniture(): void{
     this.furnitureService
-      .createFurniture(this.furnitureForm.value, this.imagesFileList)
+      .createFurniture(this.furnitureForm.value, this.imagesFiles)
       .subscribe({
         next: ({ name, typeOfProductName }) => {
           this.furnitureForm.reset();
@@ -111,7 +135,7 @@ export class FurnitureComponent extends ProductClass implements OnInit{
 
   private updateFurniture(): void{
     this.furnitureService
-      .updateFurniture(this.furnitureForm.value, this.imagesFileList)
+      .updateFurniture(this.furnitureForm.value, this.imagesFiles)
       .subscribe({
         next: (data: IFurniture) => {
           this.data = data;
@@ -147,5 +171,27 @@ export class FurnitureComponent extends ProductClass implements OnInit{
 
   private initInStocks() {
     this.inStocks = this.transformEnumService.generateEnumArr(InStockEnum);
+  }
+
+  private imagesForUpdateProductPreview(): void{
+    const prodImages = this.data?.images?.filter((image) => image !== 'assets/no_image.jpg');
+    if(prodImages)
+    prodImages.forEach((image) => {
+      this.furnitureService
+      .getFiles(image)
+        .then((blob: Blob) => {
+          const imageName = image.split('-')[2];
+
+          const file = new File([blob], imageName, { type: blob.type })
+          this.imagesFiles.push(file)
+          const reader = new FileReader();
+
+          reader.onload = (e: any) => {
+            this.imagesFilesPreview.push(e.target.result);
+          };
+    
+          reader.readAsDataURL(file);
+        })
+    })
   }
 }

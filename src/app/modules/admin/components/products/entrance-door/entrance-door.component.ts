@@ -34,6 +34,7 @@ import { EntranceDoorService } from '../../../services/products/entrance-door.se
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductProducersComponent } from '../product-producers/product-producers.component';
 import { ProductClass } from '../../../utils/product.class';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'dsf-entrance-door',
@@ -109,7 +110,9 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
     description: new FormControl(''),
   })
 
-  imagesFileList: FileList | null = null;
+  imagesFiles: File[] = [];
+  imagesFilesPreview: string[] = [];
+
 
   constructor(
     private readonly productProducerService: HttpProductProducerService,
@@ -152,6 +155,7 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
     if (this.isEditMode() && this.data != null){
       this.entranceDoorForm.patchValue(this.data);
       this.initSlashStylingOfFormFields();
+      this.imagesForUpdateProductPreview();
     }
   }
 
@@ -167,8 +171,23 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
   } 
 
   public onImagesFolderSelected(e: Event): void {
+    this.imagesFiles = [];
+    this.imagesFilesPreview = [];
     let cur = e.target as HTMLInputElement;
-    if (cur.files) this.imagesFileList = cur.files;
+    if (cur.files) this.imagesFiles = [...cur.files];
+
+    if (this.imagesFiles) {
+      const numberOfFiles = this.imagesFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+  
+        reader.onload = (e: any) => {
+          this.imagesFilesPreview.push(e.target.result);
+        };
+  
+        reader.readAsDataURL(this.imagesFiles[i]);
+      }
+    }
   }
 
   public addDoorInsulation(){
@@ -258,9 +277,14 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
       this.createEntranceDoor();
   }
 
+  public drop(event: CdkDragDrop<File[]>){
+    moveItemInArray(this.imagesFiles, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.imagesFilesPreview, event.previousIndex, event.currentIndex);
+  }
+
   private createEntranceDoor(): void {
     this.entranceDoorService
-      .createEntranceDoor(this.entranceDoorForm.value, this.imagesFileList)
+      .createEntranceDoor(this.entranceDoorForm.value, this.imagesFiles)
       .subscribe({
         next: ({name, typeOfProductName}) => {
           this.entranceDoorForm.reset();
@@ -273,7 +297,7 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
 
   private updateEntranceDoor(): void{
     this.entranceDoorService
-      .updateEntranceDoor(this.entranceDoorForm.value, this.imagesFileList)
+      .updateEntranceDoor(this.entranceDoorForm.value, this.imagesFiles)
       .subscribe({
         next: (data: IEntranceDoor) => {
           this.data = data;
@@ -404,6 +428,28 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
     this.entranceDoorForm.get('frameMaterialConstruction')?.setValue(this.data?.frameMaterialConstruction.map((el) => el.name));
     this.entranceDoorForm.get('sealerCircuit')?.setValue(this.data?.sealerCircuit.map((el) => el.name));
     this.entranceDoorForm.get('doorHand')?.setValue(this.data?.doorHand.map((el) => el.name));
+  }
+
+  private imagesForUpdateProductPreview(): void{
+    const prodImages = this.data?.images?.filter((image) => image !== 'assets/no_image.jpg');
+    if(prodImages)
+    prodImages.forEach((image) => {
+      this.entranceDoorService
+      .getFiles(image)
+        .then((blob: Blob) => {
+          const imageName = image.split('-')[2];
+
+          const file = new File([blob], imageName, { type: blob.type })
+          this.imagesFiles.push(file)
+          const reader = new FileReader();
+
+          reader.onload = (e: any) => {
+            this.imagesFilesPreview.push(e.target.result);
+          };
+    
+          reader.readAsDataURL(file);
+        })
+    })
   }
 
 

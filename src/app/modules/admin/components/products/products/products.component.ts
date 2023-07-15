@@ -321,7 +321,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts();
+            this.getFilteredProducts(this.page)
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -332,7 +332,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts();
+            this.getFilteredProducts(this.page)
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -343,7 +343,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts();
+            this.getFilteredProducts(this.page)
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -354,7 +354,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.initProducts();
+            this.getFilteredProducts(this.page)
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });

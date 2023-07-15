@@ -24,7 +24,7 @@ export class WindowService extends ProductClass {
 
   public createWindow(
     body: IUpdateWindow,
-    images: FileList | null
+    images: File[]
   ): Observable<IWindow> {
     const url: string = this.baseUrl;
 
@@ -39,7 +39,7 @@ export class WindowService extends ProductClass {
 
   public updateWindow(
     body: IUpdateWindow,
-    images: FileList | null
+    images: File[]
   ): Observable<IWindow> {
     const url: string = `${this.baseUrl}/${body.id}`;
 
@@ -66,7 +66,7 @@ export class WindowService extends ProductClass {
 
   private createFormData(
     product: IUpdateWindow,
-    images: FileList | null
+    images: File[]
   ): FormData {
     const formData = new FormData();
 

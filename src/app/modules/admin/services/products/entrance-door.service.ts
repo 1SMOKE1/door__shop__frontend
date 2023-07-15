@@ -24,7 +24,7 @@ export class EntranceDoorService extends ProductClass {
 
   public createEntranceDoor(
     body: IUpdateEntranceDoor,
-    images: FileList | null
+    images: File[] | null
   ): Observable<IEntranceDoor> {
     const url: string = this.baseUrl;
 
@@ -42,7 +42,7 @@ export class EntranceDoorService extends ProductClass {
 
   public updateEntranceDoor(
     body: IUpdateEntranceDoor,
-    images: FileList | null
+    images: File[] | null
   ): Observable<IEntranceDoor> {
     const url: string = `${this.baseUrl}/${body.id}`;
 
@@ -72,7 +72,7 @@ export class EntranceDoorService extends ProductClass {
 
   private createFormData(
     product: IUpdateEntranceDoor,
-    images: FileList | null
+    images: File[] | null
   ): FormData {
     const formData = new FormData();
 

@@ -33,6 +33,8 @@ import { IInteriorDoor } from '@modules/share/interfaces/common/interior-door.in
 import { ProductProducersComponent } from '../product-producers/product-producers.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductClass } from '../../../utils/product.class';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'dsf-interior-door',
@@ -70,7 +72,8 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
   doorLoopsItems: ICalculatorChar[] = [];
   doorStopperItems: ICalculatorChar[] = [];
 
-  imagesFileList: FileList | null = null;
+  imagesFiles: File[] = [];
+  imagesFilesPreview: string[] = [];
 
   interiorDoorForm: FormGroup = new FormGroup({
     id: new FormControl(0),
@@ -143,13 +146,8 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
     if (this.isEditMode() && this.data != null){
       this.interiorDoorForm.patchValue(this.data);
       this.initSlashStylingOfFormFields();
+      this.imagesForUpdateProductPreview();
     }
-
-    
-      
-      
-    
-      
       
   }
 
@@ -241,8 +239,23 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
   }
 
   public onImagesFolderSelected(e: Event): void {
+    this.imagesFiles = [];
+    this.imagesFilesPreview = [];
     let cur = e.target as HTMLInputElement;
-    if (cur.files) this.imagesFileList = cur.files;
+    if (cur.files) this.imagesFiles = [...cur.files];
+
+    if (this.imagesFiles) {
+      const numberOfFiles = this.imagesFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+  
+        reader.onload = (e: any) => {
+          this.imagesFilesPreview.push(e.target.result);
+        };
+  
+        reader.readAsDataURL(this.imagesFiles[i]);
+      }
+    }
   }
 
   public submit() {
@@ -252,9 +265,14 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
       this.createInteriorDoor();
   }
 
+  public drop(event: CdkDragDrop<File[]>){
+    moveItemInArray(this.imagesFiles, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.imagesFilesPreview, event.previousIndex, event.currentIndex);
+  }
+
   private createInteriorDoor(): void {
     this.interiorDoorService
-      .createInteriorDoor(this.interiorDoorForm.value, this.imagesFileList)
+      .createInteriorDoor(this.interiorDoorForm.value, this.imagesFiles)
       .subscribe({
         next: ({ name, typeOfProductName }) => {
           this.interiorDoorForm.reset();
@@ -267,7 +285,7 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
 
   private updateInteriorDoor(): void {
     this.interiorDoorService
-      .updateInteriorDoor(this.interiorDoorForm.value, this.imagesFileList)
+      .updateInteriorDoor(this.interiorDoorForm.value, this.imagesFiles)
       .subscribe({
         next: (data: IInteriorDoor) => {
           this.data = data;
@@ -380,6 +398,29 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
     this.interiorDoorForm.get('doorLoops')?.setValue(this.data?.doorLoops.map((el) => el.name));
     this.interiorDoorForm.get('doorStopper')?.setValue(this.data?.doorStopper.map((el) => el.name))
     this.interiorDoorForm.get('doorSlidingSystem')?.setValue(this.data?.doorSlidingSystem.map((el) => el.name))
+  }
+
+
+  private imagesForUpdateProductPreview(): void{
+    const prodImages = this.data?.images?.filter((image) => image !== 'assets/no_image.jpg');
+    if(prodImages)
+    prodImages.forEach((image) => {
+      this.interiorDoorService
+      .getFiles(image)
+        .then((blob: Blob) => {
+          const imageName = image.split('-')[2];
+
+          const file = new File([blob], imageName, { type: blob.type })
+          this.imagesFiles.push(file)
+          const reader = new FileReader();
+
+          reader.onload = (e: any) => {
+            this.imagesFilesPreview.push(e.target.result);
+          };
+    
+          reader.readAsDataURL(file);
+        })
+    })
   }
 
 

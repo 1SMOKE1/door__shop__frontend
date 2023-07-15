@@ -41,6 +41,7 @@ import { FeaturesComponent } from '../../product-constants/features/features.com
 import { SectionCountComponent } from '../../product-constants/section-count/section-count.component';
 import { WindowService } from '../../../services/products/window.service';
 import { ProductClass } from '../../../utils/product.class';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'dsf-window',
@@ -82,7 +83,8 @@ export class WindowComponent extends ProductClass implements OnInit{
   featuresItems: ICalculatorChar[] = [];
   sectionCountItems: ICalculatorChar[] = [];
 
-  imagesFileList: FileList | null = null;
+  imagesFiles: File[] = [];
+  imagesFilesPreview: string[] = [];
 
   windowForm: FormGroup = new FormGroup({
     id: new FormControl(0),
@@ -172,6 +174,7 @@ export class WindowComponent extends ProductClass implements OnInit{
     if(this.isEditMode() && this.data != null){
       this.windowForm.patchValue(this.data);
       this.initSlashStylingOfFormFields();
+      this.imagesForUpdateProductPreview();
     } 
     
   }
@@ -187,9 +190,29 @@ export class WindowComponent extends ProductClass implements OnInit{
       this.createWindow();
   }
 
+  public drop(event: CdkDragDrop<File[]>){
+    moveItemInArray(this.imagesFiles, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.imagesFilesPreview, event.previousIndex, event.currentIndex);
+  }
+
   public onImagesFolderSelected(e: Event): void {
+    this.imagesFiles = [];
+    this.imagesFilesPreview = [];
     let cur = e.target as HTMLInputElement;
-    if (cur.files) this.imagesFileList = cur.files;
+    if (cur.files) this.imagesFiles = [...cur.files];
+
+    if (this.imagesFiles) {
+      const numberOfFiles = this.imagesFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+  
+        reader.onload = (e: any) => {
+          this.imagesFilesPreview.push(e.target.result);
+        };
+  
+        reader.readAsDataURL(this.imagesFiles[i]);
+      }
+    }
   }
 
   public slashStylingOfFormField(fieldName: string): string | [] {
@@ -331,7 +354,7 @@ export class WindowComponent extends ProductClass implements OnInit{
 
   private createWindow(): void{
     this.windowService
-      .createWindow(this.windowForm.value, this.imagesFileList)
+      .createWindow(this.windowForm.value, this.imagesFiles)
       .subscribe({
         next: ({name, typeOfProductName}) => {
           this.windowForm.reset();
@@ -344,7 +367,7 @@ export class WindowComponent extends ProductClass implements OnInit{
 
   private updateWindow(): void{
     this.windowService
-      .updateWindow(this.windowForm.value, this.imagesFileList)
+      .updateWindow(this.windowForm.value, this.imagesFiles)
       .subscribe({
         next: (data: IWindow) => {
           this.data = data;
@@ -491,6 +514,28 @@ export class WindowComponent extends ProductClass implements OnInit{
     this.windowForm.get('camerasCount')?.setValue(this.data?.camerasCount.map((el) => el.name));
     this.windowForm.get('features')?.setValue(this.data?.features.map((el) => el.name));
     this.windowForm.get('sectionCount')?.setValue(this.data?.sectionsCount.map((el) => el.name));
+  }
+
+  private imagesForUpdateProductPreview(): void{
+    const prodImages = this.data?.images?.filter((image) => image !== 'assets/no_image.jpg');
+    if(prodImages)
+    prodImages.forEach((image) => {
+      this.windowService
+      .getFiles(image)
+        .then((blob: Blob) => {
+          const imageName = image.split('-')[2];
+
+          const file = new File([blob], imageName, { type: blob.type })
+          this.imagesFiles.push(file)
+          const reader = new FileReader();
+
+          reader.onload = (e: any) => {
+            this.imagesFilesPreview.push(e.target.result);
+          };
+    
+          reader.readAsDataURL(file);
+        })
+    })
   }
 
 }

@@ -103,6 +103,22 @@
     <h3 class="font-h2 add-images__title">Завантажити папку з фотографіями</h3>
     <input class="add-images__btn" type="file" (change)="onImagesFolderSelected($event)" webkitdirectory multiple/>
   </div>
+  <div class="add-images__preview-wrap" *ngIf="imagesFiles.length > 0">
+    <h3 class="font-h2 add-images__title">Змінити порядок фотографій</h3>
+    <div class="add-images__preview-items-wrap"   cdkDropList
+    #fileList="cdkDropList"
+    [cdkDropListData]="imagesFiles"
+    (cdkDropListDropped)="drop($event)"
+    cdkDropListOrientation="horizontal"
+    >
+      <div class="add-images__preview-item-wrap" cdkDrag *ngFor="let image of imagesFiles; let i = index">
+        <img [src]="imagesFilesPreview[i]" alt="">
+        <p matLine>{{ image.name }}</p>
+      </div>
+    </div>
+    
+
+  </div>
   <div class="btn-create">
     <button mat-raised-button color="accent" (click)="submit()">{{isEditMode() ? 'Редагувати' : 'Створити'}}</button>
   </div>

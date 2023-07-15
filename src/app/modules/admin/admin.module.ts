@@ -58,7 +58,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AdminOurWorksComponent } from './components/admin-our-works/admin-our-works.component';
 import { OurWorksDialogComponent } from './components/admin-our-works/our-works-dialog/our-works-dialog.component';
 import { OurCommentsDialogComponent } from './components/admin-our-works/our-comments-dialog/our-comments-dialog.component';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -121,7 +121,8 @@ import { OurCommentsDialogComponent } from './components/admin-our-works/our-com
     MatSelectModule,
     MatListModule,
     MatSnackBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    DragDropModule
   ],
   providers: [
     {

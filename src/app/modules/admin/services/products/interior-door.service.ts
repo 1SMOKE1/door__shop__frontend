@@ -24,7 +24,7 @@ export class InteriorDoorService extends ProductClass {
 
   public createInteriorDoor(
     body: IUpdateInteriorDoor,
-    images: FileList | null
+    images: File[]
   ): Observable<IInteriorDoor> {
     const url: string = this.baseUrl;
 
@@ -42,7 +42,7 @@ export class InteriorDoorService extends ProductClass {
 
   public updateInteriorDoor(
     body: IUpdateInteriorDoor,
-    images: FileList | null
+    images: File[]
   ): Observable<IInteriorDoor> {
     const url: string = `${this.baseUrl}/${body.id}`;
 
@@ -72,7 +72,7 @@ export class InteriorDoorService extends ProductClass {
 
   private createFormData(
     product: IUpdateInteriorDoor,
-    images: FileList | null
+    images: File[]
   ): FormData {
     const formData = new FormData();
 
@@ -182,4 +182,6 @@ export class InteriorDoorService extends ProductClass {
       images
     );
   }
+
+
 }

@@ -57,11 +57,44 @@ mat-dialog-content{
   &-wrap{
     margin-bottom: 20px;
   }
+  &__preview{
+    &-wrap{
+      overflow-x: auto;
+      min-height: 250px;
+    }
+    &-items-wrap{
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+    &-item-wrap{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 10px; 
+      flex: 0 0 auto;
+      cursor: pointer;
+      border: 1px solid $c4;
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);;
+      &:active{
+        border: 2px solid $c4;
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+      }
+      & img{
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+      }
+    }
+  }
 }
 
 .btn-create{
   display: grid;
   place-items: center;
-  margin: -20px 0 0 0;
+  margin: -60px 0 0 0;
   padding: 20px;
 }
