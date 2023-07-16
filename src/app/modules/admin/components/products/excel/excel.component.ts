@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ExcelService } from '@modules/admin/services/excel/excel.service';
+import { FiltrationService } from '@modules/share/services/filtration.service';
+import { SidebarService } from '@modules/share/services/sidebar.service';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 
 @Component({
@@ -12,7 +14,8 @@ export class ExcelComponent {
 
   constructor(
     private readonly snackbarConfigService: SnackbarConfigService,
-    private readonly excelService: ExcelService
+    private readonly excelService: ExcelService,
+    private readonly sidebarService: SidebarService
   ){}
 
   imagesFileList: FileList | null = null;
@@ -35,7 +38,10 @@ export class ExcelComponent {
       images: this.imagesFileList
     })
     .subscribe({
-      next: (answer: string) => this.snackbarConfigService.openSnackBar(answer),
+      next: (answer: string) => {
+        this.snackbarConfigService.openSnackBar(answer);
+        this.sidebarService.doFiltration();
+      },
       error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
     })
   }

@@ -321,7 +321,10 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.getFilteredProducts(this.page)
+            console.log(this.products.length, this.page)
+            if(this.products.length === 1 && this.page !== 1)
+              this.page -= 1;
+            this.getFilteredProducts(this.page);
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -332,7 +335,9 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.getFilteredProducts(this.page)
+            if(this.products.length === 1 && this.page !== 1)
+              this.page -= 1;
+            this.getFilteredProducts(this.page);
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -343,7 +348,9 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.getFilteredProducts(this.page)
+            if(this.products.length === 1 && this.page !== 1)
+              this.page -= 1;
+            this.getFilteredProducts(this.page);
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
@@ -354,7 +361,9 @@ export class ProductsComponent implements OnInit, OnDestroy{
         .subscribe({
           next: (answer: string) => {
             this.snackbarConfigService.openSnackBar(answer);
-            this.getFilteredProducts(this.page)
+            if(this.products.length === 1 && this.page !== 1)
+              this.page -= 1;
+            this.getFilteredProducts(this.page);
           },
           error: (err: HttpErrorResponse) => this.snackbarConfigService.showError(err)
         });
