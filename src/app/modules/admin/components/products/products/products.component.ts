@@ -75,6 +75,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
         this.products = products;
         this.productsOnMainPage = products.filter((el: IProduct) => el.homePage === true);
         this.productsLength = productsLength;
+
         if(products.length == 0)
           this.emptyProducts = true;
         else

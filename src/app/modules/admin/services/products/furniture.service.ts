@@ -51,7 +51,7 @@ export class FurnitureService extends ProductClass {
     body: IUpdateFurniture,
     images: File[]
   ): Observable<IFurniture> {
-    const url: string = this.baseUrl;
+    const url: string = `${this.baseUrl}/${body.id}`;
 
     const formData = this.createFormData(body, images);
 
@@ -82,7 +82,7 @@ export class FurnitureService extends ProductClass {
     images: File[]
   ): FormData {
     const formData = new FormData();
-
+    console.log(product)
     let productProducerName: string = '';
 
     if (
@@ -112,6 +112,8 @@ export class FurnitureService extends ProductClass {
       for (const element of images) {
         formData.append('images', element);
       }
+
+    console.log(...formData)
 
     return formData;
   }
