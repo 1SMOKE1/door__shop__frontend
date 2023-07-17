@@ -56,7 +56,7 @@ export class FurnitureService extends ProductClass {
     const formData = this.createFormData(body, images);
 
     return this.http
-      .put<IFurnitureResponse>(url, formData)
+      .patch<IFurnitureResponse>(url, formData)
       .pipe(
         map(
           (data: IFurnitureResponse): IFurniture =>
