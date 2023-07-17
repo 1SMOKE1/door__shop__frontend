@@ -87,7 +87,7 @@
         <th>Оздоблення</th>
         <td>{{convertingToString(product!.covering).join(', ')}}</td>
       </tr>
-      <tr *ngIf="product?.typeOfProduct?.name" >
+      <tr *ngIf="converting(product?.openingType).length !== 0 && product?.typeOfProduct?.name === 'Двері вхідні'" >
         <th>Глазок</th>
         <td>{{product?.doorPeephole ? 'Є' : 'Відсутній'}}</td>
       </tr>
