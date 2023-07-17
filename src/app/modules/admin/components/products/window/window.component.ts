@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IProductProducer } from '@modules/share/interfaces/common/product-producer.interface';
 import { ITransformedEnum } from '../../../interfaces/transformed.enum.interface';
@@ -42,6 +42,7 @@ import { SectionCountComponent } from '../../product-constants/section-count/sec
 import { WindowService } from '../../../services/products/window.service';
 import { ProductClass } from '../../../utils/product.class';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ProductsService } from '@modules/admin/services/products.service';
 
 @Component({
   selector: 'dsf-window',
@@ -49,6 +50,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./window.component.scss']
 })
 export class WindowComponent extends ProductClass implements OnInit{
+
+  @ViewChild('fileInput') public fileInputRef: ElementRef;
 
   slashStylingOfFormFieldObj: any = {
     mosquitoNet: [],
@@ -146,7 +149,8 @@ export class WindowComponent extends ProductClass implements OnInit{
     private readonly camerasCountService: CamerasCountService,
     private readonly featuresService: FeaturesService,
     private readonly sectionCountService: SectionCountService,
-    private readonly windowService: WindowService
+    private readonly windowService: WindowService,
+    private readonly productsService: ProductsService
   ){
     super();
   }
@@ -200,6 +204,13 @@ export class WindowComponent extends ProductClass implements OnInit{
     this.imagesFilesPreview = [];
     let cur = e.target as HTMLInputElement;
     if (cur.files) this.imagesFiles = [...cur.files];
+
+    if(this.productsService.checkImagesOnCorrectName(this.imagesFiles)){
+      this.imagesFiles = [];
+      this.imagesFilesPreview = [];
+      this.fileInputRef.nativeElement.value = null;
+      return;
+    }
 
     if (this.imagesFiles) {
       const numberOfFiles = this.imagesFiles.length;

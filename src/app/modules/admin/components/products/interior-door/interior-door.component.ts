@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IProductProducer } from '@modules/share/interfaces/common/product-producer.interface';
 import { HttpProductProducerService } from '@share-services/http-product-producer.service';
@@ -34,6 +34,7 @@ import { ProductProducersComponent } from '../product-producers/product-producer
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductClass } from '../../../utils/product.class';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ProductsService } from '@modules/admin/services/products.service';
 
 
 @Component({
@@ -42,6 +43,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./interior-door.component.scss'],
 })
 export class InteriorDoorComponent extends ProductClass implements OnInit {
+
+  @ViewChild('fileInput') public fileInputRef: ElementRef;
+
   slashStylingOfFormFieldObj: any = {
     fabricMaterialWidth: [],
     doorIsolation: [],
@@ -124,7 +128,8 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
     private readonly doorWeltService: DoorWeltService,
     private readonly doorSlidingSystemService: DoorSlidingSystemService,
     private readonly funritureService: FurnitureService,
-    private readonly interiorDoorService: InteriorDoorService
+    private readonly interiorDoorService: InteriorDoorService,
+    private readonly productsService: ProductsService
   ) {
     super();
   }
@@ -243,6 +248,13 @@ export class InteriorDoorComponent extends ProductClass implements OnInit {
     this.imagesFilesPreview = [];
     let cur = e.target as HTMLInputElement;
     if (cur.files) this.imagesFiles = [...cur.files];
+
+    if(this.productsService.checkImagesOnCorrectName(this.imagesFiles)){
+      this.imagesFiles = [];
+      this.imagesFilesPreview = [];
+      this.fileInputRef.nativeElement.value = null;
+      return
+    }
 
     if (this.imagesFiles) {
       const numberOfFiles = this.imagesFiles.length;

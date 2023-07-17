@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { HttpProductProducerService } from '@share-services/http-product-producer.service';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
@@ -17,6 +17,7 @@ import { FurnitureService } from '../../../services/products/furniture.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductClass } from '../../../utils/product.class';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ProductsService } from '@modules/admin/services/products.service';
 
 @Component({
   selector: 'dsf-furniture',
@@ -24,6 +25,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./furniture.component.scss']
 })
 export class FurnitureComponent extends ProductClass implements OnInit{
+
+  @ViewChild('fileInput') public fileInputRef: ElementRef
 
   furnitureProducers: IProductProducer[] = [];
   countries: ITransformedEnum[] = [];
@@ -58,7 +61,8 @@ export class FurnitureComponent extends ProductClass implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: IFurniture | null,
     private readonly dialog: MatDialog,
     private readonly snackbarConfigService: SnackbarConfigService,
-    private readonly furnitureService: FurnitureService
+    private readonly furnitureService: FurnitureService,
+    private readonly productsService: ProductsService
   ){
     super();
   }
@@ -95,6 +99,13 @@ export class FurnitureComponent extends ProductClass implements OnInit{
     this.imagesFilesPreview = [];
     let cur = e.target as HTMLInputElement;
     if (cur.files) this.imagesFiles = [...cur.files];
+
+    if(this.productsService.checkImagesOnCorrectName(this.imagesFiles)){
+      this.imagesFiles = [];
+      this.imagesFilesPreview = [];
+      this.fileInputRef.nativeElement.value = null;
+      return
+    }
 
     if (this.imagesFiles) {
       const numberOfFiles = this.imagesFiles.length;

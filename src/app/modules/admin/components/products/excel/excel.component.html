@@ -11,7 +11,7 @@
   </div>
   <div class="add-images__wrap">
     <h3 class="font-h2 add-images__title">Завантажити папку з фотографіями</h3>
-    <input class="add-images__btn" type="file" (change)="onImagesFolderSelected($event)" webkitdirectory multiple/>
+    <input class="add-images__btn" type="file" #fileInput (change)="onImagesFolderSelected($event)" webkitdirectory multiple/>
   </div>
   <div class="btn-create">
     <button mat-raised-button color="accent" (click)="submit()">Завантажити</button>

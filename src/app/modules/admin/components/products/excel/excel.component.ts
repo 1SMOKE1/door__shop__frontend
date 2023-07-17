@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ExcelService } from '@modules/admin/services/excel/excel.service';
+import { ProductsService } from '@modules/admin/services/products.service';
 import { FiltrationService } from '@modules/share/services/filtration.service';
 import { SidebarService } from '@modules/share/services/sidebar.service';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
@@ -12,13 +13,16 @@ import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 })
 export class ExcelComponent {
 
+  @ViewChild('fileInput') public fileInputRef: ElementRef;
+
   constructor(
     private readonly snackbarConfigService: SnackbarConfigService,
     private readonly excelService: ExcelService,
-    private readonly sidebarService: SidebarService
+    private readonly sidebarService: SidebarService,
+    private readonly productsService: ProductsService
   ){}
 
-  imagesFileList: FileList | null = null;
+  imagesFileList: File[] = [];
   excel: File | null = null;
 
   public readFile(e: Event){
@@ -28,7 +32,13 @@ export class ExcelComponent {
 
   public onImagesFolderSelected(e: Event){
     const cur = e.target as HTMLInputElement;
-    if (cur.files) this.imagesFileList = cur.files;
+    if (cur.files) this.imagesFileList = [...cur.files];
+
+    if(this.productsService.checkImagesOnCorrectName(this.imagesFileList)){
+      this.imagesFileList = [];
+      this.fileInputRef.nativeElement.value = null;
+      return;
+    }
   }
 
   private sendExcelAndPhotos(): void{

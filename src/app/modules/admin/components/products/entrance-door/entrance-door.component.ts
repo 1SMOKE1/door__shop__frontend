@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
@@ -35,6 +35,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ProductProducersComponent } from '../product-producers/product-producers.component';
 import { ProductClass } from '../../../utils/product.class';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ProductsService } from '@modules/admin/services/products.service';
 
 @Component({
   selector: 'dsf-entrance-door',
@@ -42,6 +43,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./entrance-door.component.scss']
 })
 export class EntranceDoorComponent extends ProductClass implements OnInit{
+
+  @ViewChild('fileInput') public fileInputRef: ElementRef
 
   slashStylingOfFormFieldObj: any  = {
     doorInsulation: [],
@@ -130,6 +133,7 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: IEntranceDoor | null,
     private readonly snackbarConfigService: SnackbarConfigService,
     private readonly entranceDoorService: EntranceDoorService,
+    private readonly productsService: ProductsService
   ){
     super();
   }
@@ -175,6 +179,13 @@ export class EntranceDoorComponent extends ProductClass implements OnInit{
     this.imagesFilesPreview = [];
     let cur = e.target as HTMLInputElement;
     if (cur.files) this.imagesFiles = [...cur.files];
+
+    if(this.productsService.checkImagesOnCorrectName(this.imagesFiles)){
+      this.imagesFiles = [];
+      this.imagesFilesPreview = [];
+      this.fileInputRef.nativeElement.value = null;
+      return;
+    }
 
     if (this.imagesFiles) {
       const numberOfFiles = this.imagesFiles.length;
