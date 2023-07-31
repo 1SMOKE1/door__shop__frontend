@@ -6,6 +6,7 @@ import { CardService } from '../../services/card.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { SidebarService } from '@share-services/sidebar.service';
 import { SpinnerService } from '@share-services/spinner.service';
+import { CatalogService } from '@modules/catalog/services/catalog.service';
 
 @Component({
   selector: 'dsf-catalog',
@@ -15,9 +16,6 @@ import { SpinnerService } from '@share-services/spinner.service';
 export class CatalogComponent implements OnInit, OnDestroy {
   filtrationSubsctiption!: Subscription;
 
-  page: number = 1; // currentPage
-  itemsPerPage: number = 8;
-
 
 
   emptyProducts: boolean = false;
@@ -25,17 +23,21 @@ export class CatalogComponent implements OnInit, OnDestroy {
   constructor(
     public readonly spinnerService: SpinnerService,
     public readonly sidebarService: SidebarService,
+    public readonly catalogService: CatalogService,
     private readonly cardService: CardService,
-    private readonly redirectWithFiltrationService: RedirectWithFiltrationService
+    private readonly redirectWithFiltrationService: RedirectWithFiltrationService,
+
   ) {}
 
   ngOnInit(): void {
     this.redirectWithFiltrationService.confirmRedirectionSubscription = this.redirectWithFiltrationService
     .confirmRedirection$.subscribe((bool) => {
+      console.log(bool)
       if(bool)
         return;
       else 
-        this.getFilteredProducts();
+        console.log('here')
+        this.getFilteredProducts(this.catalogService.page);
     })
     
     this.filtrationSubsctiption = this.sidebarService.filtration$
@@ -76,11 +78,12 @@ export class CatalogComponent implements OnInit, OnDestroy {
   }
 
   public changePage(page: number) {
-    this.page = page;
-    this.getFilteredProducts(page ? page : 1);
+    this.catalogService.page = page;
+    this.sidebarService.doFiltration(this.catalogService.page, this.catalogService.itemsPerPage);
   }
 
-  public getFilteredProducts(page?: number) {
-    this.sidebarService.doFiltration(page ? page : 1, this.itemsPerPage);
+  public getFilteredProducts(page: number) {
+    this.catalogService.page = page;
+    this.sidebarService.doFiltration(this.catalogService.page, this.catalogService.itemsPerPage);
   }
 }
