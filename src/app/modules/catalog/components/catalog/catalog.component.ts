@@ -36,7 +36,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
       if(bool)
         return;
       else 
-        console.log('here')
         this.getFilteredProducts(this.catalogService.page);
     })
     
@@ -51,7 +50,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
         delay(1000)
       )
       .subscribe(({ products, productsLength }: IGetProducts) => {
-        console.log(products)
         this.sidebarService.products = products;
         this.sidebarService.productsLength = productsLength;
         if (products.length == 0) this.emptyProducts = true;
