@@ -10,6 +10,7 @@ import { ICheckBoxBlock } from '../interfaces/common/checkbox-block.interface';
 import { SpinnerService } from './spinner.service';
 import { TypeOfProductEnum } from '../enums/type-of-product.enum';
 import { IProduct } from '../interfaces/common/product.interface';
+import { CatalogService } from '@modules/catalog/services/catalog.service';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +63,8 @@ export class SidebarService {
   constructor(
     private readonly filtrationService: FiltrationService,
     private readonly snackbarConfigService: SnackbarConfigService,
-    private readonly spinnerService: SpinnerService
+    private readonly spinnerService: SpinnerService,
+    private readonly catalogService: CatalogService
   ) {}
 
   private fillConditionArr(arr: IProductProducer[], condition: IProductProducer): void {
@@ -111,45 +113,9 @@ export class SidebarService {
 
   public doFiltration(page?: number, itemsPerPage?: number): void {
 
-
-    // if((this.searchValue === "" 
-    // && this.checkboxArr.length === 0 
-    // && (this.sliderMinValue === 0 && this.sliderMaxValue === 20000) 
-    // && this.noProductProducersValue === false) && this.products.length !== 0){
-    //   console.log('here')
-    //   this.spinnerService.spinnerValue = 0;
-    //   this.filtration.next({products: this.productsCopy, productsLength: this.productsCopyLength});
-    // } else {
-    //   if ((this.searchValue === "" 
-    //   && this.checkboxArr.length === 0 
-    //   && (this.sliderMinValue === 0 && this.sliderMaxValue === 20000) 
-    //   && this.noProductProducersValue === false) && this.products.length === 0){
-    //     this.filtrationService.allProductsWithPagination(
-    //       page ? page : 1,
-    //       itemsPerPage ? itemsPerPage : 8
-    //     )
-    //     .then((data: IGetProducts) => {
-    //       this.spinnerService.spinnerValue = 0;
-    //       this.filtration.next(data);
-    //       this.productsCopy = data.products;
-    //       this.productsCopyLength = data.productsLength;
-    //     })
-    //     .catch( (err: Error) => this.snackbarConfigService.showErrorPromise(err))
-    //   } else {
-    //     this.holeFiltrationWithPagination(
-    //       page ? page : 1,
-    //       itemsPerPage ? itemsPerPage : 8
-    //       )
-    //       .then((data: IGetProducts) => {
-    //         this.spinnerService.spinnerValue = 0;
-    //         this.filtration.next(data);
-    //       })
-    //       .catch( (err: Error) => this.snackbarConfigService.showErrorPromise(err))
-    //   }
-    // }
     this.holeFiltrationWithPagination(
-      page ? page : 1,
-      itemsPerPage ? itemsPerPage : 8
+      page ? page : this.catalogService.page,
+      itemsPerPage ? itemsPerPage : this.catalogService.itemsPerPage
       )
       .then((data: IGetProducts) => {
         this.spinnerService.spinnerValue = 0;
