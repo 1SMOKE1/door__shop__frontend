@@ -32,7 +32,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.redirectWithFiltrationService.confirmRedirectionSubscription = this.redirectWithFiltrationService
     .confirmRedirection$.subscribe((bool) => {
-      console.log(bool)
       if(bool)
         return;
       else 

@@ -85,6 +85,10 @@ export class SidebarService {
       })
     })
 
+    if(this.checkboxArr.length === 0){
+      this.catalogService.page = 1;
+    }
+
     this.doFiltration();
   }
 
