@@ -7,7 +7,6 @@ import { Subscription, debounceTime, delay, distinctUntilChanged } from 'rxjs';
 import { RedirectWithFiltrationService } from '@modules/share/services/redirect-with-filtration.service';
 import { TypeOfProductEnum } from '@modules/share/enums/type-of-product.enum';
 import { ICheckBoxBlock } from '@modules/share/interfaces/common/checkbox-block.interface';
-import { CatalogService } from '@modules/catalog/services/catalog.service';
 
 
 @Component({
@@ -51,13 +50,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
   };
   checkBoxArr: IProductProducer[] = [];
 
-  isExpandedInteriorDoor: boolean = false;
-
   constructor(
     public readonly sidebarService: SidebarService,
     private readonly httpProductProducerService: HttpProductProducerService,
     private readonly redirectWithFiltrationService: RedirectWithFiltrationService,
-    private readonly catalogService: CatalogService
   ) {}
 
   ngOnInit(): void {

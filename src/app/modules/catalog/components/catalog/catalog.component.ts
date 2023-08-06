@@ -41,6 +41,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.filtrationSubsctiption = this.sidebarService.filtration$
       .pipe(
         map((el: IGetProducts) => {
+          // spinner
           this.emptyProducts = false;
           this.sidebarService.products = [];
           this.spinnerService.fillSpinner();
@@ -83,4 +84,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.catalogService.page = page;
     this.sidebarService.doFiltration(this.catalogService.page, this.catalogService.itemsPerPage);
   }
+
+
 }

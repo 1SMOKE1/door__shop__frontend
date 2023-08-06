@@ -18,9 +18,8 @@ import { CatalogService } from '@modules/catalog/services/catalog.service';
 export class SidebarService {
 
   products: IProduct[] = [];
-  productsCopy: IProduct[] = [];
   productsLength: number = 0;
-  productsCopyLength: number = 0;
+
 
   typeOfProductEnum = TypeOfProductEnum;
 
@@ -74,6 +73,7 @@ export class SidebarService {
   }
 
   fillConditionArrByAll(producerBlocks: IProducerBlocks): void{
+
     this.checkboxArr = [];
     const producerArrBlocks = Object.values(producerBlocks);
 
@@ -117,13 +117,22 @@ export class SidebarService {
 
   public doFiltration(page?: number, itemsPerPage?: number): void {
 
-    this.holeFiltrationWithPagination(
+    this.holeFiltrationWithPagination(  
       page ? page : this.catalogService.page,
       itemsPerPage ? itemsPerPage : this.catalogService.itemsPerPage
       )
       .then((data: IGetProducts) => {
         this.spinnerService.spinnerValue = 0;
-        this.filtration.next(data);
+        if(this.catalogService.checkCurrentPageCorrect(data.productsLength)){
+          this.holeFiltrationWithPagination(this.catalogService.page,
+            this.catalogService.itemsPerPage)
+            .then((data: IGetProducts) => {
+              console.log('here');
+              this.filtration.next(data);
+            })
+        } else {
+          this.filtration.next(data);
+        }
       })
       .catch( (err: Error) => this.snackbarConfigService.showErrorPromise(err))
     
