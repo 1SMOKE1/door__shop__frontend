@@ -19,10 +19,16 @@ export class CatalogService {
 
     const lastCorrectPage = Math.ceil(productsLength / this.itemsPerPage);
 
+    
+
     const isCorrectPage = this.page > lastCorrectPage;
 
     if(isCorrectPage){
       this.page = lastCorrectPage;
+    }
+
+    if(lastCorrectPage === 0){
+      this.page = 1;  
     }
 
     return isCorrectPage

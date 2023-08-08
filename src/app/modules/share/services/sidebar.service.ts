@@ -117,6 +117,8 @@ export class SidebarService {
 
   public doFiltration(page?: number, itemsPerPage?: number): void {
 
+    console.log(this.catalogService.page);
+
     this.holeFiltrationWithPagination(  
       page ? page : this.catalogService.page,
       itemsPerPage ? itemsPerPage : this.catalogService.itemsPerPage
@@ -127,7 +129,6 @@ export class SidebarService {
           this.holeFiltrationWithPagination(this.catalogService.page,
             this.catalogService.itemsPerPage)
             .then((data: IGetProducts) => {
-              console.log('here');
               this.filtration.next(data);
             })
         } else {
