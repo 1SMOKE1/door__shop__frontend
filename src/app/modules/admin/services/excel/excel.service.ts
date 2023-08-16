@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
+import { EnumExcelMethod } from '@modules/admin/enums/excel.method';
 import { IExcelAndPhotos } from '@modules/admin/interfaces/excel-photos.interface';
 import { Observable } from 'rxjs';
 
@@ -15,8 +16,8 @@ export class ExcelService {
     private readonly http: HttpClient
   ) { }
 
-  public sendExcelAndPhotos(data: IExcelAndPhotos): Observable<string>{
-    const url: string = `${this.baseUrl}/excel-and-photos`;
+  public sendExcelAndPhotos(data: IExcelAndPhotos, method: EnumExcelMethod): Observable<string>{
+    const url: string = `${this.baseUrl}/excel-and-photos?method=${method}`;
 
     const formData = this.createFormData(data);
 

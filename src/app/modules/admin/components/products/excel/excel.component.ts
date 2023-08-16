@@ -1,8 +1,8 @@
+import { EnumExcelMethod } from './../../../enums/excel.method';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ExcelService } from '@modules/admin/services/excel/excel.service';
 import { ProductsService } from '@modules/admin/services/products.service';
-import { FiltrationService } from '@modules/share/services/filtration.service';
 import { SidebarService } from '@modules/share/services/sidebar.service';
 import { SnackbarConfigService } from '@share-services/snackbar-config.service';
 
@@ -24,6 +24,7 @@ export class ExcelComponent {
 
   imagesFileList: File[] = [];
   excel: File | null = null;
+  method: EnumExcelMethod = EnumExcelMethod.CREATE;
 
   public readFile(e: Event){
     const cur = e.target as HTMLInputElement;
@@ -45,8 +46,9 @@ export class ExcelComponent {
     this.excelService
     .sendExcelAndPhotos({
       excel: this.excel,
-      images: this.imagesFileList
-    })
+      images: this.imagesFileList,
+    }, 
+    this.method)
     .subscribe({
       next: (answer: string) => {
         this.snackbarConfigService.openSnackBar(answer);
@@ -59,4 +61,18 @@ export class ExcelComponent {
   public submit(){
     this.sendExcelAndPhotos();
   }
+
+  public changeExcelMethod(e: Event) {
+    const cur = e.target as HTMLInputElement;
+    switch(true){
+      case cur.id === 'add':
+        this.method = EnumExcelMethod.CREATE;
+        break;
+      case cur.id === 'update':
+        this.method = EnumExcelMethod.UPDATE;
+        break;
+    }
+  }
+
+  
 }

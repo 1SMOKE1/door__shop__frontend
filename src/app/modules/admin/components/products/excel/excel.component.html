@@ -3,8 +3,14 @@
 </mat-dialog-actions>
 <mat-dialog-content class="mat-typography">
   <h2 mat-dialog-title>
-    Массове внесення товару з Excel
+    Массове внесення/зміна товару з Excel
   </h2>
+  <div class="choose-method__block" #methodBlock (change)="changeExcelMethod($event)">
+    <label for="add">Додати на сайт</label>
+    <input name="method" id="add" type="radio" checked >
+    <input name="method" id="update" type="radio" >
+    <label for="update">Змінити на сайті</label>
+  </div>
   <div class="add-images__wrap">
     <h3 class="font-h2 add-images__title">Завантажити Excel</h3>
     <input class="add-images__btn" accept=".xlsx" type="file" (change)="readFile($event)" />

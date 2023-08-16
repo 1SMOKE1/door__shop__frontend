@@ -117,8 +117,6 @@ export class SidebarService {
 
   public doFiltration(page?: number, itemsPerPage?: number): void {
 
-    console.log(this.catalogService.page);
-
     this.holeFiltrationWithPagination(  
       page ? page : this.catalogService.page,
       itemsPerPage ? itemsPerPage : this.catalogService.itemsPerPage
