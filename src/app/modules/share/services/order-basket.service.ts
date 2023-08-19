@@ -38,8 +38,11 @@ export class OrderBasketService {
   public createOrder(newOrder: ICreateOrder): Observable<ICreateOrder> {
     const url: string = this.baseUrl;
 
+    const newOrderCopy = structuredClone(newOrder);
+    const clearOrder = this.clearEmptyFieldsFromProduct(newOrderCopy);
+
     return this.http
-      .post<IOrderResponse>(url, newOrder)
+      .post<IOrderResponse>(url, clearOrder)
       .pipe(map((el: IOrderResponse): ICreateOrder => this.convertOrder(el)));
   }
 
@@ -80,5 +83,27 @@ export class OrderBasketService {
 
     return this.http
       .delete<string>(url);
+  }
+
+  private clearEmptyFieldsFromProduct(newOrder: ICreateOrder): ICreateOrder{
+
+    newOrder.cartLines.map(({product}: any) => {
+      const entries: any[] = Object.entries(product);
+
+      entries.forEach(([key, value]) => {
+        switch(true){
+          case (value === null || (typeof value === 'object' && (value as unknown as Array<string>).length === 0)):
+            delete product[key];
+            break;
+          case (typeof value === 'number' && (value as unknown as number) === 0):
+            delete product[key];
+            break;
+          case (key === 'chooseConst'):
+            delete product[key];
+        }
+       
+      });
+    })
+    return newOrder
   }
 }
